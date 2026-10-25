@@ -1,0 +1,16 @@
+{
+  "source": "https://thbwiki.cc/脚本对照表/ECL#音效",
+  "note": "se_*.mp3 为东方Project原作音效，经THBWiki音效对照表引用；非项目原创或CC0素材。dice-roll.wav、dice-settle.wav、piece-move.wav 为项目合成音效，生成源为 scripts/generate-feedback-audio.mjs。",
+  "files": {
+    "se_cat00.mp3": "https://upload.thbwiki.cc/8/82/se_cat00.mp3",
+    "se_pldead00.mp3": "https://upload.thbwiki.cc/c/c9/se_pldead00.mp3",
+    "se_nep00.mp3": "https://upload.thbwiki.cc/8/89/se_nep00.mp3",
+    "se_slash.mp3": "https://upload.thbwiki.cc/5/59/se_slash.mp3",
+    "se_nodamage.mp3": "https://upload.thbwiki.cc/d/dd/se_nodamage.mp3",
+    "se_kira00.mp3": "https://upload.thbwiki.cc/d/da/se_kira00.mp3",
+    "se_cardget.mp3": "https://upload.thbwiki.cc/1/1f/se_cardget.mp3",
+    "se_select00.mp3": "https://upload.thbwiki.cc/2/28/se_select00.mp3",
+    "se_ok00.mp3": "https://upload.thbwiki.cc/b/bf/se_ok00.mp3",
+    "se_cancel00.mp3": "https://upload.thbwiki.cc/7/7e/se_cancel00.mp3"
+  }
+}

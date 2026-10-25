@@ -6,11 +6,17 @@ import { CHARACTERS, CHARACTER_LIST } from '../../../packages/content';
 import { createGame, getActions, reduceGame } from '../../../packages/core/engine';
 import { COLORS, nodeAt } from '../../../packages/core/map';
 import { VERSIONS, type Action, type CharacterId, type Command, type GameState } from '../../../packages/core/types';
-import { botAction, loadGame, saveGame, type RoomSnapshot } from '../../../packages/session';
+import { botAction, loadGame, saveGame, ROOM_KICKED_CODE, type RoomSnapshot } from '../../../packages/session';
 import { CharacterCatalog } from './CharacterCatalog';
 import { publicAsset } from './assets';
 import { defaultRoomEndpoint, validateRoomEndpoint, waitForRoomServer } from './connection';
 import { actionsForPiece, destinationActions } from './boardModel';
+import { DiceDock } from './DiceDock';
+import { GameLog } from './GameLog';
+import { useGamePresentation } from './useGamePresentation';
+import { PresentationSettingsDialog, usePresentationSettings } from './PresentationSettings';
+import { SpellCutIn } from './SpellCutIn';
+import { LobbySeats, RoomMembersDialog, type MemberAction } from './RoomMembers';
 
 type Roster = { name: string; character: CharacterId; bot: boolean }[];
 const DEFAULTS: Roster = [
@@ -21,6 +27,10 @@ const tint = (color: string) => ({ '--accent': color } as CSSProperties);
 function Glyph({ id, small = false }: { id: CharacterId; small?: boolean }) { const c = CHARACTERS[id]; return <span className={`glyph ${small ? 'small' : ''}`} style={tint(c.color)}><img src={publicAsset(`characters/${id}-chibi.svg`)} alt={c.short}/></span>; }
 
 export default function App() {
+  const [presentationSettings, setPresentationSettings] = usePresentationSettings();
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [membersOpen, setMembersOpen] = useState(false);
+  const [presentationSession, setPresentationSession] = useState(0);
   const [roster, setRoster] = useState<Roster>(DEFAULTS);
   const [game, setGame] = useState<GameState | null>(null);
   const [mode, setMode] = useState<'local' | 'online'>('local');
@@ -33,32 +43,49 @@ export default function App() {
   const [tab, setTab] = useState<'move' | 'cast'>('move');
   const [selected, setSelected] = useState<string | null>(null), [armed, setArmed] = useState<Action | null>(null), [hover, setHover] = useState<Action | null>(null);
   const [targets,setTargets] = useState<string[]>([]);
+  const [advanceActivated, setAdvanceActivated] = useState(false);
   const [mapMenu,setMapMenu] = useState<{node:string;actions:Action[]} | null>(null);
   const [viewReset,setViewReset] = useState(0);
   const [zoom, setZoom] = useState(1), [logOpen, setLogOpen] = useState(false), [paused, setPaused] = useState(false);
+  const [spellOpen, setSpellOpen] = useState(false), [focusRequest, setFocusRequest] = useState(0);
+  const [pendingRevision, setPendingRevision] = useState<number | null>(null);
   const [resumeToken, setResumeToken] = useState(sessionStorage.getItem('party-reconnect') || '');
   const fileInput = useRef<HTMLInputElement>(null);
-  const currentGame = mode === 'online' ? snapshot?.game ?? null : game;
+  const sourceGame = mode === 'online' ? snapshot?.game ?? null : game;
+  const presentation = useGamePresentation(sourceGame, presentationSession);
+  const currentGame = presentation.game;
+  const inputLocked = presentation.busy || pendingRevision !== null;
   const actions = currentGame ? getActions(currentGame, CHARACTERS) : [];
   const mine = !!currentGame && (mode === 'local' ? !currentGame.players[currentGame.current].bot : seat === currentGame.current);
   useEffect(() => { if (notice) { const timer = setTimeout(() => setNotice(''), 4500); return () => clearTimeout(timer); } }, [notice]);
-  useEffect(() => { setArmed(null); setHover(null); setSelected(null); setTab('move'); setTargets([]);  setMapMenu(null); }, [currentGame, mode]);
+  useEffect(() => { setArmed(null); setHover(null); setSelected(null); setTab('move'); setTargets([]); setMapMenu(null); setAdvanceActivated(false); }, [currentGame, mode]);
+  useEffect(() => { setPendingRevision(null); }, [sourceGame?.revision, mode, notice]);
+  useEffect(() => { setSpellOpen(false); }, [currentGame?.turn]);
+  useEffect(() => {
+    if (pendingRevision === null) return;
+    const timer = setTimeout(() => { setPendingRevision(null); setNotice('服务器尚未确认操作，请检查连接后重试'); }, 8000);
+    return () => clearTimeout(timer);
+  }, [pendingRevision]);
+  useEffect(() => {
+    const escape = (event: KeyboardEvent) => { if (event.key === 'Escape') { setSpellOpen(false); setLogOpen(false); setTab('move'); setSelected(null); setTargets([]); setArmed(null); setMapMenu(null); setAdvanceActivated(false); } };
+    window.addEventListener('keydown', escape); return () => window.removeEventListener('keydown', escape);
+  }, []);
   useEffect(() => { if (game && mode === 'local' ) { try { localStorage.setItem('party-save-v031', saveGame(game)); } catch { /* optional autosave */ } } }, [game, mode]);
   useEffect(() => {
-    if (mode !== 'local' || !game || game.phase === 'over' || !game.players[game.current].bot || paused) return;
+    if (mode !== 'local' || !game || game.phase === 'over' || !game.players[game.current].bot || paused || settingsOpen || presentation.busy || currentGame?.revision !== game.revision) return;
     const timer = setTimeout(() => {
       try { setGame(reduceGame(game, botAction(game).command, CHARACTERS)); } catch (error) { setPaused(true); setNotice(String(error)); }
     }, game.phase === 'roll' ? 850 : 650);
     return () => clearTimeout(timer);
-  }, [game, paused, mode]);
+  }, [game, paused, settingsOpen, mode, presentation.busy, currentGame?.revision]);
 
   function send(command: Command) {
-    if (!currentGame) return;
+    if (!currentGame || inputLocked || currentGame.revision !== sourceGame?.revision) return;
     try {
-      if (mode === 'online') room.current?.send('command', { revision: currentGame.revision, command });
+      if (mode === 'online') { if (!room.current) return; setPendingRevision(currentGame.revision); room.current.send('command', { revision: currentGame.revision, command }); }
       else setGame(reduceGame(currentGame, command, CHARACTERS));
       setArmed(null); setHover(null);
-    } catch (error) { setNotice(error instanceof Error ? error.message : String(error)); }
+    } catch (error) { setPendingRevision(null); setNotice(error instanceof Error ? error.message : String(error)); }
   }
   function startLocal(bots: boolean) {
     const next = roster.map((p, i) => ({ ...p, bot: bots ? i !== 0 : p.bot }));
@@ -76,7 +103,15 @@ export default function App() {
       sessionStorage.setItem('party-reconnect', joined.reconnectionToken); setResumeToken(joined.reconnectionToken);
     });
     joined.onMessage('notice', (text: string) => setNotice(text));
-    joined.onLeave(() => { setNotice('已离开房间，可尝试重新连接'); });
+    joined.onLeave(code => {
+      if(room.current!==joined)return;
+      if(code===ROOM_KICKED_CODE){
+        joined.reconnection.enabled=false; room.current=null;
+        sessionStorage.removeItem('party-reconnect'); setResumeToken('');
+        setSnapshot(null);setSeat(null);setGame(null);setMode('local');setMembersOpen(false);
+        setNotice('你已被房主移出房间');
+      } else setNotice('已离开房间，可尝试重新连接');
+    });
     joined.onError((_code: number, message?: string) => setNotice(message || '房间连接异常'));
     joined.send('sync'); setMode('online');
   }
@@ -92,11 +127,14 @@ export default function App() {
     finally { setBusy(false); }
   }
   async function leave() {
-    if (room.current) { await room.current.leave(); room.current = null; sessionStorage.removeItem('party-reconnect'); setResumeToken(''); }
-    setSnapshot(null); setSeat(null); setGame(null); setMode('local'); 
+    const active=room.current;room.current=null;
+    sessionStorage.removeItem('party-reconnect');setResumeToken('');
+    setSnapshot(null); setSeat(null); setGame(null); setMode('local');setMembersOpen(false);
+    await active?.leave();
   }
+  function manageMember(action: MemberAction) { room.current?.send('manage',action); }
   function importSave(file: File) {
-    void file.text().then(text => { try { setGame(loadGame(text)); if(JSON.parse(text).format===2)setNotice('未结束旧对局已验证迁移，决出前三名后结束'); setMode('local'); setPaused(true); } catch (error) { setNotice(String(error)); } });
+    void file.text().then(text => { try { const loaded=loadGame(text); setPresentationSession(n=>n+1); setGame(loaded); if(JSON.parse(text).format===2)setNotice('未结束旧对局已验证迁移，决出前三名后结束'); setMode('local'); setPaused(true); } catch (error) { setNotice(String(error)); } });
   }
   function downloadSave() {
     if (!game) return;
@@ -105,23 +143,38 @@ export default function App() {
   }
   const lobby = mode === 'online' && snapshot && !snapshot.game;
   const ownSeat = snapshot?.seats.find(s => s.id === seat);
-  const hostSeat = snapshot?.seats.filter(s => s.connected && !s.bot).sort((a, b) => a.id - b.id)[0]?.id;
+  const hostSeat = snapshot?.hostSeat === undefined ? snapshot?.seats.filter(s => s.connected && !s.bot).sort((a, b) => a.id - b.id)[0]?.id : snapshot.hostSeat;
   const acting = currentGame?.players[currentGame.current];
   const char = acting ? CHARACTERS[acting.character] : null;
   const skillActions = actions.filter(a => a.kind === 'cast');
+  const advanceChoice = currentGame?.choice?.kind === 'wind' || currentGame?.choice?.kind === 'advance';
+  const advanceActions = advanceChoice ? actions.filter(a => a.nodes.length) : [];
+  const advancePieces = [...new Set(advanceActions.flatMap(a => a.pieces.slice(0, 1)))];
   const mapActions = currentGame?.choice ? actions : actions.filter(a => a.kind === 'move');
   const casterActions = skillActions.filter(a => a.command.type === 'cast' && (a.command.caster === selected || !a.command.caster));
   const exactTargets = (a:Action, ids:string[]) => a.command.type === 'cast' && (a.command.targets??[]).length===ids.length && ids.every(id=>a.command.type==='cast'&&a.command.targets?.includes(id));
   const selectedSkills = casterActions.filter(a=>exactTargets(a,targets));
-  const eligible = !mine ? [] : tab==='cast' && !currentGame?.choice
+  const eligible = !mine || inputLocked ? [] : advanceChoice
+    ? advanceActivated && advancePieces.length > 1 ? advancePieces : [] : tab==='cast' && !currentGame?.choice
     ? [...new Set([...skillActions.flatMap(a=>a.command.type==='cast'&&a.command.caster?[a.command.caster]:[]), ...casterActions.flatMap(a=>a.command.type==='cast'?a.command.targets??[]:[])])]
     : [...new Set(mapActions.flatMap(a=>a.pieces.slice(0,1)))];
-  const destinations = !mine ? [] : tab==='cast' && !currentGame?.choice
+  const destinations = !mine || inputLocked || advanceChoice && !advanceActivated ? [] : tab==='cast' && !currentGame?.choice
     ? casterActions.flatMap(a=>a.command.type==='cast'&&(!a.command.targets?.length)?a.nodes.slice(-1):[])
     : selected ? actionsForPiece(mapActions,selected).flatMap(a=>a.nodes.slice(-1)) : [];
   function choosePiece(id:string) {
-    if(!mine || !currentGame) return;
+    if(!mine || !currentGame || inputLocked) return;
     setMapMenu(null);
+    if (advanceChoice) {
+      if (!advanceActivated) return;
+      const options = actionsForPiece(advanceActions, id);
+      if (options.length === 1) send(options[0].command);
+      else if (options.length) setSelected(id);
+      else {
+        const piece = currentGame.pieces.find(p => p.id === id);
+        if (piece && destinations.includes(nodeAt(piece))) chooseNode(nodeAt(piece));
+      }
+      return;
+    }
     if(tab==='cast'&&!currentGame.choice) {
       if(casterActions.some(a=>a.command.type==='cast'&&a.command.targets?.includes(id))) {
         const next = targets.includes(id) ? targets.filter(t=>t!==id) : [...targets,id];
@@ -137,13 +190,23 @@ export default function App() {
     else {const p=currentGame.pieces.find(p=>p.id===id);if(p&&destinations.includes(nodeAt(p))) chooseNode(nodeAt(p));}
   }
   function chooseNode(node:string) {
-    if(!mine) return;
+    if(!mine || inputLocked || advanceChoice && !advanceActivated) return;
     const options = tab==='cast'&&!currentGame?.choice ? casterActions.filter(a=>a.command.type==='cast'&&exactTargets(a,targets)&&a.nodes.at(-1)===node)
       : destinationActions(selected?actionsForPiece(mapActions,selected):mapActions,node);
     if(options.length===1) {if(tab==='cast'&&!currentGame?.choice) setArmed(options[0]);else send(options[0].command);}
     else if(options.length) setMapMenu({node,actions:options});
   }
-  function openSkill() {setTab('cast');setSelected(null);setTargets([]);setMapMenu(null);setArmed(skillActions.length===1?skillActions[0]:null);}
+  function openSkill() {setSpellOpen(false);setTab('cast');setSelected(null);setTargets([]);setMapMenu(null);setArmed(skillActions.length===1?skillActions[0]:null);}
+  function activateAdvance() {
+    if (!mine || inputLocked || !advanceActions.length) return;
+    if (advanceActions.length === 1) send(advanceActions[0].command);
+    else { setAdvanceActivated(true); setSelected(advancePieces.length === 1 ? advancePieces[0] : null); }
+  }
+  function cancelSelection() { setTab('move'); setSelected(null); setTargets([]); setArmed(null); setHover(null); setMapMenu(null); setAdvanceActivated(false); }
+  const spellStatus = !currentGame || !acting ? '' : Math.max(0, acting.activeAt - acting.turns)
+    ? `冷却 ${acting.activeAt - acting.turns}` : currentGame.flags.active ? '本回合已使用'
+    : currentGame.phase === 'roll' ? '掷骰后可用' : !currentGame.flags.first ? '追加行动不可用'
+    : skillActions.length ? '可以施放' : '无合法目标';
 
   return <div className="app-shell">
     <header className="topbar"><a className="brand" href="#" onClick={e => { e.preventDefault(); if (!currentGame && !lobby) return; if (confirm('返回大厅？当前本地对局会自动保存。')) void leave(); }}><span className="torii">⛩</span><span>幻想乡巡游<small>东方派对</small></span></a>
@@ -160,44 +223,58 @@ export default function App() {
       </section>
     </div><CharacterCatalog/></main>}
 
-    {lobby && <main className="lobby"><div className="lobby-title"><div><span className="eyebrow">四人房间</span><h1>{snapshot.roomId}</h1></div><button className="secondary" onClick={() => { void navigator.clipboard?.writeText(snapshot.roomId); setNotice('房间号已复制'); }}>复制房间号</button></div><div className="lobby-seats">{[0, 1, 2, 3].map(i => { const s = snapshot.seats.find(q => q.id === i); return <div key={i} className={`lobby-seat ${s?.ready ? 'ready' : ''}`} style={tint(COLORS[i])}>{s ? <><Glyph id={s.character}/><h2>{s.name}{i === seat ? ' · 你' : ''}</h2>{i === seat ? <select value={s.character} onChange={e => room.current?.send('lobby', { type: 'character', character: e.target.value })}>{CHARACTER_LIST.map(c => <option value={c.id} key={c.id} disabled={snapshot.seats.some(q => q.id !== seat && q.character === c.id)}>{c.name}</option>)}</select> : <p>{CHARACTERS[s.character].name}</p>}<span className="seat-status">{s.ready ? '已准备' : s.connected ? '选角中' : '重连中'}</span></> : <span className="empty-seat">等待旅人入席</span>}</div>; })}</div><div className="lobby-buttons"><button className="primary" onClick={() => room.current?.send('lobby', { type: 'ready' })}>{ownSeat?.ready ? '取消准备' : '准备好了'}</button>{seat === hostSeat && <><button className="secondary" onClick={() => room.current?.send('lobby', { type: 'bots' })}>补齐式神</button><button className="primary" disabled={snapshot.seats.length !== 4 || snapshot.seats.some(s => !s.ready)} onClick={() => room.current?.send('lobby', { type: 'start' })}>开始巡游</button></>}<button className="quiet" onClick={() => void leave()}>离开房间</button></div></main>}
+    {lobby && <main className="lobby">
+      <div className="lobby-title"><div><span className="eyebrow">四人房间</span><h1>{snapshot.roomId}</h1></div><button className="secondary" onClick={() => { void navigator.clipboard?.writeText(snapshot.roomId); setNotice('房间号已复制'); }}>复制房间号</button></div>
+      <LobbySeats snapshot={snapshot} seat={seat} hostSeat={hostSeat} onManage={manageMember} onCharacter={character=>room.current?.send('lobby',{type:'character',character})}/>
+      <div className="lobby-buttons"><button className="primary" onClick={() => room.current?.send('lobby', { type: 'ready' })}>{ownSeat?.ready ? '取消准备' : '准备好了'}</button>{seat === hostSeat && <><button className="secondary" onClick={() => room.current?.send('lobby', { type: 'bots' })}>补齐式神</button><button className="primary" disabled={snapshot.seats.length !== 4 || snapshot.seats.some(s => !s.ready)} onClick={() => room.current?.send('lobby', { type: 'start' })}>开始巡游</button></>}<button className="quiet" onClick={() => void leave()}>离开房间</button></div>
+    </main>}
 
     {currentGame && acting && char && <main className="game-layout">
       <div className="player-strip">{currentGame.players.map(p => { const c = CHARACTERS[p.character], pieces = currentGame.pieces.filter(q => q.owner === p.id), completed = pieces.filter(q => q.progress === 53).length; return <div className={`player-card ${p.id === currentGame.current ? 'is-current' : ''}`} key={p.id} style={tint(COLORS[p.id])} aria-label={`P${p.id+1} ${p.name}`}><Glyph id={p.character} small/><div className="player-name"><strong>{p.name}{mode === 'online' && seat === p.id ? ' · 你' : ''}</strong><span>{c.name}{p.bot ? ' · 式神' : ''}</span></div><div className="player-progress"><strong>{completed}<small>/4</small></strong><span>{currentGame.rankings.includes(p.id) ? `第${currentGame.rankings.indexOf(p.id)+1}名` : currentGame.phase==='over'?'第4名':Math.max(0, p.activeAt - p.turns) ? `冷却 ${p.activeAt - p.turns}` : '符卡就绪'}</span></div><div className="player-effects">{p.character==='youmu'&&p.passiveAt>p.turns&&<span>净化 {p.passiveAt-p.turns}</span>}{p.character==='yukari'&&p.bufferUsed&&<span>缓冲已用</span>}{pieces.some(q=>q.shield!==null)&&<span>盾 {pieces.filter(q=>q.shield!==null).length}</span>}{pieces.some(q=>q.mark)&&<span>蝶 {pieces.filter(q=>q.mark).length}</span>}</div><div className="progress-dots">{pieces.map(q => <i key={q.id} className={q.progress === 53 ? 'done' : q.progress >= 0 ? 'flying' : ''} title={`${c.short}${q.index + 1} · ${nodeAt(q)}`}/>)}</div></div>; })}</div>
-      <section className="board-panel">
-        <div className="board-topline"><span><i className="live-dot"/>第 {currentGame.round} 轮 <b>·</b> {acting.name}</span><div className="zoom-controls"><button aria-label="缩小地图" onClick={() => setZoom(Math.max(1, zoom - .25))}>−</button><button aria-label="复位地图" onClick={() => {setZoom(1);setViewReset(n=>n+1);}}>{Math.round(zoom * 100)}%</button><button aria-label="放大地图" onClick={() => setZoom(Math.min(3, zoom + .25))}>＋</button></div></div>
-        <div className="map-stage"><Suspense fallback={<div className="board-canvas loading-board">正在展开幻想乡…</div>}><Board key={currentGame.players.map(p => p.character).join('-')} game={currentGame} preview={hover ?? armed} selected={selected} picked={targets} zoom={zoom} viewReset={viewReset} eligible={eligible} destinations={destinations} menu={mapMenu} onPiece={choosePiece} onNode={chooseNode} onAction={a=>{setMapMenu(null);if(tab==='cast'&&!currentGame.choice)setArmed(a);else send(a.command);}} onZoom={setZoom} onCloseMenu={()=>setMapMenu(null)}/></Suspense>
-          {currentGame.phase!=='over'&&<div className="map-dice"><button className={`dice ${currentGame.dice?'rolled':''}`} aria-label={currentGame.phase==='roll'?'掷骰':`骰子 ${currentGame.dice?.value??'等待'}`} disabled={!mine||currentGame.phase!=='roll'} onClick={()=>send({type:'roll'})}>{currentGame.dice ? '⚀⚁⚂⚃⚄⚅'[currentGame.dice.value-1] : '⚄'}</button><span>{currentGame.phase==='roll'?'掷骰':currentGame.flags.extra?'追加行动':currentGame.dice?.source==='skill'?`自然 ${currentGame.dice.natural} · 移动 ${currentGame.dice.value}`:`${currentGame.dice?.value??''} 格`}</span></div>}
-          {mine&&currentGame.phase!=='over'&&<div className="map-prompt" role="status">{currentGame.choice?.prompt || (currentGame.phase==='roll'?'':tab==='cast'?selected ? targets.length ? '确认符卡目标' : '选择目标或落点' : armed ? '确认施放' : acting.character==='reimu'?'选择结界目标':'选择施法棋子':selected?'选择落点':'选择发光的棋子')}{selected&&<button aria-label="取消当前选择" onClick={()=>{setSelected(null);setArmed(null);setTargets([]);setMapMenu(null);}}>×</button>}</div>}
-        </div>
-        <div className="map-caption"><span><i className="legend-dot wind"/>顺风 +2</span><span><i className="legend-dot mist"/>迷雾 −1</span><span><i className="legend-dot obstacle"/>障碍 −2</span><span>滚轮缩放 · 拖动地图</span></div>
-      </section>
-      <aside className={`action-panel spell-panel ${currentGame.phase==='over'?'is-over':''}`}>
-        <div className="character-portrait"><img src={publicAsset(`characters/${acting.character}-portrait.svg`)} alt={`${char.name}临时立绘`}/><div><span>{acting.name}</span><h2>{char.name}</h2></div></div>
-        <div className="spell-content">
-        {currentGame.phase==='over' ? <div className="winner"><span>✦</span><h2>巡游结束</h2><ol className="standings">{[...currentGame.rankings,...currentGame.players.filter(p=>!currentGame.rankings.includes(p.id)).map(p=>p.id)].map(id=><li key={id}>{currentGame.players[id].name}</li>)}</ol>{mode==='local'||seat===hostSeat?<button className="primary wide" onClick={()=>mode==='online'?room.current?.send('rematch'):setGame(null)}>再来一局</button>:<p>等待房主开启下一局</p>}</div>:<>
-          {currentGame.rankings.length>0&&<ol className="standings live-standings">{currentGame.rankings.map(id=><li key={id}>{currentGame.players[id].name}</li>)}</ol>}
-          <button className={`spell-card ${tab==='cast'?'selected':''}`} disabled={!mine||!skillActions.length} onClick={openSkill}><span>符卡</span><strong>{char.active}</strong><small>{Math.max(0,acting.activeAt-acting.turns)?`冷却 ${acting.activeAt-acting.turns}`:skillActions.length?'施放':'等待施放窗口'}</small></button>
-          <p className="spell-description">{char.activeText}</p>
-          {mine&&tab==='cast'&&!currentGame.choice&&<div className="spell-selection">
-            {selectedSkills.length>1&&<div className="branch-options">{selectedSkills.map(a=><button key={a.id} className={armed?.id===a.id?'selected':''} onClick={()=>setArmed(a)}>{a.detail || a.label}</button>)}</div>}
-            {armed&&<p className="cast-summary">{armed.label}</p>}
-            <button className="primary wide" disabled={!armed} onClick={()=>armed&&send(armed.command)}>施放{char.active}</button><button className="quiet wide" onClick={()=>{setTab('move');setSelected(null);setTargets([]);setArmed(null);setMapMenu(null);}}>取消</button>
+      <section className={`board-panel ${mine && !inputLocked && (tab === 'cast' || currentGame.choice || selected || actions.some(a=>a.kind==='pass')) ? 'has-decision' : ''}`} aria-label="地图与操作">
+        <div className={`map-stage ${presentation.beat?.spell?.character==='remilia'&&!presentation.spell?'is-fate':''}`}>
+          <Suspense fallback={<div className="board-canvas loading-board">正在展开幻想乡…</div>}><Board key={currentGame.players.map(p => p.character).join('-')} game={currentGame} preview={hover ?? armed} selected={selected} picked={targets} zoom={zoom} viewReset={viewReset} focusRequest={focusRequest} eligible={eligible} destinations={destinations} menu={mapMenu} beat={presentation.beat} declaring={!!presentation.spell} effects={presentationSettings.effects} closeup={presentationSettings.closeup} onPiece={choosePiece} onNode={chooseNode} onAction={a=>{setMapMenu(null);if(tab==='cast'&&!currentGame.choice)setArmed(a);else send(a.command);}} onZoom={setZoom} onCloseMenu={()=>setMapMenu(null)}/></Suspense>
+          <div className="board-topline"><span><i className="live-dot"/>第 {currentGame.round} 轮 <b>·</b> {acting.name}</span></div>
+          <div className="map-tools"><button aria-label="演出设置" title="演出设置" onClick={()=>setSettingsOpen(true)}>⚙</button><span/><button aria-label="定位当前棋子" title="定位当前棋子" onClick={()=>setFocusRequest(n=>n+1)}>◎</button><span/><button aria-label="缩小地图" onClick={()=>setZoom(Math.max(1,zoom-.25))}>−</button><button aria-label="查看全图" onClick={()=>{setZoom(1);setViewReset(n=>n+1);}}>{Math.round(zoom*100)}%</button><button aria-label="放大地图" onClick={()=>setZoom(Math.min(3,zoom+.25))}>＋</button>{mode==='online'&&seat===hostSeat&&<><span/><button className="room-manage-button" onClick={()=>setMembersOpen(true)}>房间管理</button></>}</div>
+          {currentGame.phase!=='over'&&<>
+            <button className={`spell-launcher ${skillActions.length && mine && !inputLocked ? 'available' : ''}`} aria-label="查看符卡" aria-expanded={spellOpen} aria-controls="spell-window" onClick={()=>{setSpellOpen(!spellOpen);}}><Glyph id={acting.character} small/><span><strong>{char.active}</strong><small>{spellStatus}</small></span><span className="spell-expand">{spellOpen?'−':'＋'}</span></button>
+            <DiceDock game={currentGame} mine={mine} online={mode==='online'} busy={inputLocked} rolling={presentation.rolling} face={presentation.face} reveal={presentation.reveal} onRoll={()=>send({type:'roll'})}/>
+          </>}
+          {mine&&!inputLocked&&currentGame.phase==='action'&&tab==='move'&&!currentGame.choice&&!selected&&<div className="map-prompt" role="status">选择发光的棋子</div>}
+          {mine&&!inputLocked&&currentGame.phase!=='over'&&(tab==='cast'||currentGame.choice||selected||actions.some(a=>a.kind==='pass'))&&<div className="map-decision" role="region" aria-label="当前操作">
+            <div className="decision-heading"><strong>{advanceChoice && advanceActivated ? selected ? currentGame.choice?.kind === 'wind' ? '选择顺风落点' : '选择推进落点' : '选择推进棋子' : currentGame.choice?.prompt || (tab==='cast' ? armed ? armed.label : selected ? '选择目标或落点' : acting.character==='reimu' ? '选择结界目标' : '选择施法棋子' : '选择落点')}</strong>{!currentGame.choice&&(tab==='cast'||selected)&&<button aria-label="取消当前选择" onClick={cancelSelection}>×</button>}</div>
+            <div className="decision-buttons">
+              {tab==='cast'&&!currentGame.choice&&<>
+                {selectedSkills.length>1&&<div className="branch-options">{selectedSkills.map(a=><button key={a.id} className={armed?.id===a.id?'selected':''} onClick={()=>setArmed(a)}>{a.detail || a.label}</button>)}</div>}
+                <button className="quiet" onClick={cancelSelection}>取消</button><button className="primary" disabled={!armed} onClick={()=>armed&&send(armed.command)}>施放{char.active}</button>
+              </>}
+              {tab==='move'&&!currentGame.choice&&selected&&actionsForPiece(mapActions,selected).some(a=>a.command.type==='move'&&(a.command.cleanse||a.command.splitPiece))&&<div className="branch-options">{actionsForPiece(mapActions,selected).map(a=><button key={a.id} onMouseEnter={()=>setHover(a)} onMouseLeave={()=>setHover(null)} onClick={()=>send(a.command)}>{a.detail} → {a.nodes.at(-1)}</button>)}</div>}
+              {currentGame.choice&&actions.filter(a=>!a.nodes.length).map(a=><button className="secondary" key={a.id} onClick={()=>send(a.command)}>{a.label}</button>)}
+              {advanceChoice&&!advanceActivated&&<button className="primary" disabled={!advanceActions.length} onClick={activateAdvance}>{currentGame.choice?.kind==='wind'?'前进两格':`发动${char.passive}`}</button>}
+              {tab==='move'&&!currentGame.choice&&actions.filter(a=>a.kind==='pass').map(a=><button className="secondary" key={a.id} onClick={()=>send(a.command)}>{a.label}</button>)}
+            </div>
           </div>}
-          {mine&&tab==='move'&&!currentGame.choice&&selected&&actionsForPiece(mapActions,selected).some(a=>a.command.type==='move'&&(a.command.cleanse||a.command.splitPiece))&&<div className="branch-options">{actionsForPiece(mapActions,selected).map(a=><button key={a.id} onMouseEnter={()=>setHover(a)} onMouseLeave={()=>setHover(null)} onClick={()=>send(a.command)}>{a.detail} → {a.nodes.at(-1)}</button>)}</div>}
-          {mine&&currentGame.choice&&<div className="choice-controls">{actions.filter(a=>!a.nodes.length).map(a=><button className="secondary wide" key={a.id} onClick={()=>send(a.command)}>{a.label}</button>)}</div>}
-          {mine&&actions.filter(a=>a.kind==='pass').map(a=><button className="secondary wide" key={a.id} onClick={()=>send(a.command)}>{a.label}</button>)}
-          {!mine&&<div className="waiting"><p>{acting.bot?'式神正在思考':'等待旅人落子'}</p>{mode==='local'&&<button className="quiet" onClick={()=>setPaused(!paused)}>{paused?'继续式神':'暂停式神'}</button>}</div>}
-          <div className="passive-card"><span>被动</span><strong>{char.passive}{char.cleanseCooldown && acting.passiveAt>acting.turns ? ` · 冷却 ${acting.passiveAt-acting.turns}` : currentGame.flags.used.float || currentGame.flags.used.publicMove && char.splitThreshold ? ' · 已用' : ''}</strong><p>{char.passiveText}</p></div>
-        </>}
-        <details className="character-help"><summary>规则与素材</summary><p>主动仅在自己的首次掷骰后、移动前可用。自然六点每回合最多追加一次。</p><p>七名角色为临时原创矢量素材；立绘与 Q 版可独立替换。</p></details>
-        </div>
-      </aside>
+          {!mine&&mode==='local'&&<button className="bot-pause" onClick={()=>setPaused(!paused)}>{paused?'继续式神':'暂停式神'}</button>}
+          <div className="map-caption"><span><i className="legend-dot wind"/>顺风 +2</span><span><i className="legend-dot mist"/>迷雾 −1</span><span><i className="legend-dot obstacle"/>障碍 −2</span></div>
 
-      {logOpen && <section className="event-log"><div className="drawer-heading"><h3>巡游记录</h3><button className="quiet" onClick={() => setLogOpen(false)}>收起</button></div>{[...currentGame.events].reverse().slice(0, 45).map(e => <p className={`event-${e.type}`} key={e.id}><span>{e.turn}</span>{e.text}</p>)}</section>}
+          {spellOpen&&currentGame.phase!=='over'&&<aside id="spell-window" className="floating-window spell-window" role="dialog" aria-label="符卡详情">
+            <div className="window-heading"><h3>符卡</h3><button aria-label="关闭符卡" onClick={()=>setSpellOpen(false)}>×</button></div>
+            <div className="character-portrait"><img src={publicAsset(`characters/${acting.character}-portrait.svg`)} alt={char.name}/><div><h2>{char.name}</h2></div></div>
+            <div className="spell-content"><h3>{char.active}</h3><p className="spell-description">{char.activeText}</p><button className="primary wide" disabled={!mine||inputLocked||!skillActions.length} onClick={openSkill}>{skillActions.length&&mine?'选择目标':spellStatus}</button>
+              <div className="passive-card"><span>被动</span><strong>{char.passive}{char.cleanseCooldown && acting.passiveAt>acting.turns ? ` · 冷却 ${acting.passiveAt-acting.turns}` : currentGame.flags.used.float || currentGame.flags.used.publicMove && char.splitThreshold ? ' · 已用' : ''}</strong><p>{char.passiveText}</p></div>
+              {currentGame.rankings.length>0&&<ol className="standings live-standings">{currentGame.rankings.map(id=><li key={id}>{currentGame.players[id].name}</li>)}</ol>}
+            </div>
+          </aside>}
+          <GameLog game={currentGame} expanded={logOpen} onExpanded={setLogOpen}/>
+          {presentation.spell&&<SpellCutIn spell={presentation.spell}/>}
+          {currentGame.phase==='over'&&<section className="floating-window result-window" role="dialog" aria-label="巡游结束"><div className="winner"><span>✦</span><h2>巡游结束</h2><ol className="standings">{[...currentGame.rankings,...currentGame.players.filter(p=>!currentGame.rankings.includes(p.id)).map(p=>p.id)].map(id=><li key={id}>{currentGame.players[id].name}</li>)}</ol>{mode==='local'||seat===hostSeat?<button className="primary wide" onClick={()=>mode==='online'?room.current?.send('rematch'):setGame(null)}>再来一局</button>:<p>等待房主开启下一局</p>}</div></section>}
+        </div>
+      </section>
 
     </main>}
-    <footer className="site-footer"><span>幻想乡巡游</span><span>规则 {VERSIONS.rules} · 地图 {VERSIONS.map}</span></footer>
+    <footer className="site-footer"><span>幻想乡巡游</span><button className="footer-settings" onClick={()=>setSettingsOpen(true)}>演出设置</button><span>规则 {VERSIONS.rules} · 地图 {VERSIONS.map}</span></footer>
+    {settingsOpen&&<PresentationSettingsDialog settings={presentationSettings} onChange={setPresentationSettings} onClose={()=>setSettingsOpen(false)}/>}
+    {membersOpen&&mode==='online'&&snapshot&&<RoomMembersDialog snapshot={snapshot} seat={seat} hostSeat={hostSeat} onManage={manageMember} onClose={()=>setMembersOpen(false)}/>}
   </div>;
 }
 

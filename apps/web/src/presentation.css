@@ -1,0 +1,49 @@
+/* The spell declaration is contained by the board; the player strip remains visible. */
+.spell-cut-in{position:absolute;inset:0;z-index:30;overflow:hidden;pointer-events:none;isolation:isolate;animation:spell-cut-veil var(--spell-duration) both;background:linear-gradient(110deg,#18132655,transparent 75%)}
+.spell-cut-band{position:absolute;inset:12% -20%;transform:rotate(-8deg);background:linear-gradient(90deg,#100d27ef,color-mix(in srgb,var(--spell-color) 72%,#18152b) 55%,#15112799);border-block:2px solid #fff4d299;box-shadow:0 0 0 9px #fff0,0 0 50px var(--spell-color);animation:spell-band var(--spell-duration) both}
+.spell-cut-seal{position:absolute;right:12%;top:1%;font:normal clamp(270px,36vw,590px)/1 Georgia,serif;color:#fff1c9;opacity:.18;animation:spell-seal var(--spell-duration) ease-out both}
+.spell-cut-portrait{position:absolute;right:12%;height:135%;top:-13%;width:48%;object-fit:contain;filter:drop-shadow(12px 0 0 color-mix(in srgb,var(--spell-color) 65%,transparent)) drop-shadow(0 0 10px #fff5);transform-origin:60% 45%;animation:spell-portrait var(--spell-duration) cubic-bezier(.14,.72,.22,1) both}
+.spell-cut-copy{position:absolute;left:9%;top:41%;transform:rotate(-8deg);font-family:"Yu Mincho","SimSun",serif;color:#fff7e5;animation:spell-copy var(--spell-duration) both;text-shadow:3px 3px 0 #20152e,-1px -1px 0 #20152e,0 0 20px var(--spell-color)}
+.spell-cut-copy span{display:block;font-size:clamp(14px,1.9vw,27px);letter-spacing:.3em;margin-bottom:5px;color:#f6e5ce}
+.spell-cut-copy strong{display:block;font-size:clamp(35px,5.6vw,86px);font-weight:900;letter-spacing:.12em;white-space:nowrap;-webkit-text-stroke:1px #fff4cf}
+.spell-cut-streaks{position:absolute;inset:-20%;transform:rotate(-8deg);background:repeating-linear-gradient(0deg,transparent 0 35px,#fff5 36px,transparent 38px 70px);mask-image:linear-gradient(90deg,#000,transparent 60%);animation:spell-streak var(--spell-duration) both}
+@keyframes spell-cut-veil{0%{opacity:0}8%,88%{opacity:1}100%{opacity:0}}
+@keyframes spell-band{0%{translate:110% 0;scale:1 .5}14%,86%{translate:0 0;scale:1 1}100%{translate:-100% 0;scale:1 .7}}
+@keyframes spell-portrait{0%{translate:90% 0;scale:1.15}17%{translate:0 0;scale:1.03}86%{translate:-2% 0;scale:1}100%{translate:-45% 0;opacity:0}}
+@keyframes spell-copy{0%,5%{translate:-70% 0;opacity:0}19%,86%{translate:0 0;opacity:1}100%{translate:30% 0;opacity:0}}
+@keyframes spell-seal{from{rotate:-45deg;scale:.7}to{rotate:25deg;scale:1.05}}
+@keyframes spell-streak{from{translate:30% 0}to{translate:-30% 0}}
+.battle-effects{fill:none;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.spell-ray{stroke:var(--fx-color);animation:spell-ray .55s ease-out both;filter:drop-shadow(0 0 10px var(--fx-color))}.spell-ray.marisa{stroke:#e4ac33}.spell-ray.flandre{stroke:#e24a5f}.spell-ray.youmu{stroke:#8cbda0}
+.hit-ring,.barrier-bloom{stroke:var(--fx-color);stroke-width:5;transform-box:fill-box;transform-origin:center;animation:magic-ring .7s ease-out both}.barrier-bloom{fill:#fff9e933;stroke:#d84660}.barrier-bloom.inner{stroke:#fff9e8;stroke-width:4;animation-delay:.07s}
+.ofuda{fill:#fff5d9;stroke:#bd3047;stroke-width:2;animation:ofuda-flash .75s both}
+.sword-flash{stroke:var(--fx-color);stroke-width:13;animation:spell-ray .5s both;filter:drop-shadow(0 0 7px #fff)}
+.gap-portal{fill:#21102ae8;stroke:#a97bd0;stroke-width:7;transform-box:fill-box;transform-origin:center;animation:gap-open .8s both}.gap-eye{fill:#fae2ad;stroke:#d96084;stroke-width:3;animation:ofuda-flash .75s both}
+.ghost-butterfly{fill:#eab7db;stroke:#965d9f;stroke-width:2;animation:butterfly-rise .7s ease-out both}
+.landing-ring{stroke:#c19a40;stroke-width:4;animation:landing-ring .4s .5s both;transform-box:fill-box;transform-origin:center}.finish-ring{stroke:#e9b52f;stroke-width:9;filter:drop-shadow(0 0 9px #ffd65a)}
+.wind-trail{stroke:#77baab;stroke-width:10;stroke-dasharray:12 22;animation:wind-flow .7s ease-out both}
+.return-burst{fill:#f8d5db66;stroke:#d35e78;stroke-width:6;transform-box:fill-box;transform-origin:center;animation:magic-ring .55s .32s both}.return-shard{fill:#d45d7c;stroke:#ffe5c8;stroke-width:2;animation:burst-shard .55s .32s both}
+.shield-rise,.shield-break{stroke:#68bfd4;stroke-width:5;fill:#9ae3f366;transform-box:fill-box;transform-origin:center;animation:shield-rise .75s both}.shield-break{animation:shield-shatter .6s .18s both;fill:#d4f7ff99}.shield-crack{stroke:#fffdf0;stroke-width:6;animation:ofuda-flash .6s .18s both}
+.cleanse-star{fill:#fff6c9;stroke:#b89552;stroke-width:2;animation:butterfly-rise .6s both}.dream-ring{stroke:#b591ce;stroke-width:5;stroke-dasharray:3 12;transform-box:fill-box;transform-origin:center;animation:magic-ring .8s both}
+.is-fate .dice-button{animation:fate-die .85s both}.is-fate .dice-dock:before{content:'✧';position:absolute;inset:-40px -25px;color:#c24962;font-size:120px;line-height:1;text-align:center;pointer-events:none;animation:magic-ring .85s both}
+@keyframes spell-ray{0%{opacity:0;stroke-dasharray:1 2000}18%{opacity:1;stroke-dasharray:2000 0}55%{opacity:.85}100%{opacity:0}}
+@keyframes magic-ring{0%{opacity:0;scale:.3}20%{opacity:1}100%{opacity:0;scale:1.6}}
+@keyframes ofuda-flash{0%{opacity:0}15%,60%{opacity:1}100%{opacity:0}}
+@keyframes gap-open{0%,100%{scale:.02 1;opacity:0}25%,70%{scale:1;opacity:1}}
+@keyframes butterfly-rise{0%{opacity:0;translate:0 25px}20%{opacity:1}100%{opacity:0;translate:12px -45px}}
+@keyframes landing-ring{from{opacity:1;scale:.5}to{opacity:0;scale:1.7}}
+@keyframes wind-flow{0%{opacity:0;stroke-dashoffset:180}20%{opacity:.7}100%{opacity:0;stroke-dashoffset:0}}
+@keyframes burst-shard{0%{opacity:0;scale:.5}20%{opacity:1}100%{opacity:0;scale:1.8}}
+@keyframes shield-rise{0%{opacity:0;scale:.6}25%,60%{opacity:1;scale:1.1}100%{opacity:0;scale:1}}
+@keyframes shield-shatter{0%{opacity:0;scale:.9}20%{opacity:1;scale:1}100%{opacity:0;scale:1.5}}
+@keyframes fate-die{0%,100%{filter:none}30%,65%{filter:drop-shadow(0 0 20px #d64468);rotate:8deg}}
+.presentation-settings-backdrop{position:fixed;inset:0;background:#08121988;backdrop-filter:blur(4px);z-index:90;display:grid;place-items:center;padding:20px}
+.presentation-settings{width:min(380px,100%);max-height:90dvh;overflow:auto;background:#172630;color:#e7ebe4;border:1px solid #dec18a44;border-radius:15px;box-shadow:0 25px 80px #0006;padding:20px}
+.presentation-settings .window-heading{margin-bottom:12px}.presentation-settings label{display:flex;align-items:center;gap:10px;padding:15px 0;border-bottom:1px solid #ffffff0d;font-size:14px}.presentation-settings input[type=checkbox]{margin-left:auto;width:19px;height:19px;accent-color:var(--gold)}.presentation-settings label small{font-size:10px;color:var(--gold);border:1px solid #dec18a44;padding:1px 5px;border-radius:4px}.presentation-settings p{font-size:12px;line-height:1.8;color:#9fb2b7;margin:15px 0 20px}.volume-setting input{padding:0;width:50%;margin-left:auto;accent-color:var(--gold)}.volume-setting output{font-size:12px;color:var(--gold);min-width:35px;text-align:right}.footer-settings{font-size:11px;padding:0;color:#8fa3a9;margin-left:auto}
+@media(max-width:800px){.spell-cut-portrait{right:-9%;height:115%;top:-5%;width:85%}.spell-cut-copy{left:6%;top:48%}.spell-cut-copy strong{font-size:clamp(31px,8vw,50px)}.spell-cut-copy span{font-size:15px}.spell-cut-band{inset:23% -30%}.spell-cut-seal{right:-15%;top:20%}.game-layout .map-tools{top:9px;gap:1px}.game-layout .map-tools button{padding:4px 6px;font-size:11px}.game-layout .board-topline{top:44px}.game-layout .map-caption{top:77px}.game-layout .map-prompt{top:107px}}
+@media(prefers-reduced-motion:reduce){.spell-cut-in{animation:ofuda-flash var(--spell-duration) both;background:#19142be0}.spell-cut-band,.spell-cut-seal,.spell-cut-portrait,.spell-cut-copy,.spell-cut-streaks{animation:none}.spell-cut-streaks{display:none}.battle-effects *{animation-duration:.25s!important;animation-delay:0s!important}.is-fate .dice-button{animation:none}}
+
+@media(max-width:800px){.game-layout .map-tools button:first-child,.game-layout .map-tools button[aria-label='定位当前棋子']{font-size:18px}}
+.sound-previews{display:flex;gap:10px;margin-top:10px}.sound-previews button{flex:1;font-size:13px}
+.spell-flight-trail{stroke:var(--fx-color);stroke-width:10;opacity:.6;stroke-dasharray:8 12}.spell-flight-head{fill:#fff8da;stroke:var(--fx-color);stroke-width:7;filter:drop-shadow(0 0 9px var(--fx-color))}
+.has-sequence .landing-ring,.has-sequence .return-burst,.has-sequence .return-shard,.has-sequence .shield-break,.has-sequence .shield-crack{animation-delay:0s}

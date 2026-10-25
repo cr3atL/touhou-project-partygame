@@ -34,6 +34,7 @@ if (task === 'dev') {
     test: ['node_modules/vitest/vitest.mjs', 'run'],
     network: ['node_modules/tsx/dist/cli.mjs', 'tests/network.ts'],
     rooms: ['node_modules/tsx/dist/cli.mjs', 'tests/rooms.ts'],
+    management: ['node_modules/tsx/dist/cli.mjs', 'tests/room-management.ts'],
     'build-server': ['scripts/build-server.mjs'],
     check: ['node_modules/typescript/bin/tsc', '--noEmit'],
     build: ['node_modules/vite/bin/vite.js', 'build'],

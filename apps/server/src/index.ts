@@ -5,16 +5,41 @@ import { pathToFileURL } from 'node:url';
 import { CHARACTERS, CHARACTER_LIST } from '../../../packages/content';
 import { createGame, reduceGame } from '../../../packages/core/engine';
 import { VERSIONS, type CharacterId, type Command, type GameState } from '../../../packages/core/types';
-import { botAction, type RoomSnapshot, type Seat } from '../../../packages/session';
+import { botAction, ROOM_KICKED_CODE, type RoomSnapshot, type Seat } from '../../../packages/session';
 
 export class PartyRoom extends Room {
   maxClients = 4;
   private seats: (Seat & { session?: string; bot?: boolean })[] = [];
   private game: GameState | null = null;
   private revision = 0;
+  private hostSession: string | null = null;
+  private reconnecting = new Map<string, ReturnType<Room['allowReconnection']>>();
   private random = () => randomInt(0, 0x1000000) / 0x1000000;
   onCreate() {
-    this.onMessage('sync', client => { this.welcome(client); client.send('snapshot', this.snapshot()); });
+    this.onMessage('sync', client => this.guard(client, () => { this.seat(client); this.welcome(client); client.send('snapshot', this.snapshot()); }));
+    this.onMessage('manage', (client, data) => this.guard(client, () => {
+      this.requireHost(client);
+      if (data?.revision !== this.revision) throw new Error('房间已更新，请重新选择');
+      if (!Number.isInteger(data?.seat)) throw new Error('无效席位');
+      const target = this.seats.find(s => s.id === data.seat);
+      if (!target) throw new Error('席位不存在');
+      if (target === this.seat(client)) throw new Error('不能移除自己，请使用离开房间');
+      if (data.type === 'removeBot') {
+        if (!target.bot) throw new Error('该席位不是式神');
+        if (this.game) throw new Error('请返回大厅后移除式神');
+        this.seats = this.seats.filter(s => s !== target);
+      } else if (data.type === 'kick') {
+        if (target.bot || !target.session) throw new Error('该席位不是玩家');
+        const session = target.session;
+        const kicked = this.clients.find(c => c.sessionId === session);
+        if (this.game) this.takeOver(target);
+        else this.seats = this.seats.filter(s => s !== target);
+        // Revoke an already-disconnected player's pending reconnection as well.
+        this.reconnecting.get(session)?.reject(new Error('已被房主移出房间'));
+        kicked?.leave(ROOM_KICKED_CODE, '你已被房主移出房间');
+      } else throw new Error('未知管理操作');
+      this.publish();
+    }));
     this.onMessage('lobby', (client, data) => this.guard(client, () => {
       if (this.game) throw new Error('对局已经开始');
       const seat = this.seat(client);
@@ -72,18 +97,23 @@ export class PartyRoom extends Room {
   async onDrop(client: Client) {
     const seat = this.seats.find(s => s.session === client.sessionId); if (!seat) return;
     seat.connected = false; this.publish();
+    const pending = this.allowReconnection(client, 120);
+    this.reconnecting.set(client.sessionId, pending);
     try {
-      const reconnected = await this.allowReconnection(client, 120);
+      const reconnected = await pending;
+      if (!this.seats.includes(seat) || seat.session !== client.sessionId) { reconnected.leave(ROOM_KICKED_CODE); return; }
       seat.connected = true; this.welcome(reconnected); this.publish();
     } catch { /* onLeave takes over the abandoned seat. */ }
+    finally { if(this.reconnecting.get(client.sessionId)===pending)this.reconnecting.delete(client.sessionId); }
   }
   onReconnect(client: Client) {
     const seat = this.seats.find(s => s.session === client.sessionId);
     if (seat) { seat.connected = true; this.welcome(client); this.publish(); }
+    else client.leave(ROOM_KICKED_CODE);
   }
   onLeave(client: Client) {
     const seat = this.seats.find(s => s.session === client.sessionId); if (!seat) return;
-    if (this.game) { seat.connected = false; seat.bot = true; this.game.players[seat.id].bot = true; }
+    if (this.game) this.takeOver(seat);
     else this.seats = this.seats.filter(s => s !== seat);
     this.publish();
   }
@@ -91,12 +121,20 @@ export class PartyRoom extends Room {
     const seat = this.seats.find(s => s.session === client.sessionId); if (!seat) throw new Error('席位不存在'); return seat;
   }
   private requireHost(client: Client) {
-    const host = this.seats.filter(s => s.session && s.connected).sort((a, b) => a.id - b.id)[0];
-    if (this.seat(client) !== host) throw new Error('需要房主操作');
+    if (this.seat(client) !== this.host()) throw new Error('需要房主操作');
+  }
+  private host() {
+    const candidates = this.seats.filter(s => s.session && s.connected && !s.bot);
+    const host = candidates.find(s => s.session === this.hostSession) ?? candidates.sort((a,b) => a.id-b.id)[0];
+    this.hostSession = host?.session ?? null; return host;
+  }
+  private takeOver(seat: typeof this.seats[number]) {
+    seat.connected = true; seat.bot = true; seat.ready = true; delete seat.session;
+    if(this.game&&!this.game.players[seat.id].bot)this.game={...this.game,revision:this.game.revision+1,players:this.game.players.map(p=>p.id===seat.id?{...p,bot:true}:p)};
   }
   private guard(client: Client, callback: () => void) { try { callback(); } catch (error) { client.send('notice', error instanceof Error ? error.message : '操作失败'); } }
   private welcome(client: Client) { const seat = this.seats.find(s => s.session === client.sessionId); if (seat) client.send('welcome', { seat: seat.id, protocol: VERSIONS.protocol }); }
-  private snapshot(): RoomSnapshot { return { protocol: VERSIONS.protocol, rules: VERSIONS.rules, roomId: this.roomId, revision: this.revision, seats: this.seats.map(({ id, name, character, connected, ready, bot }) => ({ id, name, character, connected, ready, bot })), game: this.game }; }
+  private snapshot(): RoomSnapshot { return { protocol: VERSIONS.protocol, rules: VERSIONS.rules, roomId: this.roomId, revision: this.revision, hostSeat: this.host()?.id ?? null, seats: this.seats.map(({ id, name, character, connected, ready, bot }) => ({ id, name, character, connected, ready, bot })), game: this.game }; }
   private publish() { this.revision++; this.broadcast('snapshot', this.snapshot()); }
 }
 export function createPartyServer() {

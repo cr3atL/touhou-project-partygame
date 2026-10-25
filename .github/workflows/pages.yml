@@ -27,6 +27,7 @@ jobs:
       - run: npm run build:server
       - run: npm run test:rooms
       - run: npm run test:network
+      - run: npm run test:room-management
       - run: npm run build
         env:
           PAGES_BASE_PATH: /${{ github.event.repository.name }}/

@@ -1,6 +1,6 @@
 {
   "name": "gensokyo-party",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -17,6 +17,7 @@
     "test": "node scripts/run.mjs test",
     "test:network": "node scripts/run.mjs network",
     "test:rooms": "node scripts/run.mjs rooms",
+    "test:room-management": "node scripts/run.mjs management",
     "check": "node scripts/run.mjs check",
     "preview": "node scripts/run.mjs preview"
   },

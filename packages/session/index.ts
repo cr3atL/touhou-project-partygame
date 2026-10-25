@@ -38,4 +38,5 @@ export function replayGame(initial: GameState, history: GameState['history']): G
   return state;
 }
 export interface Seat { id: number; name: string; character: CharacterId; ready: boolean; connected: boolean; bot?: boolean; }
-export interface RoomSnapshot { protocol: number; rules: string; roomId: string; revision: number; seats: Seat[]; game: GameState | null; }
+export const ROOM_KICKED_CODE = 4100;
+export interface RoomSnapshot { protocol: number; rules: string; roomId: string; revision: number; hostSeat?: number | null; seats: Seat[]; game: GameState | null; }

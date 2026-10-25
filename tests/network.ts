@@ -23,6 +23,7 @@ function attach(room: Room) {
   room.onMessage('notice', (s: string) => peer.notices.push(s));
   room.send('sync'); return peer;
 }
+let failed=false;
 try {
   await server.listen(2568, '127.0.0.1');
   for (const lineup of [['reimu','marisa','yukari','remilia'],['flandre','yuyuko','youmu','remilia']]) {
@@ -97,7 +98,7 @@ try {
       assert.deepEqual(peers[0].snapshot!.game!.rankings,Array.from({length:place+1},(_,i)=>i));
       assert.equal(peers[0].snapshot!.game!.phase==='over',place===2);podiumCommands++;
       if(place===0){
-        const host=peers.find(p=>p.seat===0)!,notices=host.notices.length;
+        const host=first,notices=host.notices.length;
         host.room.send('rematch');await until(()=>host.notices.length>notices,'reject early rematch');
         assert(peers[0].snapshot!.game!==null);
       }
@@ -113,10 +114,13 @@ try {
   await until(() => resumed.snapshot?.game?.revision === before && resumed.seat >= 0, 'reconnect state');
   assert.equal(resumed.seat, reconnecting.seat);
   console.log(JSON.stringify({ lineup, skills:[...skills], clients: 4, synchronizedCommands: 90, scenarioCommands, podiumCommands, rejectedOutOfTurn: true, rejectedStale: true, reconnected: true, finalRevision: before }));
-  if(podiumCommands){peers.find(p=>p.seat===0)!.room.send('rematch');await until(()=>peers.every(p=>p.snapshot!.game===null),'rematch after third place');}
+  if(podiumCommands){first.room.send('rematch');await until(()=>peers.every(p=>p.snapshot!.game===null),'rematch after third place');}
   await Promise.allSettled(peers.map(p=>p.room.leave())); peers.length=0;
   }
+} catch(error) {
+  failed=true;console.error(error);
 } finally {
   await Promise.allSettled(peers.map(p => p.room.leave()));
   await server.gracefullyShutdown(false);
 }
+if(failed)process.exitCode=1;
