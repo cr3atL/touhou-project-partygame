@@ -101,11 +101,16 @@ export class PartyRoom extends Room {
 }
 export function createPartyServer() {
   const transport = new WebSocketTransport();
-  transport.getExpressApp().get('/health', (_req: unknown, res: { json(value: unknown): void }) => res.json({ ok: true, protocol: VERSIONS.protocol, rules: VERSIONS.rules }));
+  transport.getExpressApp().get('/health', (_req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Cache-Control', 'no-store');
+    res.json({ ok: true, protocol: VERSIONS.protocol, rules: VERSIONS.rules });
+  });
   const server = new Server({ transport, greet: false }); server.define('party', PartyRoom); return server;
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const server = createPartyServer();
-  await server.listen(Number(process.env.PORT || 2567), '0.0.0.0');
-  console.log('Party rooms: http://localhost:2567');
+  const port = Number(process.env.PORT || 2567);
+  await server.listen(port, '0.0.0.0');
+  console.log(`Party rooms listening on 0.0.0.0:${port}`);
 }

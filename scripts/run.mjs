@@ -33,6 +33,8 @@ if (task === 'dev') {
     server: ['node_modules/tsx/dist/cli.mjs', 'apps/server/src/index.ts'],
     test: ['node_modules/vitest/vitest.mjs', 'run'],
     network: ['node_modules/tsx/dist/cli.mjs', 'tests/network.ts'],
+    rooms: ['node_modules/tsx/dist/cli.mjs', 'tests/rooms.ts'],
+    'build-server': ['scripts/build-server.mjs'],
     simulate: ['node_modules/tsx/dist/cli.mjs', 'scripts/simulate.ts'],
     compare: ['node_modules/tsx/dist/cli.mjs', 'scripts/compare-bots.ts'],
     check: ['node_modules/typescript/bin/tsc', '--noEmit'],

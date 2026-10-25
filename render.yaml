@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: gensokyo-party-rooms
+    runtime: node
+    plan: free
+    region: singapore
+    numInstances: 1
+    buildCommand: npm ci --include=dev && npm run check && npm run build:server && npm prune --omit=dev
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: NODE_VERSION
+        value: '24'
+      - key: NODE_ENV
+        value: production

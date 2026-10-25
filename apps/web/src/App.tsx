@@ -9,7 +9,7 @@ import { VERSIONS, type Action, type CharacterId, type Command, type GameState }
 import { botAction, loadGame, saveGame, type RoomSnapshot } from '../../../packages/session';
 import { CharacterCatalog } from './CharacterCatalog';
 import { publicAsset } from './assets';
-import { defaultRoomEndpoint, validateRoomEndpoint } from './connection';
+import { defaultRoomEndpoint, validateRoomEndpoint, waitForRoomServer } from './connection';
 import { actionsForPiece, destinationActions } from './boardModel';
 
 type Roster = { name: string; character: CharacterId; bot: boolean }[];
@@ -66,9 +66,9 @@ export default function App() {
     for (let i = 3; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [next[i], next[j]] = [next[j], next[i]]; }
     setMode('local'); setPaused(false); setGame(createGame(next, CHARACTERS));
   }
-  function bindRoom(joined: Room) {
+  function bindRoom(joined: Room, address: string) {
     room.current = joined;
-    sessionStorage.setItem('party-reconnect', joined.reconnectionToken); sessionStorage.setItem('party-endpoint', endpoint); setResumeToken(joined.reconnectionToken);
+    sessionStorage.setItem('party-reconnect', joined.reconnectionToken); sessionStorage.setItem('party-endpoint', address); setResumeToken(joined.reconnectionToken);
     joined.onMessage('welcome', (data: { seat: number }) => setSeat(data.seat));
     joined.onMessage('snapshot', (s: RoomSnapshot) => {
       if (s.protocol !== VERSIONS.protocol || s.rules !== VERSIONS.rules) { setNotice('房间版本不兼容'); void joined.leave(); return; }
@@ -84,9 +84,10 @@ export default function App() {
     setBusy(true);
     try {
       const address=validateRoomEndpoint(kind === 'reconnect' ? sessionStorage.getItem('party-endpoint') || endpoint : endpoint,location.protocol);
+      await waitForRoomServer(address);
       const client = new Client(address);
       const joined = kind === 'create' ? await client.create('party', { name, protocol: VERSIONS.protocol }) : kind === 'join' ? await client.joinById(roomCode.trim(), { name, protocol: VERSIONS.protocol }) : await client.reconnect(resumeToken);
-      bindRoom(joined);
+      bindRoom(joined, address);
     } catch (error) { setNotice(`连接失败：${error instanceof Error ? error.message : String(error)}`); }
     finally { setBusy(false); }
   }
@@ -155,7 +156,7 @@ export default function App() {
       <section className="welcome"><div className="welcome-copy"><span className="eyebrow">四位旅人，一场幻想乡巡游</span><h1>下一步，<br/>会是谁的逆转？</h1><p>掷骰前行，施放符卡。<br/>从神社出发，在幻想乡的岔路上相遇。</p></div><div className="map-preview"><img src={publicAsset('maps/board.svg')} alt="幻想乡巡游地图" /></div><div className="welcome-bottom"><span>四人对局</span><a href="#characters">七位角色</a><span>双线巡游</span></div></section>
       <section className="setup-card"><div className="section-tabs"><button className={mode === 'local' ? 'selected' : ''} onClick={() => setMode('local')}>同机游玩</button><button className={mode === 'online' ? 'selected' : ''} onClick={() => setMode('online')}>四人房间</button></div>
         {mode === 'local' ? <><div className="roster">{roster.map((p, i) => <div className="roster-row" key={i} style={tint(COLORS[i])}><Glyph id={p.character} /><div className="roster-fields"><input aria-label={`玩家${i + 1}名字`} value={p.name} maxLength={16} onChange={e => setRoster(roster.map((q, j) => i === j ? { ...q, name: e.target.value } : q))}/><select aria-label={`玩家${i + 1}角色`} value={p.character} onChange={e => setRoster(roster.map((q, j) => i === j ? { ...q, character: e.target.value as CharacterId } : q))}>{CHARACTER_LIST.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select></div><label className="bot-toggle"><input type="checkbox" checked={p.bot} onChange={e => setRoster(roster.map((q, j) => i === j ? { ...q, bot: e.target.checked } : q))}/><span>式神</span></label></div>)}</div>
-        <button className="primary wide" onClick={() => startLocal(false)}>开始巡游 <span>↗</span></button><button className="secondary wide" onClick={() => startLocal(true)}>一人试玩 · 三名式神同行</button><div className="setup-links"><button onClick={() => { const saved = localStorage.getItem('party-save-v031') || localStorage.getItem('party-save-v03') || localStorage.getItem('party-save'); if (!saved) return setNotice('还没有本地存档'); try { setGame(loadGame(saved)); if(JSON.parse(saved).format===2)setNotice('未结束旧对局已验证迁移，决出前三名后结束'); setPaused(true); } catch (e) { setNotice(String(e)); } }}>继续上次</button><button onClick={() => fileInput.current?.click()}>导入存档</button></div></> : <div className="online-form"><label>名字<input value={name} maxLength={16} onChange={e => setName(e.target.value)}/></label><label>房间服务<input value={endpoint} placeholder="wss://你的房间服务" onChange={e => setEndpoint(e.target.value)}/></label><button className="primary wide" disabled={busy || !endpoint.trim()} onClick={() => void connect('create')}>创建房间</button><div className="join-row"><input aria-label="房间号" placeholder="输入房间号" value={roomCode} onChange={e => setRoomCode(e.target.value)}/><button className="secondary" disabled={busy || !roomCode.trim() || !endpoint.trim()} onClick={() => void connect('join')}>加入</button></div>{resumeToken && <button className="quiet wide" disabled={busy} onClick={() => void connect('reconnect')}>重新连接上次房间</button>}<p className="muted">{location.protocol==='https:'?'联机需独立的安全房间服务（wss）。':'同一局域网的朋友可通过本机地址加入。'}</p></div>}
+        <button className="primary wide" onClick={() => startLocal(false)}>开始巡游 <span>↗</span></button><button className="secondary wide" onClick={() => startLocal(true)}>一人试玩 · 三名式神同行</button><div className="setup-links"><button onClick={() => { const saved = localStorage.getItem('party-save-v031') || localStorage.getItem('party-save-v03') || localStorage.getItem('party-save'); if (!saved) return setNotice('还没有本地存档'); try { setGame(loadGame(saved)); if(JSON.parse(saved).format===2)setNotice('未结束旧对局已验证迁移，决出前三名后结束'); setPaused(true); } catch (e) { setNotice(String(e)); } }}>继续上次</button><button onClick={() => fileInput.current?.click()}>导入存档</button></div></> : <div className="online-form"><label>名字<input value={name} maxLength={16} onChange={e => setName(e.target.value)}/></label><details className="room-settings" open={!import.meta.env.VITE_ROOM_SERVER_URL}><summary>连接设置</summary><label>房间服务<input value={endpoint} disabled={busy} placeholder="wss://你的房间服务" onChange={e => setEndpoint(e.target.value)}/></label></details><button className="primary wide" disabled={busy || !endpoint.trim()} onClick={() => void connect('create')}>{busy ? '正在连接…' : '创建房间'}</button><div className="join-row"><input aria-label="房间号" placeholder="输入房间号" value={roomCode} onChange={e => setRoomCode(e.target.value)}/><button className="secondary" disabled={busy || !roomCode.trim() || !endpoint.trim()} onClick={() => void connect('join')}>加入</button></div>{resumeToken && <button className="quiet wide" disabled={busy} onClick={() => void connect('reconnect')}>重新连接上次房间</button>}<p className="muted" role="status">{busy ? '首次连接可能需要约一分钟，请稍候。' : '创建房间后，把房间号发给朋友。'}</p></div>}
       </section>
     </div><CharacterCatalog/></main>}
 

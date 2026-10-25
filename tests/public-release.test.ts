@@ -4,7 +4,8 @@ import {createElement} from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {CharacterCatalog} from '../apps/web/src/CharacterCatalog';
 import {publicAsset} from '../apps/web/src/assets';
-import {defaultRoomEndpoint,validateRoomEndpoint} from '../apps/web/src/connection';
+import {defaultRoomEndpoint,validateRoomEndpoint,waitForRoomServer} from '../apps/web/src/connection';
+import {VERSIONS} from '../packages/core/types';
 import {CHARACTER_LIST} from '../packages/content';
 describe('公开发布',()=>{
  it('首页完整展示七人及实时主动、被动说明',()=>{const html=renderToStaticMarkup(createElement(CharacterCatalog));expect(html.match(/<article /g)).toHaveLength(7);for(const c of CHARACTER_LIST){expect(html).toContain(c.name);expect(html).toContain(c.active);expect(html).toContain(c.passive);expect(html).toContain(c.activeText);expect(html).toContain(c.passiveText);}});
@@ -13,4 +14,11 @@ describe('公开发布',()=>{
  it('Pages默认不尝试连接不存在的房间服务器',()=>{expect(defaultRoomEndpoint({hostname:'cr3atl.github.io',protocol:'https:'})).toBe('');});
  it('本机局域网默认连接保留，可配置公开房间服务',()=>{expect(defaultRoomEndpoint({hostname:'192.168.10.76',protocol:'http:'})).toBe('ws://192.168.10.76:2567');expect(defaultRoomEndpoint({hostname:'cr3atl.github.io',protocol:'https:'},'wss://rooms.example.test')).toBe('wss://rooms.example.test');});
  it('HTTPS页面拒绝混合连接，接受wss，不接受非WebSocket协议',()=>{expect(()=>validateRoomEndpoint('ws://localhost:2567','https:')).toThrow(/wss/);expect(validateRoomEndpoint('wss://rooms.example.test','https:')).toBe('wss://rooms.example.test/');expect(()=>validateRoomEndpoint('https://example.test','http:')).toThrow(/ws/);expect(()=>validateRoomEndpoint('','https:')).toThrow();});
+ it('冷启动先等待HTTPS健康检查，并验证规则和通信版本',async()=>{
+   const request:typeof fetch=async(input,options)=>{expect(input).toBe('https://rooms.example.test/health');expect(options?.signal).toBeInstanceOf(AbortSignal);return Response.json({ok:true,protocol:VERSIONS.protocol,rules:VERSIONS.rules});};
+   await expect(waitForRoomServer('wss://rooms.example.test/',request)).resolves.toBeUndefined();
+   await expect(waitForRoomServer('wss://rooms.example.test',async()=>Response.json({ok:true,protocol:0,rules:VERSIONS.rules}))).rejects.toThrow(/版本不兼容/);
+   await expect(waitForRoomServer('wss://rooms.example.test',async()=>new Response('',{status:503}))).rejects.toThrow(/暂时不可用/);
+   await expect(waitForRoomServer('wss://rooms.example.test',async()=>{throw new Error('network');})).rejects.toThrow(/暂时无法连接/);
+ });
 });
