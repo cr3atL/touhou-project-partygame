@@ -1,0 +1,230 @@
+{
+  "versions": {
+    "rules": "0.4.1",
+    "map": "0.1.0",
+    "protocol": 3,
+    "save": 3
+  },
+  "revision": 684,
+  "players": [
+    {
+      "id": 0,
+      "name": "P1",
+      "character": "marisa",
+      "bot": true,
+      "turns": 59,
+      "activeAt": 61,
+      "passiveAt": 0,
+      "bufferUsed": false
+    },
+    {
+      "id": 1,
+      "name": "P2",
+      "character": "yuyuko",
+      "bot": true,
+      "turns": 58,
+      "activeAt": 59,
+      "passiveAt": 0,
+      "bufferUsed": false
+    },
+    {
+      "id": 2,
+      "name": "P3",
+      "character": "reimu",
+      "bot": false,
+      "turns": 58,
+      "activeAt": 49,
+      "passiveAt": 0,
+      "bufferUsed": false
+    },
+    {
+      "id": 3,
+      "name": "P4",
+      "character": "flandre",
+      "bot": true,
+      "turns": 58,
+      "activeAt": 59,
+      "passiveAt": 0,
+      "bufferUsed": false
+    }
+  ],
+  "pieces": [
+    {
+      "id": "p0-0",
+      "owner": 0,
+      "index": 0,
+      "progress": -1,
+      "branch": null,
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p0-1",
+      "owner": 0,
+      "index": 1,
+      "progress": 41,
+      "branch": "ground",
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p0-2",
+      "owner": 0,
+      "index": 2,
+      "progress": 12,
+      "branch": "ground",
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p0-3",
+      "owner": 0,
+      "index": 3,
+      "progress": 0,
+      "branch": null,
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p1-0",
+      "owner": 1,
+      "index": 0,
+      "progress": 3,
+      "branch": null,
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p1-1",
+      "owner": 1,
+      "index": 1,
+      "progress": 0,
+      "branch": null,
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p1-2",
+      "owner": 1,
+      "index": 2,
+      "progress": 5,
+      "branch": "ground",
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p1-3",
+      "owner": 1,
+      "index": 3,
+      "progress": 0,
+      "branch": null,
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p2-0",
+      "owner": 2,
+      "index": 0,
+      "progress": 50,
+      "branch": "ground",
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p2-1",
+      "owner": 2,
+      "index": 1,
+      "progress": 50,
+      "branch": "ground",
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p2-2",
+      "owner": 2,
+      "index": 2,
+      "progress": 4,
+      "branch": "ground",
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p2-3",
+      "owner": 2,
+      "index": 3,
+      "progress": 10,
+      "branch": "ground",
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p3-0",
+      "owner": 3,
+      "index": 0,
+      "progress": 5,
+      "branch": "ground",
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p3-1",
+      "owner": 3,
+      "index": 1,
+      "progress": -1,
+      "branch": null,
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p3-2",
+      "owner": 3,
+      "index": 2,
+      "progress": -1,
+      "branch": null,
+      "shield": null,
+      "mark": null
+    },
+    {
+      "id": "p3-3",
+      "owner": 3,
+      "index": 3,
+      "progress": 18,
+      "branch": "ground",
+      "shield": null,
+      "mark": null
+    }
+  ],
+  "current": 0,
+  "turn": 233,
+  "round": 59,
+  "phase": "action",
+  "dice": {
+    "value": 6,
+    "natural": 6,
+    "source": "natural",
+    "extra": true
+  },
+  "queue": [],
+  "choice": null,
+  "winner": null,
+  "rankings": [],
+  "flags": {
+    "first": true,
+    "active": false,
+    "extra": false,
+    "used": {},
+    "moved": [],
+    "targeted": [],
+    "locked": [],
+    "rewritten": false
+  },
+  "events": [],
+  "eventId": 1215,
+  "returns": [
+    15,
+    13,
+    8,
+    11
+  ],
+  "history": []
+}

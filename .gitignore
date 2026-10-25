@@ -1,0 +1,17 @@
+node_modules/
+dist/
+tmp/
+*.log
+.env
+.env.local
+
+# Local data and generated reports are not source releases.
+.env.*
+!.env.example
+**/*存档*.json
+output/*
+!output/design/
+output/design/*
+!output/design/vector-map-v0.3/
+coverage/
+.DS_Store

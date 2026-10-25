@@ -1,0 +1,10 @@
+import type { Registry } from '../core/types';
+import { reimu } from './characters/reimu';
+import { marisa } from './characters/marisa';
+import { yukari } from './characters/yukari';
+import { remilia } from './characters/remilia';
+import { flandre } from './characters/flandre';
+import { yuyuko } from './characters/yuyuko';
+import { youmu } from './characters/youmu';
+export const CHARACTERS: Registry = { reimu, marisa, yukari, remilia, flandre, yuyuko, youmu };
+export const CHARACTER_LIST = Object.values(CHARACTERS);

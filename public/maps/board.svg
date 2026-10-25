@@ -1,0 +1,1019 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2520" height="1740" viewBox="0 0 2520 1740">
+<title>幻想乡巡游：矢量路线审查图</title>
+<desc>48格公共主路、五格冥界支线、四条六格私人终点道。所有通行关系均有箭头；非相连路段不交叉。审查版，不修改游戏地图。</desc>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif} .route-link{pointer-events:none}</style>
+<rect x="0" y="0" width="2520" height="1740" rx="0" fill="#F7F6F0" stroke="none" stroke-width="1"/>
+<ellipse cx="2115.0" cy="1215.0" rx="375.0" ry="235.0" fill="#F5E7DF" stroke="none" stroke-width="1"/>
+<ellipse cx="1085.0" cy="1445.0" rx="465.0" ry="195.0" fill="#F3EDD9" stroke="none" stroke-width="1"/>
+<ellipse cx="405.0" cy="1085.0" rx="365.0" ry="325.0" fill="#EAF0E1" stroke="none" stroke-width="1"/>
+<ellipse cx="530.0" cy="530.0" rx="480.0" ry="200.0" fill="#E6ECEB" stroke="none" stroke-width="1"/>
+<ellipse cx="1685.0" cy="400.0" rx="295.0" ry="220.0" fill="#E4F0F1" stroke="none" stroke-width="1"/>
+<ellipse cx="2195.0" cy="680.0" rx="295.0" ry="330.0" fill="#EFE5EC" stroke="none" stroke-width="1"/>
+<rect x="105" y="1030" width="10" height="43" rx="0" fill="#A6AB8B" stroke="none" stroke-width="1"/>
+<polygon points="110,960 72,1047 148,1047" fill="#A1B493" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="110,990 63,1065 157,1065" fill="#91A685" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<rect x="176.0" y="1100" width="8.0" height="34.40000000000009" rx="0" fill="#A6AB8B" stroke="none" stroke-width="1"/>
+<polygon points="180,1044.0 149.6,1113.6 210.4,1113.6" fill="#A1B493" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="180,1068.0 142.4,1128.0 217.6,1128.0" fill="#91A685" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<rect x="241.5" y="1010" width="7.0" height="30.09999999999991" rx="0" fill="#A6AB8B" stroke="none" stroke-width="1"/>
+<polygon points="245,961.0 218.4,1021.9 271.6,1021.9" fill="#A1B493" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="245,982.0 212.1,1034.5 277.9,1034.5" fill="#91A685" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<text x="180" y="1205" fill="#587052" font-size="30" font-weight="700" text-anchor="middle" dominant-baseline="central">魔法森林</text>
+<polygon points="43,460 105,355 167,460" fill="#AFBEBC" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="105,355 82,394 108,381 125,392" fill="#E4E9E3" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="115.60000000000001,474.0 190,348.0 264.4,474.0" fill="#AFBEBC" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="190,348.0 162.4,394.8 193.6,379.2 214.0,392.4" fill="#E4E9E3" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="220.4,461.0 270,377.0 319.6,461.0" fill="#AFBEBC" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="270,377.0 251.6,408.2 272.4,397.8 286.0,406.6" fill="#E4E9E3" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<text x="180" y="510" fill="#59717A" font-size="30" font-weight="700" text-anchor="middle" dominant-baseline="central">妖怪之山</text>
+<text x="180" y="545" fill="#7A8B8B" font-size="18" font-weight="400" text-anchor="middle" dominant-baseline="central">山麓赛道</text>
+<ellipse cx="1860.0" cy="250.0" rx="100.0" ry="45.0" fill="#BEDDE1" stroke="#90B8C0" stroke-width="2"/>
+<ellipse cx="1825.0" cy="236.0" rx="25.0" ry="9.0" fill="#EDF4EE" stroke="none" stroke-width="1"/>
+<text x="1860" y="160" fill="#4D7C87" font-size="30" font-weight="700" text-anchor="middle" dominant-baseline="central">雾之湖</text>
+<rect x="2270" y="355" width="40" height="75" rx="0" fill="#C8A4B8" stroke="#896D83" stroke-width="1.5"/>
+<polygon points="2261,355 2290,315 2319,355" fill="#97798E" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<rect x="2350" y="330" width="40" height="100" rx="0" fill="#C8A4B8" stroke="#896D83" stroke-width="1.5"/>
+<polygon points="2341,330 2370,290 2399,330" fill="#97798E" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+<rect x="2280" y="382" width="100" height="58" rx="0" fill="#DCC4CD" stroke="#896D83" stroke-width="1.5"/>
+<rect x="2296" y="399" width="8" height="21" rx="0" fill="#F6EFDB" stroke="none" stroke-width="1"/>
+<rect x="2326" y="399" width="8" height="21" rx="0" fill="#F6EFDB" stroke="none" stroke-width="1"/>
+<rect x="2356" y="399" width="8" height="21" rx="0" fill="#F6EFDB" stroke="none" stroke-width="1"/>
+<text x="2330" y="490" fill="#805F80" font-size="30" font-weight="700" text-anchor="middle" dominant-baseline="central">红魔馆</text>
+<polyline points="2310,1230 2305,1320" fill="none" stroke="#BA8174" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2400,1230 2405,1320" fill="none" stroke="#BA8174" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2288,1225 2422,1225" fill="none" stroke="#A56A61" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2300,1253 2410,1253" fill="none" stroke="#BA8174" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="2355" y="1370" fill="#94605A" font-size="30" font-weight="700" text-anchor="middle" dominant-baseline="central">博丽神社</text>
+<rect x="1347" y="1555" width="66" height="45" rx="0" fill="#E4D4B2" stroke="#9C8B69" stroke-width="1.5"/>
+<polygon points="1334,1555 1380,1522 1426,1555" fill="#B6A584" stroke="#94846C" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="1372" y="1572" width="16" height="28" rx="0" fill="#B19C7E" stroke="none" stroke-width="1"/>
+<rect x="1433.6" y="1568.0" width="52.80000000000018" height="36.0" rx="0" fill="#E4D4B2" stroke="#9C8B69" stroke-width="1.5"/>
+<polygon points="1423.2,1568.0 1460,1541.6 1496.8,1568.0" fill="#B6A584" stroke="#94846C" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="1453.6" y="1581.6" width="12.800000000000182" height="22.40000000000009" rx="0" fill="#B19C7E" stroke="none" stroke-width="1"/>
+<text x="1400" y="1640" fill="#8A7448" font-size="30" font-weight="700" text-anchor="middle" dominant-baseline="central">人间之里</text>
+<rect x="171.95" y="1357.25" width="56.10000000000002" height="38.25" rx="0" fill="#E4D4B2" stroke="#9C8B69" stroke-width="1.5"/>
+<polygon points="160.9,1357.25 200,1329.2 239.1,1357.25" fill="#B6A584" stroke="#94846C" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="193.2" y="1371.7" width="13.600000000000023" height="23.799999999999955" rx="0" fill="#B19C7E" stroke="none" stroke-width="1"/>
+<text x="200" y="1425" fill="#6D785D" font-size="22" font-weight="700" text-anchor="middle" dominant-baseline="central">香霖堂</text>
+<rect x="705" y="105" width="640" height="165" rx="36" fill="#F0E8F5" stroke="#C5B2D2" stroke-width="1.5"/>
+<text x="1025" y="80" fill="#85629F" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="central">冥界 · 白玉楼</text>
+<polyline points="724,253 1320,253" fill="none" stroke="#D5C6DE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="85" y="80" fill="#293F43" font-size="42" font-weight="700" text-anchor="start" dominant-baseline="central">幻想乡巡游</text>
+<text x="85" y="130" fill="#718182" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">矢量路线审查图  v0.3</text>
+<ellipse cx="1175.0" cy="782.5" rx="120.0" ry="67.5" fill="#ECE7D8" stroke="#C5BDAB" stroke-width="2"/>
+<text x="1175" y="770" fill="#635D51" font-size="29" font-weight="700" text-anchor="middle" dominant-baseline="central">巡游终点</text>
+<text x="1175" y="812" fill="#898172" font-size="16" font-weight="400" text-anchor="middle" dominant-baseline="central">各自 F6 完成</text>
+<g class="route-link" data-source="G00" data-target="G01" data-kind="main">
+<polyline points="2052.539645174053,1107.936096914583 2056.011782889267,1146.1296117819336" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2052.539645174053,1107.936096914583 2056.011782889267,1146.1296117819336" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="2056.917140349692,1156.0885438466107 2050.5343702536948,1146.6275583851675 2061.4891955248395,1145.6316651786997" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G01" data-target="G02" data-kind="main">
+<polyline points="2028.1858752351454,1205.9070623824273 2006.1249598208533,1216.9375200895734" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2028.1858752351454,1205.9070623824273 2006.1249598208533,1216.9375200895734" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1997.1806879108542,1221.409656044573 2003.6652850456035,1212.0181705390737 2008.5846345961031,1221.856869640073" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G02" data-target="G03" data-kind="main">
+<polyline points="1946.8702001486502,1266.2595997026997 1930.2852173793492,1299.4295652413018" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1946.8702001486502,1266.2595997026997 1930.2852173793492,1299.4295652413018" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1925.8130814243495,1308.373837151301 1925.3658678288496,1296.969890466052 1935.2045669298489,1301.8892400165516" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G03" data-target="G04" data-kind="main">
+<polyline points="1873.6424736491178,1349.9156890047861 1851.793747490686,1355.8744325025402" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1873.6424736491178,1349.9156890047861 1851.793747490686,1355.8744325025402" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1842.1461092783086,1358.5056065604613 1850.3466017588294,1350.5682314857327 1853.2408932225426,1361.1806335193478" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G04" data-target="G05" data-kind="main">
+<polyline points="1770.2762267170722,1387.8342639697566 1743.4436600943286,1403.9338039434028" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1770.2762267170722,1387.8342639697566 1743.4436600943286,1403.9338039434028" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1734.8687308372032,1409.078761497678 1740.6139334394773,1399.217592851984 1746.27338674918,1408.6500150348218" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G05" data-target="G06" data-kind="main">
+<polyline points="1661.0,1430.0 1645.0,1430.0" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1661.0,1430.0 1645.0,1430.0" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1635.0,1430.0 1645.0,1424.5 1645.0,1435.5" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G06" data-target="G07" data-kind="main">
+<polyline points="1567.413947592124,1407.413947592124 1543.8997609068608,1383.8997609068608" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1567.413947592124,1407.413947592124 1543.8997609068608,1383.8997609068608" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1536.8286930949953,1376.8286930949953 1547.7888482033868,1380.0106736103348 1540.0106736103348,1387.7888482033868" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G07" data-target="G08" data-kind="main">
+<polyline points="1471.0,1350.0 1455.0,1350.0" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1471.0,1350.0 1455.0,1350.0" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1445.0,1350.0 1455.0,1344.5 1455.0,1355.5" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G08" data-target="G09" data-kind="main">
+<polyline points="1379.3889407895385,1373.5554962405274 1361.1471329363578,1394.4032766441624" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1379.3889407895385,1373.5554962405274 1361.1471329363578,1394.4032766441624" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1354.5620868576727,1401.9290435912312 1357.00796111547,1390.7815013008856 1365.2863047572457,1398.0250519874392" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G09" data-target="G10" data-kind="main">
+<polyline points="1292.2459584437695,1436.864371192042 1273.495960117829,1440.2734617967585" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1292.2459584437695,1436.864371192042 1273.495960117829,1440.2734617967585" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1263.65726101683,1442.0623161787582 1272.5120902077292,1434.862177291209 1274.479830027929,1445.684746302308" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G10" data-target="G11" data-kind="main">
+<polyline points="1190.2762267170722,1432.1657360302434 1163.4436600943286,1416.0661960565972" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1190.2762267170722,1432.1657360302434 1163.4436600943286,1416.0661960565972" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1154.8687308372032,1410.921238502322 1166.27338674918,1411.3499849651782 1160.6139334394773,1420.782407148016" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G11" data-target="G12" data-kind="main">
+<polyline points="1085.3536204355369,1402.5986834779865 1059.6830743402782,1411.9334275126262" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1085.3536204355369,1402.5986834779865 1059.6830743402782,1411.9334275126262" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1050.2851401053938,1415.3508581434933 1057.8034874933012,1406.7645636834397 1061.5626611872551,1417.1022913418126" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G12" data-target="G13" data-kind="main">
+<polyline points="971.3234563385446,1433.5160494237687 954.6108349649386,1435.035378639551" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="971.3234563385446,1433.5160494237687 954.6108349649386,1435.035378639551" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="944.6519029002616,1435.9407360999762 954.1128883617048,1429.5579660039787 955.1087815681724,1440.5127912751234" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G13" data-target="G14" data-kind="main">
+<polyline points="873.7404940569629,1419.5759398220823 848.8891414210583,1400.2471099941563" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="873.7404940569629,1419.5759398220823 848.8891414210583,1400.2471099941563" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="840.995619247295,1394.1077038590072 852.2658147953904,1395.9056727985865 845.5124680467262,1404.5885471897261" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G14" data-target="G15" data-kind="main">
+<polyline points="773.6424736491178,1360.0843109952139 751.7937474906859,1354.1255674974598" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="773.6424736491178,1360.0843109952139 751.7937474906859,1354.1255674974598" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="742.1461092783086,1351.4943934395387 753.2408932225425,1348.8193664806522 750.3466017588293,1359.4317685142673" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G15" data-target="G16" data-kind="main">
+<polyline points="662.2459584437695,1333.135628807958 643.495960117829,1329.7265382032415" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="662.2459584437695,1333.135628807958 643.495960117829,1329.7265382032415" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="633.6572610168299,1327.9376838212418 644.4798300279289,1324.315253697692 642.5120902077291,1335.137822708791" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G16" data-target="G17" data-kind="main">
+<polyline points="563.7404940569629,1299.5759398220823 538.8891414210583,1280.2471099941563" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="563.7404940569629,1299.5759398220823 538.8891414210583,1280.2471099941563" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="530.995619247295,1274.1077038590072 542.2658147953904,1275.9056727985865 535.5124680467262,1284.5885471897261" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G17" data-target="G18" data-kind="main">
+<polyline points="467.01515601661606,1235.3400693407182 457.60582876130803,1231.158146116137" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="467.01515601661606,1235.3400693407182 457.60582876130803,1231.158146116137" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="448.46771327510544,1227.0967614556025 459.839590324602,1226.1321825987256 455.37206719801407,1236.1841096335484" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G18" data-target="G19" data-kind="main">
+<polyline points="402.51578888699777,1182.5578925856585 391.69408960567597,1142.8783285541454" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="402.51578888699777,1182.5578925856585 391.69408960567597,1142.8783285541454" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="389.06291554775487,1133.230690341768 397.0002906224835,1141.4311828222887 386.38788858886846,1144.325474286002" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G19" data-target="G20" data-kind="main">
+<polyline points="390.73758498913264,1073.1560375271683 403.32016418920165,1041.6995895269959" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="390.73758498913264,1073.1560375271683 403.32016418920165,1041.6995895269959" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="407.0340709527427,1032.4148226181433 408.4267859890706,1043.7422382469433 398.2135423893327,1039.6569408070484" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G20" data-target="G21" data-kind="main">
+<polyline points="399.3889407895385,976.4445037594726 381.1471329363578,955.5967233558375" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="399.3889407895385,976.4445037594726 381.1471329363578,955.5967233558375" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="374.5620868576726,948.0709564087688 385.28630475724566,951.9749480125607 377.00796111547,959.2184986991143" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G21" data-target="G22" data-kind="main">
+<polyline points="355.0449691681581,892.2526695751303 362.09286382064215,853.4892489864682" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="355.0449691681581,892.2526695751303 362.09286382064215,853.4892489864682" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="363.881718202642,843.6505498854691 367.5041483261916,854.473118896568 356.6815793150927,852.5053790763683" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G22" data-target="G23" data-kind="main">
+<polyline points="392.5860524078759,787.4139475921241 426.10023909313935,753.8997609068606" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="392.5860524078759,787.4139475921241 426.10023909313935,753.8997609068606" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="433.1713069050048,746.8286930949952 429.98932638966534,757.7888482033866 422.21115179661336,750.0106736103346" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G23" data-target="G24" data-kind="main">
+<polyline points="450.169759281753,692.9668380248206 435.2981297276343,652.0698567509943" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="450.169759281753,692.9668380248206 435.2981297276343,652.0698567509943" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="431.8806990967673,642.6719225161099 440.46699355682074,650.1902699040174 430.1292658984479,653.9494435979711" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G24" data-target="G25" data-kind="main">
+<polyline points="433.12979985134984,583.7404002973003 449.71478262065085,550.5704347586983" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="433.12979985134984,583.7404002973003 449.71478262065085,550.5704347586983" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="454.18691857565045,541.6261628486991 454.6341321711504,553.0301095339481 444.7954330701513,548.1107599834485" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G25" data-target="G26" data-kind="main">
+<polyline points="508.7276468554857,506.7726960953762 535.3276210125962,504.55603158228365" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="508.7276468554857,506.7726960953762 535.3276210125962,504.55603158228365" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="545.293078595045,503.72557678374625 535.7843711517918,510.03703325263047 534.8708708734006,499.07502991193684" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G26" data-target="G27" data-kind="main">
+<polyline points="612.5860524078759,477.4139475921241 636.1002390931394,453.89976090686065" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="612.5860524078759,477.4139475921241 636.1002390931394,453.89976090686065" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="643.1713069050048,446.8286930949952 639.9893263896654,457.78884820338664 632.2111517966134,450.01067361033466" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G27" data-target="G28" data-kind="main">
+<polyline points="708.6765436614554,416.48395057623134 725.3891650350614,414.964621360449" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="708.6765436614554,416.48395057623134 725.3891650350614,414.964621360449" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="735.3480970997384,414.0592639000238 725.8871116382952,420.44203399602134 724.8912184318276,409.4872087248766" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G28" data-target="G29" data-kind="main">
+<polyline points="812.7727119530155,424.8966872513707 842.6614244075829,438.4824656398104" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="812.7727119530155,424.8966872513707 842.6614244075829,438.4824656398104" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="851.765089182209,442.62049508282223 840.3855082139264,443.48948126585475 844.9373406012394,433.4754500137661" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G29" data-target="G30" data-kind="main">
+<polyline points="928.6765436614554,456.48395057623134 945.3891650350614,454.964621360449" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="928.6765436614554,456.48395057623134 945.3891650350614,454.964621360449" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="955.3480970997384,454.0592639000238 945.8871116382952,460.44203399602134 944.8912184318276,449.4872087248766" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G30" data-target="G31" data-kind="main">
+<polyline points="1026.7721381894387,429.92089635792104 1040.4278618105614,419.679103642079" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1026.7721381894387,429.92089635792104 1040.4278618105614,419.679103642079" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1048.4278618105614,413.679103642079 1043.7278618105613,424.07910364207896 1037.1278618105614,415.279103642079" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G31" data-target="G32" data-kind="main">
+<polyline points="1118.7276468554858,386.7726960953762 1145.3276210125962,384.55603158228365" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1118.7276468554858,386.7726960953762 1145.3276210125962,384.55603158228365" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1155.293078595045,383.72557678374625 1145.7843711517917,390.03703325263047 1144.8708708734007,379.07502991193684" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G32" data-target="G33" data-kind="main">
+<polyline points="1237.7540415562305,386.8643711920419 1256.504039882171,390.27346179675834" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1237.7540415562305,386.8643711920419 1256.504039882171,390.27346179675834" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1266.34273898317,392.0623161787582 1255.520169972071,395.6847463023078 1257.4879097922708,384.86217729120887" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G33" data-target="G34" data-kind="main">
+<polyline points="1339.7237732829278,417.83426396975676 1366.5563399056714,433.93380394340284" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1339.7237732829278,417.83426396975676 1366.5563399056714,433.93380394340284" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1375.1312691627968,439.0787614976781 1363.72661325082,438.6500150348218 1369.3860665605227,429.21759285198385" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G34" data-target="G35" data-kind="main">
+<polyline points="1438.3767232762186,441.082184482521 1458.310472014376,427.7930186570827" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1438.3767232762186,441.082184482521 1458.310472014376,427.7930186570827" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1466.6309749577545,422.2460166948304 1461.3613230936148,432.36929527594083 1455.2596209351373,423.2167420382246" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G35" data-target="G36" data-kind="main">
+<polyline points="1537.7540415562305,393.1356288079581 1556.504039882171,389.72653820324166" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1537.7540415562305,393.1356288079581 1556.504039882171,389.72653820324166" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1566.34273898317,387.9376838212418 1557.4879097922708,395.13782270879113 1555.520169972071,384.3152536976922" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G36" data-target="G37" data-kind="main">
+<polyline points="1647.7540415562305,386.8643711920419 1666.504039882171,390.27346179675834" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1647.7540415562305,386.8643711920419 1666.504039882171,390.27346179675834" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1676.34273898317,392.0623161787582 1665.520169972071,395.6847463023078 1667.4879097922708,384.86217729120887" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G37" data-target="G38" data-kind="main">
+<polyline points="1742.586052407876,422.5860524078759 1766.1002390931392,446.10023909313935" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1742.586052407876,422.5860524078759 1766.1002390931392,446.10023909313935" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1773.1713069050047,453.1713069050048 1762.2111517966132,449.98932638966534 1769.9893263896652,442.21115179661336" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G38" data-target="G39" data-kind="main">
+<polyline points="1837.7540415562305,486.8643711920419 1856.504039882171,490.27346179675834" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1837.7540415562305,486.8643711920419 1856.504039882171,490.27346179675834" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1866.34273898317,492.0623161787582 1855.520169972071,495.6847463023078 1857.4879097922708,484.86217729120887" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G39" data-target="G40" data-kind="main">
+<polyline points="1947.7540415562305,506.8643711920419 1966.504039882171,510.2734617967584" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1947.7540415562305,506.8643711920419 1966.504039882171,510.2734617967584" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1976.34273898317,512.0623161787582 1965.520169972071,515.6847463023079 1967.4879097922708,504.8621772912089" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G40" data-target="G41" data-kind="main">
+<polyline points="2046.259505943037,540.4240601779177 2071.1108585789416,559.7528900058436" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2046.259505943037,540.4240601779177 2071.1108585789416,559.7528900058436" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="2079.004380752705,565.8922961409928 2067.7341852046097,564.0943272014134 2074.4875319532734,555.4114528102738" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G41" data-target="G42" data-kind="main">
+<polyline points="2123.1297998513496,616.2595997026997 2139.714782620651,649.4295652413017" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2123.1297998513496,616.2595997026997 2139.714782620651,649.4295652413017" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="2144.1869185756505,658.3738371513009 2134.7954330701514,651.8892400165515 2144.6341321711507,646.9698904660519" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G42" data-target="G43" data-kind="main">
+<polyline points="2148.179957282755,716.5950961138011 2138.3182581741,738.7839191082747" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2148.179957282755,716.5950961138011 2138.3182581741,738.7839191082747" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="2134.2568735135656,747.9220345944773 2133.2922946566882,736.5501575449808 2143.3442216915114,741.0176806715687" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G43" data-target="G44" data-kind="main">
+<polyline points="2146.7721381894385,800.079103642079 2160.4278618105614,810.320896357921" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2146.7721381894385,800.079103642079 2160.4278618105614,810.320896357921" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="2168.4278618105614,816.320896357921 2157.127861810561,814.720896357921 2163.7278618105615,805.920896357921" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G44" data-target="G45" data-kind="main">
+<polyline points="2205.5390496216714,867.6952481083573 2211.323092216118,896.6154610805879" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2205.5390496216714,867.6952481083573 2211.323092216118,896.6154610805879" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="2213.2842535674995,906.4212678374971 2205.9298984998177,897.694099823848 2216.716285932418,895.5368223373279" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G45" data-target="G46" data-kind="main">
+<polyline points="2205.610794982769,965.9005690310152 2192.159491916089,990.1129145510403" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2205.610794982769,965.9005690310152 2192.159491916089,990.1129145510403" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="2187.3030626043023,998.8544873122556 2187.3516268974204,987.4418784295577 2196.9673569347574,992.7839506725228" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G46" data-target="G47" data-kind="main">
+<polyline points="2144.4651813567875,1009.1078756555532 2097.9181354304656,971.023928988563" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2144.4651813567875,1009.1078756555532 2097.9181354304656,971.023928988563" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="2090.1785624384324,964.6915510859903 2101.4009432768803,966.7671638429447 2094.435327584051,975.2806941341812" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G47" data-target="G00" data-kind="main">
+<polyline points="2058.002822091924,967.9604907130633 2053.1371307078825,1036.0801700896448" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2058.002822091924,967.9604907130633 2053.1371307078825,1036.0801700896448" fill="none" stroke="#718083" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="2052.4246602080034,1046.054757087952 2047.6511078588135,1035.6883113147112 2058.6231535569514,1036.4720288645783" fill="#718083" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G28" data-target="R29" data-kind="branch">
+<polyline points="780.0,382.0 780.0,224.0" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="780.0,382.0 780.0,224.0" fill="none" stroke="#9B78B3" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="9 7"/>
+<polygon points="780.0,214.0 785.5,224.0 774.5,224.0" fill="#9B78B3" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="R29" data-target="R30" data-kind="branch">
+<polyline points="819.0,180.0 845.0,180.0" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="819.0,180.0 845.0,180.0" fill="none" stroke="#9B78B3" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="855.0,180.0 845.0,185.5 845.0,174.5" fill="#9B78B3" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="R30" data-target="R31" data-kind="branch">
+<polyline points="939.0,180.0 965.0,180.0" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="939.0,180.0 965.0,180.0" fill="none" stroke="#9B78B3" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="975.0,180.0 965.0,185.5 965.0,174.5" fill="#9B78B3" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="R31" data-target="R32" data-kind="branch">
+<polyline points="1059.0,180.0 1085.0,180.0" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1059.0,180.0 1085.0,180.0" fill="none" stroke="#9B78B3" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1095.0,180.0 1085.0,185.5 1085.0,174.5" fill="#9B78B3" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="R32" data-target="R33" data-kind="branch">
+<polyline points="1179.0,180.0 1205.0,180.0" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1179.0,180.0 1205.0,180.0" fill="none" stroke="#9B78B3" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1215.0,180.0 1205.0,185.5 1205.0,174.5" fill="#9B78B3" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="R33" data-target="G34" data-kind="branch">
+<polyline points="1273.9453162561315,206.0312570114455 1388.499141143622,419.865063468094" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1273.9453162561315,206.0312570114455 1388.499141143622,419.865063468094" fill="none" stroke="#9B78B3" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="9 7"/>
+<polygon points="1393.221355268776,428.6798631683818 1383.6510013084637,422.4622812369288 1393.3472809787802,417.26784569925917" fill="#9B78B3" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G47" data-target="P1-F1" data-kind="finish">
+<polyline points="2023.8714445334997,929.677555581 1971.5129386287535,914.7179824653581" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2023.8714445334997,929.677555581 1971.5129386287535,914.7179824653581" fill="none" stroke="#BA405A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1961.8976991523452,911.9707711863844 1973.0239048321891,909.4296007533336 1970.001972425318,920.0063641773826" fill="#BA405A" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P1-F1" data-target="P1-F2" data-kind="finish">
+<polyline points="1881.9047139658194,894.1391867639722 1843.9092331965905,888.2937281840909" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1881.9047139658194,894.1391867639722 1843.9092331965905,888.2937281840909" fill="none" stroke="#BA405A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1834.0255162200845,886.7731563415515 1844.7455477099872,882.8576838470125 1843.0729186831938,893.7297725211694" fill="#BA405A" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P1-F2" data-target="P1-F3" data-kind="finish">
+<polyline points="1765.6724721100554,858.3755307644938 1736.286076988883,832.254290656785" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1765.6724721100554,858.3755307644938 1736.286076988883,832.254290656785" fill="none" stroke="#BA405A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1728.8119838020464,825.6106522684858 1739.9400781024476,828.1435394040249 1732.6320758753184,836.3650419095451" fill="#BA405A" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P1-F3" data-target="P1-F4" data-kind="finish">
+<polyline points="1661.0,800.0 1635.0,800.0" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1661.0,800.0 1635.0,800.0" fill="none" stroke="#BA405A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1625.0,800.0 1635.0,794.5 1635.0,805.5" fill="#BA405A" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P1-F4" data-target="P1-F5" data-kind="finish">
+<polyline points="1551.0171462699375,818.4436341918579 1512.4814375337762,842.9663579330515" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1551.0171462699375,818.4436341918579 1512.4814375337762,842.9663579330515" fill="none" stroke="#BA405A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1504.0448226564552,848.3351128549831 1509.5286223267137,838.326219750525 1515.4342527408387,847.6064961155781" fill="#BA405A" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P1-F5" data-target="P1-F6" data-kind="finish">
+<polyline points="1431.3234563385447,873.5160494237687 1414.6108349649387,875.035378639551" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1431.3234563385447,873.5160494237687 1414.6108349649387,875.035378639551" fill="none" stroke="#BA405A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1404.6519029002616,875.9407360999762 1414.1128883617048,869.5579660039787 1415.1087815681726,880.5127912751234" fill="#BA405A" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G11" data-target="P2-F1" data-kind="finish">
+<polyline points="1133.1297998513498,1363.7404002973003 1159.7147826206508,1310.5704347586982" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1133.1297998513498,1363.7404002973003 1159.7147826206508,1310.5704347586982" fill="none" stroke="#347BAA" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1164.1869185756505,1301.626162848699 1164.6341321711504,1313.030109533948 1154.7954330701511,1308.1107599834484" fill="#347BAA" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P2-F1" data-target="P2-F2" data-kind="finish">
+<polyline points="1204.3275278899446,1248.3755307644938 1233.713923011117,1222.254290656785" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1204.3275278899446,1248.3755307644938 1233.713923011117,1222.254290656785" fill="none" stroke="#347BAA" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1241.1880161979536,1215.6106522684859 1237.3679241246816,1226.3650419095452 1230.0599218975524,1218.143539404025" fill="#347BAA" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P2-F2" data-target="P2-F3" data-kind="finish">
+<polyline points="1267.460354825947,1162.063903085417 1263.9882171107333,1123.8703882180664" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1267.460354825947,1162.063903085417 1263.9882171107333,1123.8703882180664" fill="none" stroke="#347BAA" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1263.0828596503081,1113.9114561533893 1269.4656297463057,1123.3724416148325 1258.510804475161,1124.3683348213003" fill="#347BAA" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P2-F3" data-target="P2-F4" data-kind="finish">
+<polyline points="1237.413947592124,1057.413947592124 1213.8997609068608,1033.8997609068608" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1237.413947592124,1057.413947592124 1213.8997609068608,1033.8997609068608" fill="none" stroke="#347BAA" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1206.8286930949953,1026.8286930949953 1217.7888482033868,1030.0106736103348 1210.0106736103348,1037.7888482033868" fill="#347BAA" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P2-F4" data-target="P2-F5" data-kind="finish">
+<polyline points="1141.0,1000.0 1125.0,1000.0" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1141.0,1000.0 1125.0,1000.0" fill="none" stroke="#347BAA" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1115.0,1000.0 1125.0,994.5 1125.0,1005.5" fill="#347BAA" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P2-F5" data-target="P2-F6" data-kind="finish">
+<polyline points="1059.2624150108672,973.1560375271683 1046.6798358107983,941.6995895269959" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1059.2624150108672,973.1560375271683 1046.6798358107983,941.6995895269959" fill="none" stroke="#347BAA" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1042.9659290472573,932.4148226181433 1051.7864576106672,939.6569408070483 1041.5732140109294,943.7422382469434" fill="#347BAA" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G23" data-target="P3-F1" data-kind="finish">
+<polyline points="498.21604906656097,725.4594355809373 545.9447590348603,732.2778227192657" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="498.21604906656097,725.4594355809373 545.9447590348603,732.2778227192657" fill="none" stroke="#358465" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="555.844253971472,733.6920362816388 545.1669415755551,737.7225449344021 546.7225764941655,726.8331005041293" fill="#358465" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P3-F1" data-target="P3-F2" data-kind="finish">
+<polyline points="630.8571701722642,756.831183730326 665.0965006611057,775.5071821787849" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="630.8571701722642,756.831183730326 665.0965006611057,775.5071821787849" fill="none" stroke="#358465" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="673.8754563902495,780.2957034855906 662.4628139423625,780.335607829814 667.7301873798489,770.6787565277558" fill="#358465" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P3-F2" data-target="P3-F3" data-kind="finish">
+<polyline points="719.8302407182471,827.0331619751794 734.7018702723658,867.9301432490057" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="719.8302407182471,827.0331619751794 734.7018702723658,867.9301432490057" fill="none" stroke="#358465" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="738.1193009032328,877.3280774838901 729.5330064431794,869.8097300959826 739.8707341015522,866.0505564020289" fill="#358465" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P3-F3" data-target="P3-F4" data-kind="finish">
+<polyline points="787.5077539563114,917.5015507912623 796.802955232634,919.3605910465268" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="787.5077539563114,917.5015507912623 796.802955232634,919.3605910465268" fill="none" stroke="#358465" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="806.6087619895432,921.3217523979087 795.7243164893739,924.7537847628269 797.881593975894,913.9673973302267" fill="#358465" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P3-F4" data-target="P3-F5" data-kind="finish">
+<polyline points="876.2595059430371,909.5759398220823 901.1108585789417,890.2471099941564" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="876.2595059430371,909.5759398220823 901.1108585789417,890.2471099941564" fill="none" stroke="#358465" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="909.004380752705,884.1077038590072 904.4875319532738,894.5885471897262 897.7341852046096,885.9056727985866" fill="#358465" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P3-F5" data-target="P3-F6" data-kind="finish">
+<polyline points="945.0449691681581,832.2526695751303 952.0928638206422,793.4892489864682" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="945.0449691681581,832.2526695751303 952.0928638206422,793.4892489864682" fill="none" stroke="#358465" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="953.881718202642,783.6505498854691 957.5041483261916,794.473118896568 946.6815793150927,792.5053790763683" fill="#358465" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="G35" data-target="P4-F1" data-kind="finish">
+<polyline points="1509.060027682638,427.1800830479144 1525.8803280610923,477.64098418327734" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1509.060027682638,427.1800830479144 1525.8803280610923,477.64098418327734" fill="none" stroke="#AC7B19" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1529.0426057212608,487.1278171637825 1520.6625699218146,479.3802368963699 1531.09808620037,475.90173147018476" fill="#AC7B19" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P4-F1" data-target="P4-F2" data-kind="finish">
+<polyline points="1517.413947592124,542.5860524078759 1493.8997609068608,566.1002390931394" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1517.413947592124,542.5860524078759 1493.8997609068608,566.1002390931394" fill="none" stroke="#AC7B19" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1486.8286930949953,573.1713069050048 1490.0106736103348,562.2111517966134 1497.7888482033868,569.9893263896654" fill="#AC7B19" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P4-F2" data-target="P4-F3" data-kind="finish">
+<polyline points="1421.3234563385447,596.4839505762313 1404.6108349649387,594.964621360449" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1421.3234563385447,596.4839505762313 1404.6108349649387,594.964621360449" fill="none" stroke="#AC7B19" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1394.6519029002616,594.0592639000238 1405.1087815681726,589.4872087248766 1404.1128883617048,600.4420339960213" fill="#AC7B19" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P4-F3" data-target="P4-F4" data-kind="finish">
+<polyline points="1327.413947592124,567.4139475921241 1313.8997609068608,553.8997609068606" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1327.413947592124,567.4139475921241 1313.8997609068608,553.8997609068606" fill="none" stroke="#AC7B19" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1306.8286930949953,546.8286930949952 1317.7888482033868,550.0106736103346 1310.0106736103348,557.7888482033866" fill="#AC7B19" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P4-F4" data-target="P4-F5" data-kind="finish">
+<polyline points="1242.055233582094,526.3241277363177 1213.7270691992203,531.0454884667967" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1242.055233582094,526.3241277363177 1213.7270691992203,531.0454884667967" fill="none" stroke="#AC7B19" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1203.863129960899,532.6894783398502 1212.822874769041,525.6203218857198 1214.6312636293997,536.4706550478735" fill="#AC7B19" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g class="route-link" data-source="P4-F5" data-target="P4-F6" data-kind="finish">
+<polyline points="1154.955030831842,567.7473304248697 1147.9071361793578,606.5107510135318" fill="none" stroke="#F7F6F0" stroke-width="8.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1154.955030831842,567.7473304248697 1147.9071361793578,606.5107510135318" fill="none" stroke="#AC7B19" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1146.1182817973581,616.3494501145309 1142.4958516738084,605.526881103432 1153.3184206849073,607.4946209236317" fill="#AC7B19" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g id="node-R29" data-node="R29">
+<title>R29 · 冥界 · ordinary</title>
+<polygon points="746,187 763.0,164 797.0,164 814,187 797.0,210 763.0,210" fill="#AB9FB4" stroke="#85629F" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="746,180 763.0,157 797.0,157 814,180 797.0,203 763.0,203" fill="#DCCDE8" stroke="#85629F" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="780" y="180" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">R29</text>
+</g>
+<g id="node-R30" data-node="R30">
+<title>R30 · 冥界 · ordinary</title>
+<polygon points="866,187 883.0,164 917.0,164 934,187 917.0,210 883.0,210" fill="#AB9FB4" stroke="#85629F" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="866,180 883.0,157 917.0,157 934,180 917.0,203 883.0,203" fill="#DCCDE8" stroke="#85629F" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="900" y="180" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">R30</text>
+</g>
+<g id="node-R31" data-node="R31">
+<title>R31 · 冥界 · mist</title>
+<polygon points="986,187 1003.0,164 1037.0,164 1054,187 1037.0,210 1003.0,210" fill="#AB9FB4" stroke="#85629F" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="986,180 1003.0,157 1037.0,157 1054,180 1037.0,203 1003.0,203" fill="#DCCDE8" stroke="#85629F" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1020" y="175" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">R31</text>
+<text x="1020" y="192" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">−1</text>
+</g>
+<g id="node-R32" data-node="R32">
+<title>R32 · 冥界 · ordinary</title>
+<polygon points="1106,187 1123.0,164 1157.0,164 1174,187 1157.0,210 1123.0,210" fill="#AB9FB4" stroke="#85629F" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1106,180 1123.0,157 1157.0,157 1174,180 1157.0,203 1123.0,203" fill="#DCCDE8" stroke="#85629F" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1140" y="180" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">R32</text>
+</g>
+<g id="node-R33" data-node="R33">
+<title>R33 · 冥界 · obstacle</title>
+<polygon points="1226,187 1243.0,164 1277.0,164 1294,187 1277.0,210 1243.0,210" fill="#AB9FB4" stroke="#85629F" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1226,180 1243.0,157 1277.0,157 1294,180 1277.0,203 1243.0,203" fill="#DCCDE8" stroke="#85629F" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1260" y="175" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">R33</text>
+<text x="1260" y="192" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">−2</text>
+</g>
+<g id="node-G32" data-node="G32">
+<title>G32 · 雾之湖 · ordinary</title>
+<polygon points="1166,387 1183.0,364 1217.0,364 1234,387 1217.0,410 1183.0,410" fill="#83A7AD" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1166,380 1183.0,357 1217.0,357 1234,380 1217.0,403 1183.0,403" fill="#A9D7DF" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1200" y="380" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G32</text>
+</g>
+<g id="node-G36" data-node="G36">
+<title>G36 · 雾之湖 · ordinary</title>
+<polygon points="1576,387 1593.0,364 1627.0,364 1644,387 1627.0,410 1593.0,410" fill="#83A7AD" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1576,380 1593.0,357 1627.0,357 1644,380 1627.0,403 1593.0,403" fill="#A9D7DF" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<ellipse cx="1610.0" cy="347.0" rx="8.0" ry="5.0" fill="#AC7B19" stroke="none" stroke-width="1"/>
+<text x="1610" y="380" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G36</text>
+</g>
+<g id="node-G31" data-node="G31">
+<title>G31 · 妖怪之山山麓 · mist</title>
+<polygon points="1046,397 1063.0,374 1097.0,374 1114,397 1097.0,420 1063.0,420" fill="#8E9B9F" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1046,390 1063.0,367 1097.0,367 1114,390 1097.0,413 1063.0,413" fill="#B7C7CC" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1080" y="385" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G31</text>
+<text x="1080" y="402" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">−1</text>
+</g>
+<g id="node-G33" data-node="G33">
+<title>G33 · 雾之湖 · obstacle</title>
+<polygon points="1276,407 1293.0,384 1327.0,384 1344,407 1327.0,430 1293.0,430" fill="#83A7AD" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1276,400 1293.0,377 1327.0,377 1344,400 1327.0,423 1293.0,423" fill="#A9D7DF" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1310" y="395" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G33</text>
+<text x="1310" y="412" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">−2</text>
+</g>
+<g id="node-G35" data-node="G35">
+<title>G35 · 雾之湖 · ordinary</title>
+<polygon points="1466,407 1483.0,384 1517.0,384 1534,407 1517.0,430 1483.0,430" fill="#83A7AD" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1466,400 1483.0,377 1517.0,377 1534,400 1517.0,423 1483.0,423" fill="#A9D7DF" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1500" y="400" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G35</text>
+</g>
+<g id="node-G37" data-node="G37">
+<title>G37 · 雾之湖 · ordinary</title>
+<polygon points="1686,407 1703.0,384 1737.0,384 1754,407 1737.0,430 1703.0,430" fill="#83A7AD" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1686,400 1703.0,377 1737.0,377 1754,400 1737.0,423 1703.0,423" fill="#A9D7DF" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1720" y="400" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G37</text>
+</g>
+<g id="node-G28" data-node="G28">
+<title>G28 · 妖怪之山山麓 · ordinary</title>
+<polygon points="746,417 763.0,394 797.0,394 814,417 797.0,440 763.0,440" fill="#8E9B9F" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="746,410 763.0,387 797.0,387 814,410 797.0,433 763.0,433" fill="#B7C7CC" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<polyline points="753,403 768.0,392 792.0,392 807,403" fill="none" stroke="#9B78B3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="780" y="410" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G28</text>
+</g>
+<g id="node-G27" data-node="G27">
+<title>G27 · 妖怪之山山麓 · wind</title>
+<polygon points="636,427 653.0,404 687.0,404 704,427 687.0,450 653.0,450" fill="#8E9B9F" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="636,420 653.0,397 687.0,397 704,420 687.0,443 653.0,443" fill="#B7C7CC" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="670" y="415" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G27</text>
+<text x="670" y="432" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">+2</text>
+</g>
+<g id="node-G30" data-node="G30">
+<title>G30 · 妖怪之山山麓 · ordinary</title>
+<polygon points="966,457 983.0,434 1017.0,434 1034,457 1017.0,480 983.0,480" fill="#8E9B9F" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="966,450 983.0,427 1017.0,427 1034,450 1017.0,473 983.0,473" fill="#B7C7CC" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1000" y="450" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G30</text>
+</g>
+<g id="node-G29" data-node="G29">
+<title>G29 · 妖怪之山山麓 · ordinary</title>
+<polygon points="856,467 873.0,444 907.0,444 924,467 907.0,490 873.0,490" fill="#8E9B9F" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="856,460 873.0,437 907.0,437 924,460 907.0,483 873.0,483" fill="#B7C7CC" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="890" y="460" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G29</text>
+</g>
+<g id="node-G34" data-node="G34">
+<title>G34 · 雾之湖 · ordinary</title>
+<polygon points="1376,467 1393.0,444 1427.0,444 1444,467 1427.0,490 1393.0,490" fill="#83A7AD" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1376,460 1393.0,437 1427.0,437 1444,460 1427.0,483 1393.0,483" fill="#A9D7DF" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<polyline points="1383,453 1398.0,442 1422.0,442 1437,453" fill="none" stroke="#9B78B3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1410" y="460" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G34</text>
+</g>
+<g id="node-G38" data-node="G38">
+<title>G38 · 雾之湖 · ordinary</title>
+<polygon points="1766,487 1783.0,464 1817.0,464 1834,487 1817.0,510 1783.0,510" fill="#83A7AD" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1766,480 1783.0,457 1817.0,457 1834,480 1817.0,503 1783.0,503" fill="#A9D7DF" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1800" y="480" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G38</text>
+</g>
+<g id="node-G26" data-node="G26">
+<title>G26 · 妖怪之山山麓 · ordinary</title>
+<polygon points="556,507 573.0,484 607.0,484 624,507 607.0,530 573.0,530" fill="#8E9B9F" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="556,500 573.0,477 607.0,477 624,500 607.0,523 573.0,523" fill="#B7C7CC" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="590" y="500" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G26</text>
+</g>
+<g id="node-G39" data-node="G39">
+<title>G39 · 雾之湖 · wind</title>
+<polygon points="1876,507 1893.0,484 1927.0,484 1944,507 1927.0,530 1893.0,530" fill="#83A7AD" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1876,500 1893.0,477 1927.0,477 1944,500 1927.0,523 1893.0,523" fill="#A9D7DF" stroke="#4D7C87" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1910" y="495" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G39</text>
+<text x="1910" y="512" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">+2</text>
+</g>
+<g id="node-G25" data-node="G25">
+<title>G25 · 妖怪之山山麓 · ordinary</title>
+<polygon points="436,517 453.0,494 487.0,494 504,517 487.0,540 453.0,540" fill="#8E9B9F" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="436,510 453.0,487 487.0,487 504,510 487.0,533 453.0,533" fill="#B7C7CC" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="470" y="510" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G25</text>
+</g>
+<g id="node-G40" data-node="G40">
+<title>G40 · 红魔馆 · ordinary</title>
+<polygon points="1986,527 2003.0,504 2037.0,504 2054,527 2037.0,550 2003.0,550" fill="#A68EA5" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1986,520 2003.0,497 2037.0,497 2054,520 2037.0,543 2003.0,543" fill="#D5B7D4" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="2020" y="520" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G40</text>
+</g>
+<g id="node-P4-F1" data-node="P4-F1">
+<title>P4-F1 · P4 · 私人终点道</title>
+<polygon points="1506,527 1523.0,504 1557.0,504 1574,527 1557.0,550 1523.0,550" fill="#C6C6C1" stroke="#AC7B19" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1506,520 1523.0,497 1557.0,497 1574,520 1557.0,543 1523.0,543" fill="#FFFEF8" stroke="#AC7B19" stroke-width="2" stroke-linejoin="round"/>
+<text x="1540" y="520" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F1</text>
+</g>
+<g id="node-P4-F4" data-node="P4-F4">
+<title>P4-F4 · P4 · 私人终点道</title>
+<polygon points="1246,527 1263.0,504 1297.0,504 1314,527 1297.0,550 1263.0,550" fill="#C6C6C1" stroke="#AC7B19" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1246,520 1263.0,497 1297.0,497 1314,520 1297.0,543 1263.0,543" fill="#FFFEF8" stroke="#AC7B19" stroke-width="2" stroke-linejoin="round"/>
+<text x="1280" y="520" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F4</text>
+</g>
+<g id="node-P4-F5" data-node="P4-F5">
+<title>P4-F5 · P4 · 私人终点道</title>
+<polygon points="1126,547 1143.0,524 1177.0,524 1194,547 1177.0,570 1143.0,570" fill="#C6C6C1" stroke="#AC7B19" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1126,540 1143.0,517 1177.0,517 1194,540 1177.0,563 1143.0,563" fill="#FFFEF8" stroke="#AC7B19" stroke-width="2" stroke-linejoin="round"/>
+<text x="1160" y="540" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F5</text>
+</g>
+<g id="node-G41" data-node="G41">
+<title>G41 · 红魔馆 · ordinary</title>
+<polygon points="2076,597 2093.0,574 2127.0,574 2144,597 2127.0,620 2093.0,620" fill="#A68EA5" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="2076,590 2093.0,567 2127.0,567 2144,590 2127.0,613 2093.0,613" fill="#D5B7D4" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="2110" y="590" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G41</text>
+</g>
+<g id="node-P4-F3" data-node="P4-F3">
+<title>P4-F3 · P4 · 私人终点道</title>
+<polygon points="1316,597 1333.0,574 1367.0,574 1384,597 1367.0,620 1333.0,620" fill="#C6C6C1" stroke="#AC7B19" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1316,590 1333.0,567 1367.0,567 1384,590 1367.0,613 1333.0,613" fill="#FFFEF8" stroke="#AC7B19" stroke-width="2" stroke-linejoin="round"/>
+<text x="1350" y="590" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F3</text>
+</g>
+<g id="node-P4-F2" data-node="P4-F2">
+<title>P4-F2 · P4 · 私人终点道</title>
+<polygon points="1426,607 1443.0,584 1477.0,584 1494,607 1477.0,630 1443.0,630" fill="#C6C6C1" stroke="#AC7B19" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1426,600 1443.0,577 1477.0,577 1494,600 1477.0,623 1443.0,623" fill="#FFFEF8" stroke="#AC7B19" stroke-width="2" stroke-linejoin="round"/>
+<text x="1460" y="600" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F2</text>
+</g>
+<g id="node-G24" data-node="G24">
+<title>G24 · 妖怪之山山麓 · ordinary</title>
+<polygon points="386,617 403.0,594 437.0,594 454,617 437.0,640 403.0,640" fill="#8E9B9F" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="386,610 403.0,587 437.0,587 454,610 437.0,633 403.0,633" fill="#B7C7CC" stroke="#59717A" stroke-width="1.5" stroke-linejoin="round"/>
+<ellipse cx="420.0" cy="577.0" rx="8.0" ry="5.0" fill="#358465" stroke="none" stroke-width="1"/>
+<text x="420" y="610" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G24</text>
+</g>
+<g id="node-P4-F6" data-node="P4-F6">
+<title>P4-F6 · P4 · 私人终点道</title>
+<polygon points="1106,657 1123.0,634 1157.0,634 1174,657 1157.0,680 1123.0,680" fill="#C6C6C1" stroke="#AC7B19" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1106,650 1123.0,627 1157.0,627 1174,650 1157.0,673 1123.0,673" fill="#FFFEF8" stroke="#AC7B19" stroke-width="2" stroke-linejoin="round"/>
+<text x="1140" y="650" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F6</text>
+<polyline points="1162,632 1162,602" fill="none" stroke="#AC7B19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1162,602 1183,610 1162,616" fill="#AC7B19" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g id="node-G42" data-node="G42">
+<title>G42 · 红魔馆 · ordinary</title>
+<polygon points="2126,697 2143.0,674 2177.0,674 2194,697 2177.0,720 2143.0,720" fill="#A68EA5" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="2126,690 2143.0,667 2177.0,667 2194,690 2177.0,713 2143.0,713" fill="#D5B7D4" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="2160" y="690" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G42</text>
+</g>
+<g id="node-G23" data-node="G23">
+<title>G23 · 香霖堂与魔法森林 · ordinary</title>
+<polygon points="426,727 443.0,704 477.0,704 494,727 477.0,750 443.0,750" fill="#90A283" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="426,720 443.0,697 477.0,697 494,720 477.0,743 443.0,743" fill="#B9D0A9" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="460" y="720" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G23</text>
+</g>
+<g id="node-P3-F1" data-node="P3-F1">
+<title>P3-F1 · P3 · 私人终点道</title>
+<polygon points="566,747 583.0,724 617.0,724 634,747 617.0,770 583.0,770" fill="#C6C6C1" stroke="#358465" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="566,740 583.0,717 617.0,717 634,740 617.0,763 583.0,763" fill="#FFFEF8" stroke="#358465" stroke-width="2" stroke-linejoin="round"/>
+<text x="600" y="740" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F1</text>
+</g>
+<g id="node-P3-F6" data-node="P3-F6">
+<title>P3-F6 · P3 · 私人终点道</title>
+<polygon points="926,757 943.0,734 977.0,734 994,757 977.0,780 943.0,780" fill="#C6C6C1" stroke="#358465" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="926,750 943.0,727 977.0,727 994,750 977.0,773 943.0,773" fill="#FFFEF8" stroke="#358465" stroke-width="2" stroke-linejoin="round"/>
+<text x="960" y="750" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F6</text>
+<polyline points="982,732 982,702" fill="none" stroke="#358465" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="982,702 1003,710 982,716" fill="#358465" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g id="node-G43" data-node="G43">
+<title>G43 · 红魔馆 · mist</title>
+<polygon points="2086,787 2103.0,764 2137.0,764 2154,787 2137.0,810 2103.0,810" fill="#A68EA5" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="2086,780 2103.0,757 2137.0,757 2154,780 2137.0,803 2103.0,803" fill="#D5B7D4" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="2120" y="775" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G43</text>
+<text x="2120" y="792" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">−1</text>
+</g>
+<g id="node-P1-F3" data-node="P1-F3">
+<title>P1-F3 · P1 · 私人终点道</title>
+<polygon points="1666,807 1683.0,784 1717.0,784 1734,807 1717.0,830 1683.0,830" fill="#C6C6C1" stroke="#BA405A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1666,800 1683.0,777 1717.0,777 1734,800 1717.0,823 1683.0,823" fill="#FFFEF8" stroke="#BA405A" stroke-width="2" stroke-linejoin="round"/>
+<text x="1700" y="800" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F3</text>
+</g>
+<g id="node-P1-F4" data-node="P1-F4">
+<title>P1-F4 · P1 · 私人终点道</title>
+<polygon points="1546,807 1563.0,784 1597.0,784 1614,807 1597.0,830 1563.0,830" fill="#C6C6C1" stroke="#BA405A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1546,800 1563.0,777 1597.0,777 1614,800 1597.0,823 1563.0,823" fill="#FFFEF8" stroke="#BA405A" stroke-width="2" stroke-linejoin="round"/>
+<text x="1580" y="800" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F4</text>
+</g>
+<g id="node-P3-F2" data-node="P3-F2">
+<title>P3-F2 · P3 · 私人终点道</title>
+<polygon points="676,807 693.0,784 727.0,784 744,807 727.0,830 693.0,830" fill="#C6C6C1" stroke="#358465" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="676,800 693.0,777 727.0,777 744,800 727.0,823 693.0,823" fill="#FFFEF8" stroke="#358465" stroke-width="2" stroke-linejoin="round"/>
+<text x="710" y="800" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F2</text>
+</g>
+<g id="node-G22" data-node="G22">
+<title>G22 · 香霖堂与魔法森林 · ordinary</title>
+<polygon points="336,817 353.0,794 387.0,794 404,817 387.0,840 353.0,840" fill="#90A283" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="336,810 353.0,787 387.0,787 404,810 387.0,833 353.0,833" fill="#B9D0A9" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="370" y="810" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G22</text>
+</g>
+<g id="node-G44" data-node="G44">
+<title>G44 · 红魔馆 · ordinary</title>
+<polygon points="2166,847 2183.0,824 2217.0,824 2234,847 2217.0,870 2183.0,870" fill="#A68EA5" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="2166,840 2183.0,817 2217.0,817 2234,840 2217.0,863 2183.0,863" fill="#D5B7D4" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="2200" y="840" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G44</text>
+</g>
+<g id="node-P3-F5" data-node="P3-F5">
+<title>P3-F5 · P3 · 私人终点道</title>
+<polygon points="906,867 923.0,844 957.0,844 974,867 957.0,890 923.0,890" fill="#C6C6C1" stroke="#358465" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="906,860 923.0,837 957.0,837 974,860 957.0,883 923.0,883" fill="#FFFEF8" stroke="#358465" stroke-width="2" stroke-linejoin="round"/>
+<text x="940" y="860" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F5</text>
+</g>
+<g id="node-P1-F5" data-node="P1-F5">
+<title>P1-F5 · P1 · 私人终点道</title>
+<polygon points="1436,877 1453.0,854 1487.0,854 1504,877 1487.0,900 1453.0,900" fill="#C6C6C1" stroke="#BA405A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1436,870 1453.0,847 1487.0,847 1504,870 1487.0,893 1453.0,893" fill="#FFFEF8" stroke="#BA405A" stroke-width="2" stroke-linejoin="round"/>
+<text x="1470" y="870" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F5</text>
+</g>
+<g id="node-P1-F2" data-node="P1-F2">
+<title>P1-F2 · P1 · 私人终点道</title>
+<polygon points="1756,887 1773.0,864 1807.0,864 1824,887 1807.0,910 1773.0,910" fill="#C6C6C1" stroke="#BA405A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1756,880 1773.0,857 1807.0,857 1824,880 1807.0,903 1773.0,903" fill="#FFFEF8" stroke="#BA405A" stroke-width="2" stroke-linejoin="round"/>
+<text x="1790" y="880" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F2</text>
+</g>
+<g id="node-P1-F6" data-node="P1-F6">
+<title>P1-F6 · P1 · 私人终点道</title>
+<polygon points="1326,887 1343.0,864 1377.0,864 1394,887 1377.0,910 1343.0,910" fill="#C6C6C1" stroke="#BA405A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1326,880 1343.0,857 1377.0,857 1394,880 1377.0,903 1343.0,903" fill="#FFFEF8" stroke="#BA405A" stroke-width="2" stroke-linejoin="round"/>
+<text x="1360" y="880" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F6</text>
+<polyline points="1382,862 1382,832" fill="none" stroke="#BA405A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1382,832 1403,840 1382,846" fill="#BA405A" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g id="node-P1-F1" data-node="P1-F1">
+<title>P1-F1 · P1 · 私人终点道</title>
+<polygon points="1886,907 1903.0,884 1937.0,884 1954,907 1937.0,930 1903.0,930" fill="#C6C6C1" stroke="#BA405A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1886,900 1903.0,877 1937.0,877 1954,900 1937.0,923 1903.0,923" fill="#FFFEF8" stroke="#BA405A" stroke-width="2" stroke-linejoin="round"/>
+<text x="1920" y="900" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F1</text>
+</g>
+<g id="node-P2-F6" data-node="P2-F6">
+<title>P2-F6 · P2 · 私人终点道</title>
+<polygon points="996,907 1013.0,884 1047.0,884 1064,907 1047.0,930 1013.0,930" fill="#C6C6C1" stroke="#347BAA" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="996,900 1013.0,877 1047.0,877 1064,900 1047.0,923 1013.0,923" fill="#FFFEF8" stroke="#347BAA" stroke-width="2" stroke-linejoin="round"/>
+<text x="1030" y="900" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F6</text>
+<polyline points="1052,882 1052,852" fill="none" stroke="#347BAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1052,852 1073,860 1052,866" fill="#347BAA" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g id="node-P3-F3" data-node="P3-F3">
+<title>P3-F3 · P3 · 私人终点道</title>
+<polygon points="716,917 733.0,894 767.0,894 784,917 767.0,940 733.0,940" fill="#C6C6C1" stroke="#358465" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="716,910 733.0,887 767.0,887 784,910 767.0,933 733.0,933" fill="#FFFEF8" stroke="#358465" stroke-width="2" stroke-linejoin="round"/>
+<text x="750" y="910" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F3</text>
+</g>
+<g id="node-G21" data-node="G21">
+<title>G21 · 香霖堂与魔法森林 · obstacle</title>
+<polygon points="316,927 333.0,904 367.0,904 384,927 367.0,950 333.0,950" fill="#90A283" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="316,920 333.0,897 367.0,897 384,920 367.0,943 333.0,943" fill="#B9D0A9" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="350" y="915" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G21</text>
+<text x="350" y="932" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">−2</text>
+</g>
+<g id="node-P3-F4" data-node="P3-F4">
+<title>P3-F4 · P3 · 私人终点道</title>
+<polygon points="816,937 833.0,914 867.0,914 884,937 867.0,960 833.0,960" fill="#C6C6C1" stroke="#358465" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="816,930 833.0,907 867.0,907 884,930 867.0,953 833.0,953" fill="#FFFEF8" stroke="#358465" stroke-width="2" stroke-linejoin="round"/>
+<text x="850" y="930" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F4</text>
+</g>
+<g id="node-G45" data-node="G45">
+<title>G45 · 红魔馆 · obstacle</title>
+<polygon points="2186,947 2203.0,924 2237.0,924 2254,947 2237.0,970 2203.0,970" fill="#A68EA5" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="2186,940 2203.0,917 2237.0,917 2254,940 2237.0,963 2203.0,963" fill="#D5B7D4" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="2220" y="935" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G45</text>
+<text x="2220" y="952" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">−2</text>
+</g>
+<g id="node-G47" data-node="G47">
+<title>G47 · 红魔馆 · ordinary</title>
+<polygon points="2026,947 2043.0,924 2077.0,924 2094,947 2077.0,970 2043.0,970" fill="#A68EA5" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="2026,940 2043.0,917 2077.0,917 2094,940 2077.0,963 2043.0,963" fill="#D5B7D4" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="2060" y="940" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G47</text>
+</g>
+<g id="node-G20" data-node="G20">
+<title>G20 · 香霖堂与魔法森林 · ordinary</title>
+<polygon points="386,1007 403.0,984 437.0,984 454,1007 437.0,1030 403.0,1030" fill="#90A283" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="386,1000 403.0,977 437.0,977 454,1000 437.0,1023 403.0,1023" fill="#B9D0A9" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="420" y="1000" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G20</text>
+</g>
+<g id="node-P2-F4" data-node="P2-F4">
+<title>P2-F4 · P2 · 私人终点道</title>
+<polygon points="1146,1007 1163.0,984 1197.0,984 1214,1007 1197.0,1030 1163.0,1030" fill="#C6C6C1" stroke="#347BAA" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1146,1000 1163.0,977 1197.0,977 1214,1000 1197.0,1023 1163.0,1023" fill="#FFFEF8" stroke="#347BAA" stroke-width="2" stroke-linejoin="round"/>
+<text x="1180" y="1000" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F4</text>
+</g>
+<g id="node-P2-F5" data-node="P2-F5">
+<title>P2-F5 · P2 · 私人终点道</title>
+<polygon points="1036,1007 1053.0,984 1087.0,984 1104,1007 1087.0,1030 1053.0,1030" fill="#C6C6C1" stroke="#347BAA" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1036,1000 1053.0,977 1087.0,977 1104,1000 1087.0,1023 1053.0,1023" fill="#FFFEF8" stroke="#347BAA" stroke-width="2" stroke-linejoin="round"/>
+<text x="1070" y="1000" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F5</text>
+</g>
+<g id="node-G46" data-node="G46">
+<title>G46 · 红魔馆 · ordinary</title>
+<polygon points="2136,1037 2153.0,1014 2187.0,1014 2204,1037 2187.0,1060 2153.0,1060" fill="#A68EA5" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="2136,1030 2153.0,1007 2187.0,1007 2204,1030 2187.0,1053 2153.0,1053" fill="#D5B7D4" stroke="#805F80" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="2170" y="1030" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G46</text>
+</g>
+<g id="node-G00" data-node="G00">
+<title>G00 · 博丽神社与兽道 · ordinary</title>
+<polygon points="2016,1087 2033.0,1064 2067.0,1064 2084,1087 2067.0,1110 2033.0,1110" fill="#B48D84" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="2016,1080 2033.0,1057 2067.0,1057 2084,1080 2067.0,1103 2033.0,1103" fill="#E7B6AA" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<ellipse cx="2050.0" cy="1047.0" rx="8.0" ry="5.0" fill="#BA405A" stroke="none" stroke-width="1"/>
+<text x="2050" y="1080" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G00</text>
+</g>
+<g id="node-P2-F3" data-node="P2-F3">
+<title>P2-F3 · P2 · 私人终点道</title>
+<polygon points="1226,1087 1243.0,1064 1277.0,1064 1294,1087 1277.0,1110 1243.0,1110" fill="#C6C6C1" stroke="#347BAA" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1226,1080 1243.0,1057 1277.0,1057 1294,1080 1277.0,1103 1243.0,1103" fill="#FFFEF8" stroke="#347BAA" stroke-width="2" stroke-linejoin="round"/>
+<text x="1260" y="1080" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F3</text>
+</g>
+<g id="node-G19" data-node="G19">
+<title>G19 · 香霖堂与魔法森林 · mist</title>
+<polygon points="346,1107 363.0,1084 397.0,1084 414,1107 397.0,1130 363.0,1130" fill="#90A283" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="346,1100 363.0,1077 397.0,1077 414,1100 397.0,1123 363.0,1123" fill="#B9D0A9" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="380" y="1095" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G19</text>
+<text x="380" y="1112" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">−1</text>
+</g>
+<g id="node-G01" data-node="G01">
+<title>G01 · 博丽神社与兽道 · ordinary</title>
+<polygon points="2026,1197 2043.0,1174 2077.0,1174 2094,1197 2077.0,1220 2043.0,1220" fill="#B48D84" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="2026,1190 2043.0,1167 2077.0,1167 2094,1190 2077.0,1213 2043.0,1213" fill="#E7B6AA" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="2060" y="1190" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G01</text>
+</g>
+<g id="node-P2-F2" data-node="P2-F2">
+<title>P2-F2 · P2 · 私人终点道</title>
+<polygon points="1236,1197 1253.0,1174 1287.0,1174 1304,1197 1287.0,1220 1253.0,1220" fill="#C6C6C1" stroke="#347BAA" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1236,1190 1253.0,1167 1287.0,1167 1304,1190 1287.0,1213 1253.0,1213" fill="#FFFEF8" stroke="#347BAA" stroke-width="2" stroke-linejoin="round"/>
+<text x="1270" y="1190" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F2</text>
+</g>
+<g id="node-G18" data-node="G18">
+<title>G18 · 香霖堂与魔法森林 · ordinary</title>
+<polygon points="376,1217 393.0,1194 427.0,1194 444,1217 427.0,1240 393.0,1240" fill="#90A283" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="376,1210 393.0,1187 427.0,1187 444,1210 427.0,1233 393.0,1233" fill="#B9D0A9" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="410" y="1210" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G18</text>
+</g>
+<g id="node-G02" data-node="G02">
+<title>G02 · 博丽神社与兽道 · ordinary</title>
+<polygon points="1926,1247 1943.0,1224 1977.0,1224 1994,1247 1977.0,1270 1943.0,1270" fill="#B48D84" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1926,1240 1943.0,1217 1977.0,1217 1994,1240 1977.0,1263 1943.0,1263" fill="#E7B6AA" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1960" y="1240" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G02</text>
+</g>
+<g id="node-G17" data-node="G17">
+<title>G17 · 香霖堂与魔法森林 · ordinary</title>
+<polygon points="466,1257 483.0,1234 517.0,1234 534,1257 517.0,1280 483.0,1280" fill="#90A283" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="466,1250 483.0,1227 517.0,1227 534,1250 517.0,1273 483.0,1273" fill="#B9D0A9" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="500" y="1250" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G17</text>
+</g>
+<g id="node-P2-F1" data-node="P2-F1">
+<title>P2-F1 · P2 · 私人终点道</title>
+<polygon points="1146,1277 1163.0,1254 1197.0,1254 1214,1277 1197.0,1300 1163.0,1300" fill="#C6C6C1" stroke="#347BAA" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1146,1270 1163.0,1247 1197.0,1247 1214,1270 1197.0,1293 1163.0,1293" fill="#FFFEF8" stroke="#347BAA" stroke-width="2" stroke-linejoin="round"/>
+<text x="1180" y="1270" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">F1</text>
+</g>
+<g id="node-G16" data-node="G16">
+<title>G16 · 香霖堂与魔法森林 · ordinary</title>
+<polygon points="556,1327 573.0,1304 607.0,1304 624,1327 607.0,1350 573.0,1350" fill="#90A283" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="556,1320 573.0,1297 607.0,1297 624,1320 607.0,1343 573.0,1343" fill="#B9D0A9" stroke="#587052" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="590" y="1320" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G16</text>
+</g>
+<g id="node-G03" data-node="G03">
+<title>G03 · 博丽神社与兽道 · wind</title>
+<polygon points="1876,1347 1893.0,1324 1927.0,1324 1944,1347 1927.0,1370 1893.0,1370" fill="#B48D84" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1876,1340 1893.0,1317 1927.0,1317 1944,1340 1927.0,1363 1893.0,1363" fill="#E7B6AA" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1910" y="1335" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G03</text>
+<text x="1910" y="1352" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">+2</text>
+</g>
+<g id="node-G15" data-node="G15">
+<title>G15 · 人类村落 · wind</title>
+<polygon points="666,1347 683.0,1324 717.0,1324 734,1347 717.0,1370 683.0,1370" fill="#B6A781" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="666,1340 683.0,1317 717.0,1317 734,1340 717.0,1363 683.0,1363" fill="#EAD7A6" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="700" y="1335" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G15</text>
+<text x="700" y="1352" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">+2</text>
+</g>
+<g id="node-G07" data-node="G07">
+<title>G07 · 博丽神社与兽道 · mist</title>
+<polygon points="1476,1357 1493.0,1334 1527.0,1334 1544,1357 1527.0,1380 1493.0,1380" fill="#B48D84" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1476,1350 1493.0,1327 1527.0,1327 1544,1350 1527.0,1373 1493.0,1373" fill="#E7B6AA" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1510" y="1345" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G07</text>
+<text x="1510" y="1362" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">−1</text>
+</g>
+<g id="node-G08" data-node="G08">
+<title>G08 · 人类村落 · ordinary</title>
+<polygon points="1366,1357 1383.0,1334 1417.0,1334 1434,1357 1417.0,1380 1383.0,1380" fill="#B6A781" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1366,1350 1383.0,1327 1417.0,1327 1434,1350 1417.0,1373 1383.0,1373" fill="#EAD7A6" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1400" y="1350" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G08</text>
+</g>
+<g id="node-G04" data-node="G04">
+<title>G04 · 博丽神社与兽道 · ordinary</title>
+<polygon points="1766,1377 1783.0,1354 1817.0,1354 1834,1377 1817.0,1400 1783.0,1400" fill="#B48D84" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1766,1370 1783.0,1347 1817.0,1347 1834,1370 1817.0,1393 1783.0,1393" fill="#E7B6AA" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1800" y="1370" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G04</text>
+</g>
+<g id="node-G14" data-node="G14">
+<title>G14 · 人类村落 · ordinary</title>
+<polygon points="776,1377 793.0,1354 827.0,1354 844,1377 827.0,1400 793.0,1400" fill="#B6A781" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="776,1370 793.0,1347 827.0,1347 844,1370 827.0,1393 793.0,1393" fill="#EAD7A6" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="810" y="1370" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G14</text>
+</g>
+<g id="node-G11" data-node="G11">
+<title>G11 · 人类村落 · ordinary</title>
+<polygon points="1086,1397 1103.0,1374 1137.0,1374 1154,1397 1137.0,1420 1103.0,1420" fill="#B6A781" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1086,1390 1103.0,1367 1137.0,1367 1154,1390 1137.0,1413 1103.0,1413" fill="#EAD7A6" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1120" y="1390" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G11</text>
+</g>
+<g id="node-G05" data-node="G05">
+<title>G05 · 博丽神社与兽道 · ordinary</title>
+<polygon points="1666,1437 1683.0,1414 1717.0,1414 1734,1437 1717.0,1460 1683.0,1460" fill="#B48D84" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1666,1430 1683.0,1407 1717.0,1407 1734,1430 1717.0,1453 1683.0,1453" fill="#E7B6AA" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1700" y="1430" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G05</text>
+</g>
+<g id="node-G06" data-node="G06">
+<title>G06 · 博丽神社与兽道 · ordinary</title>
+<polygon points="1556,1437 1573.0,1414 1607.0,1414 1624,1437 1607.0,1460 1573.0,1460" fill="#B48D84" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1556,1430 1573.0,1407 1607.0,1407 1624,1430 1607.0,1453 1573.0,1453" fill="#E7B6AA" stroke="#94605A" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1590" y="1430" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G06</text>
+</g>
+<g id="node-G09" data-node="G09">
+<title>G09 · 人类村落 · obstacle</title>
+<polygon points="1296,1437 1313.0,1414 1347.0,1414 1364,1437 1347.0,1460 1313.0,1460" fill="#B6A781" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1296,1430 1313.0,1407 1347.0,1407 1364,1430 1347.0,1453 1313.0,1453" fill="#EAD7A6" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1330" y="1425" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G09</text>
+<text x="1330" y="1442" fill="#4C5B59" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central">−2</text>
+</g>
+<g id="node-G12" data-node="G12">
+<title>G12 · 人类村落 · ordinary</title>
+<polygon points="976,1437 993.0,1414 1027.0,1414 1044,1437 1027.0,1460 993.0,1460" fill="#B6A781" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="976,1430 993.0,1407 1027.0,1407 1044,1430 1027.0,1453 993.0,1453" fill="#EAD7A6" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<ellipse cx="1010.0" cy="1397.0" rx="8.0" ry="5.0" fill="#347BAA" stroke="none" stroke-width="1"/>
+<text x="1010" y="1430" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G12</text>
+</g>
+<g id="node-G13" data-node="G13">
+<title>G13 · 人类村落 · ordinary</title>
+<polygon points="866,1447 883.0,1424 917.0,1424 934,1447 917.0,1470 883.0,1470" fill="#B6A781" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="866,1440 883.0,1417 917.0,1417 934,1440 917.0,1463 883.0,1463" fill="#EAD7A6" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="900" y="1440" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G13</text>
+</g>
+<g id="node-G10" data-node="G10">
+<title>G10 · 人类村落 · ordinary</title>
+<polygon points="1186,1457 1203.0,1434 1237.0,1434 1254,1457 1237.0,1480 1203.0,1480" fill="#B6A781" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1186,1450 1203.0,1427 1237.0,1427 1254,1450 1237.0,1473 1203.0,1473" fill="#EAD7A6" stroke="#8A7448" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1220" y="1450" fill="#263D43" font-size="14" font-weight="700" text-anchor="middle" dominant-baseline="central">G10</text>
+</g>
+<g id="dock-P1">
+<rect x="2250" y="1070" width="220" height="100" rx="15" fill="#FDFCF6" stroke="#BA405A" stroke-width="2.5"/>
+<text x="2360" y="1095" fill="#BA405A" font-size="21" font-weight="700" text-anchor="middle" dominant-baseline="central">P1 起点</text>
+<ellipse cx="2297.0" cy="1134.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#BA405A" stroke-width="1.2"/>
+<text x="2297" y="1134" fill="#BA405A" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">1</text>
+<ellipse cx="2339.0" cy="1134.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#BA405A" stroke-width="1.2"/>
+<text x="2339" y="1134" fill="#BA405A" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">2</text>
+<ellipse cx="2381.0" cy="1134.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#BA405A" stroke-width="1.2"/>
+<text x="2381" y="1134" fill="#BA405A" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">3</text>
+<ellipse cx="2423.0" cy="1134.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#BA405A" stroke-width="1.2"/>
+<text x="2423" y="1134" fill="#BA405A" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">4</text>
+<polyline points="2250,1120 2103.197044767366,1090.6394089534733" fill="none" stroke="#F7F6F0" stroke-width="8.1" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="2250,1120 2103.197044767366,1090.6394089534733" fill="none" stroke="#BA405A" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="2093.391238010457,1088.6782476020915 2104.275683510626,1085.2462152371734 2102.118406024106,1096.0326026697733" fill="#BA405A" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g id="dock-P2">
+<rect x="900" y="1550" width="220" height="100" rx="15" fill="#FDFCF6" stroke="#347BAA" stroke-width="2.5"/>
+<text x="1010" y="1575" fill="#347BAA" font-size="21" font-weight="700" text-anchor="middle" dominant-baseline="central">P2 起点</text>
+<ellipse cx="947.0" cy="1614.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#347BAA" stroke-width="1.2"/>
+<text x="947" y="1614" fill="#347BAA" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">1</text>
+<ellipse cx="989.0" cy="1614.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#347BAA" stroke-width="1.2"/>
+<text x="989" y="1614" fill="#347BAA" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">2</text>
+<ellipse cx="1031.0" cy="1614.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#347BAA" stroke-width="1.2"/>
+<text x="1031" y="1614" fill="#347BAA" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">3</text>
+<ellipse cx="1073.0" cy="1614.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#347BAA" stroke-width="1.2"/>
+<text x="1073" y="1614" fill="#347BAA" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">4</text>
+<polyline points="1010,1550 1010.0,1474.0" fill="none" stroke="#F7F6F0" stroke-width="8.1" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1010,1550 1010.0,1474.0" fill="none" stroke="#347BAA" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1010.0,1464.0 1015.5,1474.0 1004.5,1474.0" fill="#347BAA" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g id="dock-P3">
+<rect x="60" y="560" width="220" height="100" rx="15" fill="#FDFCF6" stroke="#358465" stroke-width="2.5"/>
+<text x="170" y="585" fill="#358465" font-size="21" font-weight="700" text-anchor="middle" dominant-baseline="central">P3 起点</text>
+<ellipse cx="107.0" cy="624.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#358465" stroke-width="1.2"/>
+<text x="107" y="624" fill="#358465" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">1</text>
+<ellipse cx="149.0" cy="624.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#358465" stroke-width="1.2"/>
+<text x="149" y="624" fill="#358465" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">2</text>
+<ellipse cx="191.0" cy="624.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#358465" stroke-width="1.2"/>
+<text x="191" y="624" fill="#358465" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">3</text>
+<ellipse cx="233.0" cy="624.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#358465" stroke-width="1.2"/>
+<text x="233" y="624" fill="#358465" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">4</text>
+<polyline points="280,610 365.0,610.0" fill="none" stroke="#F7F6F0" stroke-width="8.1" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="280,610 365.0,610.0" fill="none" stroke="#358465" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="375.0,610.0 365.0,615.5 365.0,604.5" fill="#358465" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<g id="dock-P4">
+<rect x="1500" y="220" width="220" height="100" rx="15" fill="#FDFCF6" stroke="#AC7B19" stroke-width="2.5"/>
+<text x="1610" y="245" fill="#AC7B19" font-size="21" font-weight="700" text-anchor="middle" dominant-baseline="central">P4 起点</text>
+<ellipse cx="1547.0" cy="284.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#AC7B19" stroke-width="1.2"/>
+<text x="1547" y="284" fill="#AC7B19" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">1</text>
+<ellipse cx="1589.0" cy="284.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#AC7B19" stroke-width="1.2"/>
+<text x="1589" y="284" fill="#AC7B19" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">2</text>
+<ellipse cx="1631.0" cy="284.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#AC7B19" stroke-width="1.2"/>
+<text x="1631" y="284" fill="#AC7B19" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">3</text>
+<ellipse cx="1673.0" cy="284.0" rx="13.0" ry="13.0" fill="#F7F6F0" stroke="#AC7B19" stroke-width="1.2"/>
+<text x="1673" y="284" fill="#AC7B19" font-size="12" font-weight="400" text-anchor="middle" dominant-baseline="central">4</text>
+<polyline points="1610,320 1610.0,336.0" fill="none" stroke="#F7F6F0" stroke-width="8.1" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="1610,320 1610.0,336.0" fill="none" stroke="#AC7B19" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1610.0,346.0 1604.5,336.0 1615.5,336.0" fill="#AC7B19" stroke="none" stroke-width="1" stroke-linejoin="round"/>
+</g>
+<text x="1870" y="970" fill="#BA405A" font-size="19" font-weight="700" text-anchor="middle" dominant-baseline="central">P1 满圈入口</text>
+<text x="1255" y="1340" fill="#347BAA" font-size="19" font-weight="700" text-anchor="middle" dominant-baseline="central">P2 满圈入口</text>
+<text x="620" y="675" fill="#358465" font-size="19" font-weight="700" text-anchor="middle" dominant-baseline="central">P3 满圈入口</text>
+<text x="1640" y="525" fill="#AC7B19" font-size="19" font-weight="700" text-anchor="middle" dominant-baseline="central">P4 满圈入口</text>
+<text x="1650" y="735" fill="#BA405A" font-size="20" font-weight="700" text-anchor="middle" dominant-baseline="central">P1 终点道</text>
+<text x="1405" y="1090" fill="#347BAA" font-size="20" font-weight="700" text-anchor="middle" dominant-baseline="central">P2 终点道</text>
+<text x="775" y="1020" fill="#358465" font-size="20" font-weight="700" text-anchor="middle" dominant-baseline="central">P3 终点道</text>
+<text x="1410" y="680" fill="#AC7B19" font-size="20" font-weight="700" text-anchor="middle" dominant-baseline="central">P4 终点道</text>
+<text x="660" y="345" fill="#85629F" font-size="20" font-weight="700" text-anchor="middle" dominant-baseline="central">分岔 · 二选一</text>
+<text x="1390" y="510" fill="#85629F" font-size="18" font-weight="700" text-anchor="middle" dominant-baseline="central">合流</text>
+<polyline points="85,1675 2435,1675" fill="none" stroke="#D9DDD6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="85" y="1710" fill="#637479" font-size="20" font-weight="400" text-anchor="start" dominant-baseline="central">沿箭头通行，每条连线计 1 格；相邻不等于相连。</text>
+<text x="2435" y="1710" fill="#637479" font-size="20" font-weight="400" text-anchor="end" dominant-baseline="central">48 主路 · 5 冥界 · 每席 6 终点格</text>
+</svg>

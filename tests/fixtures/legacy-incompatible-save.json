@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "rules": "0.3.0",
+  "game": {
+    "versions": {
+      "rules": "0.3.0",
+      "map": "0.1.0",
+      "protocol": 1,
+      "save": 1
+    }
+  }
+}
