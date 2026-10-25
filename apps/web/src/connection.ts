@@ -12,20 +12,31 @@ export function validateRoomEndpoint(value: string, protocol: string): string {
   return url.href;
 }
 
-export async function waitForRoomServer(endpoint: string, request: typeof fetch = fetch): Promise<void> {
+export async function waitForRoomServer(endpoint: string, request: typeof fetch = fetch, { timeoutMs = 90000, retryMs = 2000 } = {}): Promise<void> {
   const health = new URL(endpoint);
   health.protocol = health.protocol === 'wss:' ? 'https:' : 'http:';
   health.pathname = `${health.pathname.replace(/\/$/, '')}/health`;
   health.search = ''; health.hash = '';
-  let response: Response;
+  const controller = new AbortController();
+  const deadline = Date.now() + timeoutMs;
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  let failure = '房间服务暂时无法连接，请稍后重试';
   try {
-    response = await request(health.href, { signal: AbortSignal.timeout(90000), cache: 'no-store' });
-  } catch {
-    throw new Error('房间服务暂时无法连接，请稍后重试');
-  }
-  if (!response.ok) throw new Error('房间服务暂时不可用，请稍后重试');
-  const status = await response.json();
-  if (!status.ok || status.protocol !== VERSIONS.protocol || status.rules !== VERSIONS.rules) {
-    throw new Error('房间版本不兼容，请刷新页面后重试');
-  }
+    do {
+      let status: { ok?: boolean; protocol?: number; rules?: string } | null = null;
+      try {
+        const response = await request(health.href, { signal: controller.signal, cache: 'no-store' });
+        failure = '房间服务暂时不可用，请稍后重试';
+        // During a cold start, the host can return a temporary error or an HTML loading page.
+        if (response.ok) status = await response.json().catch(() => null);
+      } catch { failure = '房间服务暂时无法连接，请稍后重试'; }
+      if (status?.ok) {
+        if (status.protocol !== VERSIONS.protocol || status.rules !== VERSIONS.rules) throw new Error('房间版本不兼容，请刷新页面后重试');
+        return;
+      }
+      if (Date.now() >= deadline) break;
+      await new Promise(resolve => setTimeout(resolve, Math.min(retryMs, deadline - Date.now())));
+    } while (Date.now() < deadline);
+    throw new Error(failure);
+  } finally { clearTimeout(timer); }
 }

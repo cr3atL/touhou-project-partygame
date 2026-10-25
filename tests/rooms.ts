@@ -17,7 +17,7 @@ const child = process.env.ROOM_SERVER_URL ? null : spawn(process.execPath, ['dis
 let logs = '';
 child?.stdout?.on('data', data => { logs += String(data); });
 child?.stderr?.on('data', data => { logs += String(data); });
-const peers: { room: Room; seat: number; snapshot: RoomSnapshot | null; notices: string[] }[] = [];
+const peers: { room: Room; seat: number; snapshot: RoomSnapshot | null; notices: string[]; closed: boolean }[] = [];
 const pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 async function until(predicate: () => boolean, label: string) {
   const deadline = Date.now() + 15000;
@@ -27,7 +27,9 @@ async function until(predicate: () => boolean, label: string) {
   }
 }
 function attach(room: Room) {
-  const peer = { room, seat: -1, snapshot: null as RoomSnapshot | null, notices: [] as string[] };
+  room.reconnection.enabled = false;
+  const peer = { room, seat: -1, snapshot: null as RoomSnapshot | null, notices: [] as string[], closed: false };
+  room.onLeave(() => { peer.closed = true; });
   room.onMessage('welcome', (data: { seat: number }) => { peer.seat = data.seat; });
   room.onMessage('snapshot', (snapshot: RoomSnapshot) => { peer.snapshot = snapshot; });
   room.onMessage('notice', (notice: string) => peer.notices.push(notice));
@@ -92,6 +94,6 @@ try {
   if (logs.trim()) console.error(logs);
   throw error;
 } finally {
-  await Promise.allSettled(peers.map(p => p.room.leave()));
+  await Promise.allSettled(peers.filter(p => !p.closed).map(p => p.room.leave()));
   if (child && child.exitCode === null) { const exited = once(child, 'exit'); child.kill(); await exited; }
 }

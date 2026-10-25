@@ -18,7 +18,12 @@ describe('公开发布',()=>{
    const request:typeof fetch=async(input,options)=>{expect(input).toBe('https://rooms.example.test/health');expect(options?.signal).toBeInstanceOf(AbortSignal);return Response.json({ok:true,protocol:VERSIONS.protocol,rules:VERSIONS.rules});};
    await expect(waitForRoomServer('wss://rooms.example.test/',request)).resolves.toBeUndefined();
    await expect(waitForRoomServer('wss://rooms.example.test',async()=>Response.json({ok:true,protocol:0,rules:VERSIONS.rules}))).rejects.toThrow(/版本不兼容/);
-   await expect(waitForRoomServer('wss://rooms.example.test',async()=>new Response('',{status:503}))).rejects.toThrow(/暂时不可用/);
-   await expect(waitForRoomServer('wss://rooms.example.test',async()=>{throw new Error('network');})).rejects.toThrow(/暂时无法连接/);
+   await expect(waitForRoomServer('wss://rooms.example.test',async()=>new Response('',{status:503}),{timeoutMs:0})).rejects.toThrow(/暂时不可用/);
+   await expect(waitForRoomServer('wss://rooms.example.test',async()=>{throw new Error('network');},{timeoutMs:0})).rejects.toThrow(/暂时无法连接/);
+ });
+ it('休眠唤醒的临时错误和HTML等待页会重试，不重复创建房间',async()=>{
+   let attempt=0;
+   const request:typeof fetch=async()=>{attempt++;if(attempt===1)return new Response('',{status:503});if(attempt===2)return new Response('<html>Starting</html>');return Response.json({ok:true,protocol:VERSIONS.protocol,rules:VERSIONS.rules});};
+   await waitForRoomServer('wss://rooms.example.test',request,{timeoutMs:1000,retryMs:1});expect(attempt).toBe(3);
  });
 });
