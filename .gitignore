@@ -16,6 +16,7 @@ output/
 reports/
 exports/
 README.md
+!/readme.md
 scripts/compare-bots.ts
 scripts/simulate.ts
 scripts/sync-map.mjs
