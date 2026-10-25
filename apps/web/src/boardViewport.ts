@@ -1,9 +1,13 @@
-import { SIZE, type Point } from './boardModel';
+import { SIZE, PLAY_AREA, type Point } from './boardModel';
 
 export interface Camera { zoom: number; pan: Point }
 export interface Bounds { width: number; height: number }
+export function cameraArea(bounds:Bounds) {
+  return bounds.width<=800 ? PLAY_AREA : {x:0,y:0,width:SIZE.width,height:SIZE.height};
+}
 export function cameraScale(zoom: number, bounds: Bounds) {
-  return Math.min(bounds.width / SIZE.width, bounds.height / SIZE.height) * zoom;
+  const area=cameraArea(bounds);
+  return Math.min(bounds.width / area.width, bounds.height / area.height) * zoom;
 }
 export function limitPan(pan: Point): Point {
   return { x: Math.max(-SIZE.width * .45, Math.min(SIZE.width * .45, pan.x)), y: Math.max(-SIZE.height * .45, Math.min(SIZE.height * .45, pan.y)) };
@@ -15,7 +19,8 @@ export function framePoints(points: Point[], bounds: Bounds): Camera | null {
   const minY = Math.min(...points.map(p => p.y)), maxY = Math.max(...points.map(p => p.y));
   const base = cameraScale(1, bounds);
   const zoom = Math.max(1, Math.min(3, bounds.width * .76 / ((maxX-minX+220)*base), bounds.height * .68 / ((maxY-minY+240)*base)));
-  return { zoom, pan: limitPan({ x:(minX+maxX)/2-SIZE.width/2, y:(minY+maxY)/2-SIZE.height/2-30 }) };
+  const area=cameraArea(bounds);
+  return { zoom, pan: limitPan({ x:(minX+maxX)/2-area.x-area.width/2, y:(minY+maxY)/2-area.y-area.height/2-30 }) };
 }
 /** Keep the same map point under the cursor or pinch midpoint, including letterboxing. */
 export function zoomAt(camera: Camera, bounds: Bounds, point: Point, zoom: number): Camera {

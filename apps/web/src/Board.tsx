@@ -1,10 +1,11 @@
+import { FINISH } from '../../../packages/core/constants';
 import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { publicAsset } from './assets';
 import { CHARACTERS } from '../../../packages/content';
 import { COLORS, NODES, nodeAt } from '../../../packages/core/map';
 import type { Action, GameState, Piece } from '../../../packages/core/types';
-import { SIZE, displayPoint, nodePoint, piecePoint, pieceGroups, eventTravelPoints, type Point } from './boardModel';
-import { cameraScale, framePoints, limitPan, zoomAt, type Camera } from './boardViewport';
+import { SIZE, PLAY_AREA, tilePolygon, displayPoint, nodePoint, piecePoint, pieceGroups, eventTravelPoints, type Point } from './boardModel';
+import { cameraArea, cameraScale, framePoints, limitPan, zoomAt, type Camera } from './boardViewport';
 import { BattleEffects } from './BattleEffects';
 import { SPELL_FLIGHT_MS, spellPieceMotion, spellSequence, type PresentationBeat } from './presentationModel';
 
@@ -35,8 +36,10 @@ export default function Board(props: Props) {
   const cameraTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const cinematic = useRef<{id:number; restore:Camera; cancelled:boolean} | null>(null);
   const dragged = useRef(false);
-  const width = SIZE.width / props.zoom, height = SIZE.height / props.zoom;
-  const left = (SIZE.width-width)/2 + pan.x, top = (SIZE.height-height)/2 + pan.y;
+  const area=cameraArea(bounds), mobile=area===PLAY_AREA;
+  const center={x:area.x+area.width/2,y:area.y+area.height/2};
+  const width = area.width / props.zoom, height = area.height / props.zoom;
+  const left = center.x-width/2 + pan.x, top = center.y-height/2 + pan.y;
   const scale = Math.min(bounds.width/width,bounds.height/height);
   useLayoutEffect(() => {
     const observer = new ResizeObserver(([entry]) => setBounds({width:entry.contentRect.width,height:entry.contentRect.height}));
@@ -119,9 +122,9 @@ export default function Board(props: Props) {
   useEffect(() => {
     if(!props.focusRequest)return;
     takeCamera();
-    const piece=game.pieces.find(p=>p.id===selected) ?? game.pieces.find(p=>p.owner===game.current&&p.progress>=0&&p.progress<53) ?? game.pieces.find(p=>p.owner===game.current)!;
+    const piece=game.pieces.find(p=>p.id===selected) ?? game.pieces.find(p=>p.owner===game.current&&p.progress>=0&&p.progress<FINISH) ?? game.pieces.find(p=>p.owner===game.current)!;
     const at=piecePoint(piece);
-    commit({zoom:Math.max(1.8,props.zoom),pan:limitPan({x:at.x-SIZE.width/2,y:at.y-SIZE.height/2})});
+    commit({zoom:Math.max(1.8,props.zoom),pan:limitPan({x:at.x-center.x,y:at.y-center.y})});
   },[props.focusRequest]);
   useEffect(() => {
     const p=game.pieces.find(p=>p.id===selected);if(!p)return;
@@ -129,8 +132,8 @@ export default function Board(props: Props) {
     const minX=Math.min(...points.map(p=>p.x))-120,maxX=Math.max(...points.map(p=>p.x))+120;
     const minY=Math.min(...points.map(p=>p.y))-120,maxY=Math.max(...points.map(p=>p.y))+120;
     if(minX>=left&&maxX<=left+width&&minY>=top&&maxY<=top+height)return;
-    const fitZoom=Math.max(1,Math.min(props.zoom,SIZE.width/(maxX-minX),SIZE.height/(maxY-minY)));
-    commit({zoom:fitZoom,pan:{x:(minX+maxX)/2-SIZE.width/2,y:(minY+maxY)/2-SIZE.height/2}});
+    const fitZoom=Math.max(1,Math.min(props.zoom,area.width/(maxX-minX),area.height/(maxY-minY)));
+    commit({zoom:fitZoom,pan:{x:(minX+maxX)/2-center.x,y:(minY+maxY)/2-center.y}});
   },[selected]);
   useEffect(() => { setExpanded(null); },[game.revision, game.current]);
   useLayoutEffect(() => {
@@ -139,7 +142,7 @@ export default function Board(props: Props) {
     const oldGroups = pieceGroups(old);
     const paths = game.pieces.flatMap(p => {
       const before = old.pieces.find(q=>q.id===p.id)!;
-      if(nodeAt(before)===nodeAt(p)) return [];
+      if(nodeAt(before)===nodeAt(p)&&!game.events.some(e=>e.id>old.eventId&&e.type==='bounce'&&e.pieces.includes(p.id))) return [];
       const points = eventTravelPoints(old,game,p);
       points[0] = displayPoint(before,oldGroups); points[points.length-1] = displayPoint(p,groups);
       return [{id:p.id,points}];
@@ -219,7 +222,7 @@ export default function Board(props: Props) {
   function token(p:Piece, at:Point, compact=false) {
     const c=CHARACTERS[game.players[p.owner].character], can=eligible.includes(p.id);
     const pick=()=>{const group=groups.get(nodeAt(p))??[];const valid=group.filter(p=>eligible.includes(p.id));props.onPiece(valid.length===1?valid[0].id:p.id);};
-    return <g key={p.id} transform={`translate(${at.x} ${at.y})`} className={`map-token ${can?'can-act':''} ${picked.includes(p.id)||selected===p.id?'picked':''}`} data-piece={p.id}
+    return <g key={p.id} transform={`translate(${at.x} ${at.y}) scale(${(NODES[nodeAt(p)]?.shape&&NODES[nodeAt(p)].shape!=='full'?.78:1)*(mobile?1.25:1)})`} className={`map-token ${can?'can-act':''} ${picked.includes(p.id)||selected===p.id?'picked':''}`} data-piece={p.id}
       role={compact?undefined:'button'} tabIndex={compact?undefined:0} aria-label={compact?undefined:`P${p.owner+1} ${c.short}${p.index+1} ${nodeAt(p)}${can?' 可选':''}`}
       onClick={compact?undefined:e=>{e.stopPropagation();if(!dragged.current) pick();}} onKeyDown={compact?undefined:e=>activate(e,pick)}>
       <g pointerEvents="none"><ellipse className="token-halo" cy="-2" rx="34" ry="23"/>
@@ -233,25 +236,25 @@ export default function Board(props: Props) {
     </g>;
   }
   const compact = new Set([...groups.entries()].filter(([,g])=>g.length>=3).flatMap(([,g])=>g.map(p=>p.id)));
-  return <div className="board-canvas vector-board" ref={host}>
+  return <div className="board-canvas vector-board" ref={host} style={{aspectRatio:`${PLAY_AREA.width}/${PLAY_AREA.height}`}}>
     <svg ref={svg} role="group" aria-label="幻想乡巡游棋盘" className={isDragging?'is-dragging':undefined} viewBox={`${left} ${top} ${width} ${height}`}
       onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerEnd} onPointerCancel={pointerEnd}
       onLostPointerCapture={e=>{if(!e.currentTarget.hasPointerCapture(e.pointerId))finishPointer(e.pointerId);}}>
-      <image href={publicAsset('maps/board.svg')} width={SIZE.width} height={SIZE.height} pointerEvents="none"/>
+      <image href={publicAsset(mobile?'maps/board-mobile.svg':'maps/board.svg')} width={SIZE.width} height={SIZE.height} pointerEvents="none"/>
       {(props.preview?.nodes??[]).map(id=>{const p=nodePoint(id);return p?<ellipse key={id} cx={p.x} cy={p.y} rx="42" ry="30" fill="#e2ae3a24" stroke="#b48224" strokeWidth="3" pointerEvents="none"/>:null;})}
       {[...new Set(destinations)].map(id=>{const p=nodePoint(id);return p?<g key={id} role="button" tabIndex={0} aria-label={`落点 ${id}`} className="map-destination" onClick={e=>{e.stopPropagation();if(!dragged.current)props.onNode(id);}} onKeyDown={e=>activate(e,()=>props.onNode(id))}>
-        <ellipse cx={p.x} cy={p.y} rx="45" ry="33"/><text x={p.x} y={p.y+49} textAnchor="middle">{id.startsWith('done')?'完成':id}</text>
+        {NODES[id]?.shape&&NODES[id].shape!=='full'?<polygon points={tilePolygon(id,mobile?1.35:1)}/>:<ellipse cx={p.x} cy={p.y} rx={mobile?80:58} ry={mobile?52:38}/>}<text x={p.x} y={p.y+49} textAnchor="middle">{id.startsWith('done')?'完成':''}</text>
       </g>:null;})}
-      {game.pieces.filter(p=>(p.progress<53||animated[p.id])&&(!compact.has(p.id)||animated[p.id])).sort((a,b)=>displayPoint(a,groups).y-displayPoint(b,groups).y).map(p=>token(p,animated[p.id]??displayPoint(p,groups)))}
+      {game.pieces.filter(p=>(p.progress<FINISH||animated[p.id])&&(!compact.has(p.id)||animated[p.id])).sort((a,b)=>displayPoint(a,groups).y-displayPoint(b,groups).y).map(p=>token(p,animated[p.id]??displayPoint(p,groups)))}
       {[...groups.entries()].filter(([,g])=>g.length>=3).map(([node,group])=>{const p=nodePoint(node), can=group.some(p=>eligible.includes(p.id)); const reps=[...new Map(group.map(p=>[p.owner,p])).values()].slice(0,3);return <g key={node} role="button" tabIndex={0} aria-label={`${node} 同格 ${group.length} 枚${can?' 可选':''}`} className="token-stack" onClick={e=>{e.stopPropagation();pickGroup(node);}} onKeyDown={e=>activate(e,()=>pickGroup(node))}>
-        <ellipse cx={p.x} cy={p.y} rx="47" ry="28" fill={can?'#f4d37d77':'#f8eddb88'} stroke={can?'#c59a32':'#90867d'} strokeWidth="3"/>
+        <ellipse cx={p.x} cy={p.y} rx="57" ry="28" fill={can?'#f4d37d77':'#f8eddb88'} stroke={can?'#c59a32':'#90867d'} strokeWidth="3"/>
         {reps.map((q,i)=>token(q,{x:p.x+(i-(reps.length-1)/2)*24,y:p.y+(i%2)*6},true))}
         <rect x={p.x+21} y={p.y+2} width="39" height="28" rx="12" fill="#29443f"/><text x={p.x+40} y={p.y+23} textAnchor="middle" fill="white" fontSize="23">{group.length}</text>
       </g>;})}
       {props.effects && props.beat && !props.declaring && <BattleEffects key={props.beat.id} beat={props.beat}/>}
     </svg>
-    {popupAt&&<div className="map-popover" role="dialog" aria-label={props.menu?'选择落点结果':'同格棋子'} style={popupPosition} onPointerDown={e=>e.stopPropagation()}><div className="popover-heading"><strong>{popupNode}</strong><button aria-label="收起地图选择" onClick={()=>{setExpanded(null);props.onCloseMenu();}}>×</button></div>
-      {props.menu ? props.menu.actions.map(a=><button className="map-result" key={a.id} onClick={()=>props.onAction(a)}>{a.detail||a.label}<span>{a.label}</span></button>) : game.players.filter(player=>(groups.get(expanded!)??[]).some(p=>p.owner===player.id)).map(player=><div className="stack-player" key={player.id} style={{borderColor:COLORS[player.id]}}><strong>P{player.id+1} · {player.name}</strong><div>{(groups.get(expanded!)??[]).filter(p=>p.owner===player.id).map(p=><button key={p.id} disabled={!eligible.includes(p.id)} onClick={()=>{setExpanded(null);props.onPiece(p.id);}}><img src={publicAsset(`characters/${player.character}-chibi.svg`)} alt=""/><span>{CHARACTERS[player.character].short} {p.index+1}<small>{[p.shield!==null?'保护':'',p.mark?'幽灵附着':''].filter(Boolean).join(' · ')||''}</small></span></button>)}</div></div>)}
+    {popupAt&&<div className="map-popover" role="dialog" aria-label={props.menu?'选择落点结果':'同格棋子'} style={popupPosition} onPointerDown={e=>e.stopPropagation()}><div className="popover-heading"><strong>选择棋子</strong><button aria-label="收起地图选择" onClick={()=>{setExpanded(null);props.onCloseMenu();}}>×</button></div>
+      {props.menu ? props.menu.actions.map(a=><button className="map-result" key={a.id} onClick={()=>props.onAction(a)}>{a.detail||a.label}</button>) : game.players.filter(player=>(groups.get(expanded!)??[]).some(p=>p.owner===player.id)).map(player=><div className="stack-player" key={player.id} style={{borderColor:COLORS[player.id]}}><strong>P{player.id+1} · {player.name}</strong><div>{(groups.get(expanded!)??[]).filter(p=>p.owner===player.id).map(p=><button key={p.id} disabled={!eligible.includes(p.id)} onClick={()=>{setExpanded(null);props.onPiece(p.id);}}><img src={publicAsset(`characters/${player.character}-chibi.svg`)} alt=""/><span>{CHARACTERS[player.character].short} {p.index+1}<small>{[p.shield!==null?'保护':'',p.mark?'幽灵附着':''].filter(Boolean).join(' · ')||''}</small></span></button>)}</div></div>)}
     </div>}
   </div>;
 }

@@ -1,1403 +1,1431 @@
 {
-  "version": "0.1",
-  "title": "幻想乡巡游",
+  "version": "1.1.0",
   "coordinate_system": {
-    "width": 2520,
-    "height": 1740
+    "width": 3200,
+    "height": 2400
   },
-  "public_nodes": 53,
-  "public_route_length": 48,
-  "finish_length": 6,
-  "main_route": [
-    "G00",
-    "G01",
-    "G02",
-    "G03",
-    "G04",
-    "G05",
-    "G06",
-    "G07",
-    "G08",
-    "G09",
-    "G10",
-    "G11",
-    "G12",
-    "G13",
-    "G14",
-    "G15",
-    "G16",
-    "G17",
-    "G18",
-    "G19",
-    "G20",
-    "G21",
-    "G22",
-    "G23",
-    "G24",
-    "G25",
-    "G26",
-    "G27",
-    "G28",
-    "G29",
-    "G30",
-    "G31",
-    "G32",
-    "G33",
-    "G34",
-    "G35",
-    "G36",
-    "G37",
-    "G38",
-    "G39",
-    "G40",
-    "G41",
-    "G42",
-    "G43",
-    "G44",
-    "G45",
-    "G46",
-    "G47"
-  ],
-  "branch": {
-    "fork": "G28",
-    "merge": "G34",
-    "ground": [
-      "G28",
-      "G29",
-      "G30",
-      "G31",
-      "G32",
-      "G33",
-      "G34"
-    ],
-    "netherworld": [
-      "G28",
-      "R29",
-      "R30",
-      "R31",
-      "R32",
-      "R33",
-      "G34"
-    ],
-    "equal_cost": 6
-  },
-  "seats": [
-    {
-      "id": "P1",
-      "color": "#BD5167",
-      "start": "G00",
-      "entry": "G47",
-      "finish": [
-        "P1-F1",
-        "P1-F2",
-        "P1-F3",
-        "P1-F4",
-        "P1-F5",
-        "P1-F6"
-      ],
-      "pieces": 4
-    },
-    {
-      "id": "P2",
-      "color": "#477DA9",
-      "start": "G12",
-      "entry": "G11",
-      "finish": [
-        "P2-F1",
-        "P2-F2",
-        "P2-F3",
-        "P2-F4",
-        "P2-F5",
-        "P2-F6"
-      ],
-      "pieces": 4
-    },
-    {
-      "id": "P3",
-      "color": "#418266",
-      "start": "G24",
-      "entry": "G23",
-      "finish": [
-        "P3-F1",
-        "P3-F2",
-        "P3-F3",
-        "P3-F4",
-        "P3-F5",
-        "P3-F6"
-      ],
-      "pieces": 4
-    },
-    {
-      "id": "P4",
-      "color": "#B28A32",
-      "start": "G36",
-      "entry": "G35",
-      "finish": [
-        "P4-F1",
-        "P4-F2",
-        "P4-F3",
-        "P4-F4",
-        "P4-F5",
-        "P4-F6"
-      ],
-      "pieces": 4
-    }
-  ],
   "nodes": [
     {
       "id": "G00",
-      "layer": "ground",
-      "region": "博丽神社与兽道",
-      "route_index": 0,
-      "terrain": "ordinary",
-      "x": 2050,
-      "y": 1080
+      "x": 2110.75,
+      "y": 377.25,
+      "tileX": 2134,
+      "tileY": 368,
+      "color": 3,
+      "layer": "public",
+      "shape": "backB",
+      "polygon": "2165,405 2103,405 2072,368 2103,331",
+      "route_index": 0
     },
     {
       "id": "G01",
-      "layer": "ground",
-      "region": "博丽神社与兽道",
-      "route_index": 1,
-      "terrain": "ordinary",
-      "x": 2060,
-      "y": 1190
+      "x": 2134,
+      "y": 504,
+      "tileX": 2134,
+      "tileY": 504,
+      "color": 0,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2072,504 2103,467 2165,467 2196,504 2165,541 2103,541",
+      "route_index": 1
     },
     {
       "id": "G02",
-      "layer": "ground",
-      "region": "博丽神社与兽道",
-      "route_index": 2,
-      "terrain": "ordinary",
-      "x": 1960,
-      "y": 1240
+      "x": 2134,
+      "y": 639,
+      "tileX": 2134,
+      "tileY": 639,
+      "color": 1,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2072,639 2103,602 2165,602 2196,639 2165,676 2103,676",
+      "route_index": 2
     },
     {
       "id": "G03",
-      "layer": "ground",
-      "region": "博丽神社与兽道",
-      "route_index": 3,
-      "terrain": "wind",
-      "x": 1910,
-      "y": 1340
+      "x": 2110.75,
+      "y": 764.75,
+      "tileX": 2134,
+      "tileY": 774,
+      "color": 2,
+      "layer": "public",
+      "shape": "slashA",
+      "polygon": "2165,737 2103,811 2072,774 2103,737",
+      "route_index": 3
     },
     {
       "id": "G04",
-      "layer": "ground",
-      "region": "博丽神社与兽道",
-      "route_index": 4,
-      "terrain": "ordinary",
-      "x": 1800,
-      "y": 1370
+      "x": 2157.25,
+      "y": 783.25,
+      "tileX": 2134,
+      "tileY": 774,
+      "color": 3,
+      "layer": "public",
+      "shape": "slashB",
+      "polygon": "2103,811 2165,737 2196,774 2165,811",
+      "route_index": 4
     },
     {
       "id": "G05",
-      "layer": "ground",
-      "region": "博丽神社与兽道",
-      "route_index": 5,
-      "terrain": "ordinary",
-      "x": 1700,
-      "y": 1430
+      "x": 2312,
+      "y": 774,
+      "tileX": 2312,
+      "tileY": 774,
+      "color": 0,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2250,774 2281,737 2343,737 2374,774 2343,811 2281,811",
+      "route_index": 5
     },
     {
       "id": "G06",
-      "layer": "ground",
-      "region": "博丽神社与兽道",
-      "route_index": 6,
-      "terrain": "ordinary",
-      "x": 1590,
-      "y": 1430
+      "x": 2490,
+      "y": 774,
+      "tileX": 2490,
+      "tileY": 774,
+      "color": 1,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2428,774 2459,737 2521,737 2552,774 2521,811 2459,811",
+      "route_index": 6
     },
     {
       "id": "G07",
-      "layer": "ground",
-      "region": "博丽神社与兽道",
-      "route_index": 7,
-      "terrain": "mist",
-      "x": 1510,
-      "y": 1350
+      "x": 2644.75,
+      "y": 783.25,
+      "tileX": 2668,
+      "tileY": 774,
+      "color": 2,
+      "layer": "public",
+      "shape": "backB",
+      "polygon": "2699,811 2637,811 2606,774 2637,737",
+      "route_index": 7
     },
     {
       "id": "G08",
-      "layer": "ground",
-      "region": "人类村落",
-      "route_index": 8,
-      "terrain": "ordinary",
-      "x": 1400,
-      "y": 1350
+      "x": 2668,
+      "y": 909,
+      "tileX": 2668,
+      "tileY": 909,
+      "color": 3,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2606,909 2637,872 2699,872 2730,909 2699,946 2637,946",
+      "route_index": 8
     },
     {
       "id": "G09",
-      "layer": "ground",
-      "region": "人类村落",
-      "route_index": 9,
-      "terrain": "obstacle",
-      "x": 1330,
-      "y": 1430
+      "x": 2668,
+      "y": 1045,
+      "tileX": 2668,
+      "tileY": 1045,
+      "color": 0,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2606,1045 2637,1008 2699,1008 2730,1045 2699,1082 2637,1082",
+      "route_index": 9
     },
     {
       "id": "G10",
-      "layer": "ground",
-      "region": "人类村落",
-      "route_index": 10,
-      "terrain": "ordinary",
-      "x": 1220,
-      "y": 1450
+      "x": 2668,
+      "y": 1180,
+      "tileX": 2668,
+      "tileY": 1180,
+      "color": 1,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2606,1180 2637,1143 2699,1143 2730,1180 2699,1217 2637,1217",
+      "route_index": 10
     },
     {
       "id": "G11",
-      "layer": "ground",
-      "region": "人类村落",
-      "route_index": 11,
-      "terrain": "ordinary",
-      "x": 1120,
-      "y": 1390
+      "x": 2668,
+      "y": 1315,
+      "tileX": 2668,
+      "tileY": 1315,
+      "color": 2,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2606,1315 2637,1278 2699,1278 2730,1315 2699,1352 2637,1352",
+      "route_index": 11
     },
     {
       "id": "G12",
-      "layer": "ground",
-      "region": "人类村落",
-      "route_index": 12,
-      "terrain": "ordinary",
-      "x": 1010,
-      "y": 1430
+      "x": 2668,
+      "y": 1451,
+      "tileX": 2668,
+      "tileY": 1451,
+      "color": 3,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2606,1451 2637,1414 2699,1414 2730,1451 2699,1488 2637,1488",
+      "route_index": 12
     },
     {
       "id": "G13",
-      "layer": "ground",
-      "region": "人类村落",
-      "route_index": 13,
-      "terrain": "ordinary",
-      "x": 900,
-      "y": 1440
+      "x": 2644.75,
+      "y": 1576.75,
+      "tileX": 2668,
+      "tileY": 1586,
+      "color": 0,
+      "layer": "public",
+      "shape": "slashA",
+      "polygon": "2699,1549 2637,1623 2606,1586 2637,1549",
+      "route_index": 13
     },
     {
       "id": "G14",
-      "layer": "ground",
-      "region": "人类村落",
-      "route_index": 14,
-      "terrain": "ordinary",
-      "x": 810,
-      "y": 1370
+      "x": 2490,
+      "y": 1586,
+      "tileX": 2490,
+      "tileY": 1586,
+      "color": 1,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2428,1586 2459,1549 2521,1549 2552,1586 2521,1623 2459,1623",
+      "route_index": 14
     },
     {
       "id": "G15",
-      "layer": "ground",
-      "region": "人类村落",
-      "route_index": 15,
-      "terrain": "wind",
-      "x": 700,
-      "y": 1340
+      "x": 2312,
+      "y": 1586,
+      "tileX": 2312,
+      "tileY": 1586,
+      "color": 2,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2250,1586 2281,1549 2343,1549 2374,1586 2343,1623 2281,1623",
+      "route_index": 15
     },
     {
       "id": "G16",
-      "layer": "ground",
-      "region": "香霖堂与魔法森林",
-      "route_index": 16,
-      "terrain": "ordinary",
-      "x": 590,
-      "y": 1320
+      "x": 2157.25,
+      "y": 1576.75,
+      "tileX": 2134,
+      "tileY": 1586,
+      "color": 3,
+      "layer": "public",
+      "shape": "backA",
+      "polygon": "2103,1549 2165,1549 2196,1586 2165,1623",
+      "route_index": 16
     },
     {
       "id": "G17",
-      "layer": "ground",
-      "region": "香霖堂与魔法森林",
-      "route_index": 17,
-      "terrain": "ordinary",
-      "x": 500,
-      "y": 1250
+      "x": 2110.75,
+      "y": 1595.25,
+      "tileX": 2134,
+      "tileY": 1586,
+      "color": 0,
+      "layer": "public",
+      "shape": "backB",
+      "polygon": "2165,1623 2103,1623 2072,1586 2103,1549",
+      "route_index": 17
     },
     {
       "id": "G18",
-      "layer": "ground",
-      "region": "香霖堂与魔法森林",
-      "route_index": 18,
-      "terrain": "ordinary",
-      "x": 410,
-      "y": 1210
+      "x": 2134,
+      "y": 1721,
+      "tileX": 2134,
+      "tileY": 1721,
+      "color": 1,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2072,1721 2103,1684 2165,1684 2196,1721 2165,1758 2103,1758",
+      "route_index": 18
     },
     {
       "id": "G19",
-      "layer": "ground",
-      "region": "香霖堂与魔法森林",
-      "route_index": 19,
-      "terrain": "mist",
-      "x": 380,
-      "y": 1100
+      "x": 2134,
+      "y": 1856,
+      "tileX": 2134,
+      "tileY": 1856,
+      "color": 2,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "2072,1856 2103,1819 2165,1819 2196,1856 2165,1893 2103,1893",
+      "route_index": 19
     },
     {
       "id": "G20",
-      "layer": "ground",
-      "region": "香霖堂与魔法森林",
-      "route_index": 20,
-      "terrain": "ordinary",
-      "x": 420,
-      "y": 1000
+      "x": 2110.75,
+      "y": 1982.75,
+      "tileX": 2134,
+      "tileY": 1992,
+      "color": 3,
+      "layer": "public",
+      "shape": "slashA",
+      "polygon": "2165,1955 2103,2029 2072,1992 2103,1955",
+      "route_index": 20
     },
     {
       "id": "G21",
-      "layer": "ground",
-      "region": "香霖堂与魔法森林",
-      "route_index": 21,
-      "terrain": "obstacle",
-      "x": 350,
-      "y": 920
+      "x": 1956,
+      "y": 1992,
+      "tileX": 1956,
+      "tileY": 1992,
+      "color": 0,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1894,1992 1925,1955 1987,1955 2018,1992 1987,2029 1925,2029",
+      "route_index": 21
     },
     {
       "id": "G22",
-      "layer": "ground",
-      "region": "香霖堂与魔法森林",
-      "route_index": 22,
-      "terrain": "ordinary",
-      "x": 370,
-      "y": 810
+      "x": 1778,
+      "y": 1992,
+      "tileX": 1778,
+      "tileY": 1992,
+      "color": 1,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1716,1992 1747,1955 1809,1955 1840,1992 1809,2029 1747,2029",
+      "route_index": 22
     },
     {
       "id": "G23",
-      "layer": "ground",
-      "region": "香霖堂与魔法森林",
-      "route_index": 23,
-      "terrain": "ordinary",
-      "x": 460,
-      "y": 720
+      "x": 1600,
+      "y": 1992,
+      "tileX": 1600,
+      "tileY": 1992,
+      "color": 2,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1538,1992 1569,1955 1631,1955 1662,1992 1631,2029 1569,2029",
+      "route_index": 23
     },
     {
       "id": "G24",
-      "layer": "ground",
-      "region": "妖怪之山山麓",
-      "route_index": 24,
-      "terrain": "ordinary",
-      "x": 420,
-      "y": 610
+      "x": 1422,
+      "y": 1992,
+      "tileX": 1422,
+      "tileY": 1992,
+      "color": 3,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1360,1992 1391,1955 1453,1955 1484,1992 1453,2029 1391,2029",
+      "route_index": 24
     },
     {
       "id": "G25",
-      "layer": "ground",
-      "region": "妖怪之山山麓",
-      "route_index": 25,
-      "terrain": "ordinary",
-      "x": 470,
-      "y": 510
+      "x": 1244,
+      "y": 1992,
+      "tileX": 1244,
+      "tileY": 1992,
+      "color": 0,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1182,1992 1213,1955 1275,1955 1306,1992 1275,2029 1213,2029",
+      "route_index": 25
     },
     {
       "id": "G26",
-      "layer": "ground",
-      "region": "妖怪之山山麓",
-      "route_index": 26,
-      "terrain": "ordinary",
-      "x": 590,
-      "y": 500
+      "x": 1089.25,
+      "y": 1982.75,
+      "tileX": 1066,
+      "tileY": 1992,
+      "color": 1,
+      "layer": "public",
+      "shape": "backA",
+      "polygon": "1035,1955 1097,1955 1128,1992 1097,2029",
+      "route_index": 26
     },
     {
       "id": "G27",
-      "layer": "ground",
-      "region": "妖怪之山山麓",
-      "route_index": 27,
-      "terrain": "wind",
-      "x": 670,
-      "y": 420
+      "x": 1066,
+      "y": 1856,
+      "tileX": 1066,
+      "tileY": 1856,
+      "color": 2,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1004,1856 1035,1819 1097,1819 1128,1856 1097,1893 1035,1893",
+      "route_index": 27
     },
     {
       "id": "G28",
-      "layer": "ground",
-      "region": "妖怪之山山麓",
-      "route_index": 28,
-      "terrain": "ordinary",
-      "x": 780,
-      "y": 410
+      "x": 1066,
+      "y": 1721,
+      "tileX": 1066,
+      "tileY": 1721,
+      "color": 3,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1004,1721 1035,1684 1097,1684 1128,1721 1097,1758 1035,1758",
+      "route_index": 28
     },
     {
       "id": "G29",
-      "layer": "ground",
-      "region": "妖怪之山山麓",
-      "route_index": 29,
-      "terrain": "ordinary",
-      "x": 890,
-      "y": 460
+      "x": 1089.25,
+      "y": 1595.25,
+      "tileX": 1066,
+      "tileY": 1586,
+      "color": 0,
+      "layer": "public",
+      "shape": "slashB",
+      "polygon": "1035,1623 1097,1549 1128,1586 1097,1623",
+      "route_index": 29
     },
     {
       "id": "G30",
-      "layer": "ground",
-      "region": "妖怪之山山麓",
-      "route_index": 30,
-      "terrain": "ordinary",
-      "x": 1000,
-      "y": 450
+      "x": 1042.75,
+      "y": 1576.75,
+      "tileX": 1066,
+      "tileY": 1586,
+      "color": 1,
+      "layer": "public",
+      "shape": "slashA",
+      "polygon": "1097,1549 1035,1623 1004,1586 1035,1549",
+      "route_index": 30
     },
     {
       "id": "G31",
-      "layer": "ground",
-      "region": "妖怪之山山麓",
-      "route_index": 31,
-      "terrain": "mist",
-      "x": 1080,
-      "y": 390
+      "x": 888,
+      "y": 1586,
+      "tileX": 888,
+      "tileY": 1586,
+      "color": 2,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "826,1586 857,1549 919,1549 950,1586 919,1623 857,1623",
+      "route_index": 31
     },
     {
       "id": "G32",
-      "layer": "ground",
-      "region": "雾之湖",
-      "route_index": 32,
-      "terrain": "ordinary",
-      "x": 1200,
-      "y": 380
+      "x": 710,
+      "y": 1586,
+      "tileX": 710,
+      "tileY": 1586,
+      "color": 3,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "648,1586 679,1549 741,1549 772,1586 741,1623 679,1623",
+      "route_index": 32
     },
     {
       "id": "G33",
-      "layer": "ground",
-      "region": "雾之湖",
-      "route_index": 33,
-      "terrain": "obstacle",
-      "x": 1310,
-      "y": 400
+      "x": 555.25,
+      "y": 1576.75,
+      "tileX": 532,
+      "tileY": 1586,
+      "color": 0,
+      "layer": "public",
+      "shape": "backA",
+      "polygon": "501,1549 563,1549 594,1586 563,1623",
+      "route_index": 33
     },
     {
       "id": "G34",
-      "layer": "ground",
-      "region": "雾之湖",
-      "route_index": 34,
-      "terrain": "ordinary",
-      "x": 1410,
-      "y": 460
+      "x": 532,
+      "y": 1451,
+      "tileX": 532,
+      "tileY": 1451,
+      "color": 1,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "470,1451 501,1414 563,1414 594,1451 563,1488 501,1488",
+      "route_index": 34
     },
     {
       "id": "G35",
-      "layer": "ground",
-      "region": "雾之湖",
-      "route_index": 35,
-      "terrain": "ordinary",
-      "x": 1500,
-      "y": 400
+      "x": 532,
+      "y": 1315,
+      "tileX": 532,
+      "tileY": 1315,
+      "color": 2,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "470,1315 501,1278 563,1278 594,1315 563,1352 501,1352",
+      "route_index": 35
     },
     {
       "id": "G36",
-      "layer": "ground",
-      "region": "雾之湖",
-      "route_index": 36,
-      "terrain": "ordinary",
-      "x": 1610,
-      "y": 380
+      "x": 532,
+      "y": 1180,
+      "tileX": 532,
+      "tileY": 1180,
+      "color": 3,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "470,1180 501,1143 563,1143 594,1180 563,1217 501,1217",
+      "route_index": 36
     },
     {
       "id": "G37",
-      "layer": "ground",
-      "region": "雾之湖",
-      "route_index": 37,
-      "terrain": "ordinary",
-      "x": 1720,
-      "y": 400
+      "x": 532,
+      "y": 1045,
+      "tileX": 532,
+      "tileY": 1045,
+      "color": 0,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "470,1045 501,1008 563,1008 594,1045 563,1082 501,1082",
+      "route_index": 37
     },
     {
       "id": "G38",
-      "layer": "ground",
-      "region": "雾之湖",
-      "route_index": 38,
-      "terrain": "ordinary",
-      "x": 1800,
-      "y": 480
+      "x": 532,
+      "y": 909,
+      "tileX": 532,
+      "tileY": 909,
+      "color": 1,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "470,909 501,872 563,872 594,909 563,946 501,946",
+      "route_index": 38
     },
     {
       "id": "G39",
-      "layer": "ground",
-      "region": "雾之湖",
-      "route_index": 39,
-      "terrain": "wind",
-      "x": 1910,
-      "y": 500
+      "x": 555.25,
+      "y": 783.25,
+      "tileX": 532,
+      "tileY": 774,
+      "color": 2,
+      "layer": "public",
+      "shape": "slashB",
+      "polygon": "501,811 563,737 594,774 563,811",
+      "route_index": 39
     },
     {
       "id": "G40",
-      "layer": "ground",
-      "region": "红魔馆",
-      "route_index": 40,
-      "terrain": "ordinary",
-      "x": 2020,
-      "y": 520
+      "x": 710,
+      "y": 774,
+      "tileX": 710,
+      "tileY": 774,
+      "color": 3,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "648,774 679,737 741,737 772,774 741,811 679,811",
+      "route_index": 40
     },
     {
       "id": "G41",
-      "layer": "ground",
-      "region": "红魔馆",
-      "route_index": 41,
-      "terrain": "ordinary",
-      "x": 2110,
-      "y": 590
+      "x": 888,
+      "y": 774,
+      "tileX": 888,
+      "tileY": 774,
+      "color": 0,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "826,774 857,737 919,737 950,774 919,811 857,811",
+      "route_index": 41
     },
     {
       "id": "G42",
-      "layer": "ground",
-      "region": "红魔馆",
-      "route_index": 42,
-      "terrain": "ordinary",
-      "x": 2160,
-      "y": 690
+      "x": 1042.75,
+      "y": 783.25,
+      "tileX": 1066,
+      "tileY": 774,
+      "color": 1,
+      "layer": "public",
+      "shape": "backB",
+      "polygon": "1097,811 1035,811 1004,774 1035,737",
+      "route_index": 42
     },
     {
       "id": "G43",
-      "layer": "ground",
-      "region": "红魔馆",
-      "route_index": 43,
-      "terrain": "mist",
-      "x": 2120,
-      "y": 780
+      "x": 1089.25,
+      "y": 764.75,
+      "tileX": 1066,
+      "tileY": 774,
+      "color": 2,
+      "layer": "public",
+      "shape": "backA",
+      "polygon": "1035,737 1097,737 1128,774 1097,811",
+      "route_index": 43
     },
     {
       "id": "G44",
-      "layer": "ground",
-      "region": "红魔馆",
-      "route_index": 44,
-      "terrain": "ordinary",
-      "x": 2200,
-      "y": 840
+      "x": 1066,
+      "y": 639,
+      "tileX": 1066,
+      "tileY": 639,
+      "color": 3,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1004,639 1035,602 1097,602 1128,639 1097,676 1035,676",
+      "route_index": 44
     },
     {
       "id": "G45",
-      "layer": "ground",
-      "region": "红魔馆",
-      "route_index": 45,
-      "terrain": "obstacle",
-      "x": 2220,
-      "y": 940
+      "x": 1066,
+      "y": 504,
+      "tileX": 1066,
+      "tileY": 504,
+      "color": 0,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1004,504 1035,467 1097,467 1128,504 1097,541 1035,541",
+      "route_index": 45
     },
     {
       "id": "G46",
-      "layer": "ground",
-      "region": "红魔馆",
-      "route_index": 46,
-      "terrain": "ordinary",
-      "x": 2170,
-      "y": 1030
+      "x": 1089.25,
+      "y": 377.25,
+      "tileX": 1066,
+      "tileY": 368,
+      "color": 1,
+      "layer": "public",
+      "shape": "slashB",
+      "polygon": "1035,405 1097,331 1128,368 1097,405",
+      "route_index": 46
     },
     {
       "id": "G47",
-      "layer": "ground",
-      "region": "红魔馆",
-      "route_index": 47,
-      "terrain": "ordinary",
-      "x": 2060,
-      "y": 940
+      "x": 1244,
+      "y": 368,
+      "tileX": 1244,
+      "tileY": 368,
+      "color": 2,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1182,368 1213,331 1275,331 1306,368 1275,405 1213,405",
+      "route_index": 47
     },
     {
-      "id": "R29",
-      "layer": "netherworld",
-      "region": "冥界",
-      "name": "幽明结界",
-      "route_index": 29,
-      "terrain": "ordinary",
-      "x": 780,
-      "y": 180
+      "id": "G48",
+      "x": 1422,
+      "y": 368,
+      "tileX": 1422,
+      "tileY": 368,
+      "color": 3,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1360,368 1391,331 1453,331 1484,368 1453,405 1391,405",
+      "route_index": 48
     },
     {
-      "id": "R30",
-      "layer": "netherworld",
-      "region": "冥界",
-      "name": "白玉楼阶梯",
-      "route_index": 30,
-      "terrain": "ordinary",
-      "x": 900,
-      "y": 180
+      "id": "G49",
+      "x": 1600,
+      "y": 368,
+      "tileX": 1600,
+      "tileY": 368,
+      "color": 0,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1538,368 1569,331 1631,331 1662,368 1631,405 1569,405",
+      "route_index": 49
     },
     {
-      "id": "R31",
-      "layer": "netherworld",
-      "region": "冥界",
-      "name": "樱庭蝶雾",
-      "route_index": 31,
-      "terrain": "mist",
-      "x": 1020,
-      "y": 180
+      "id": "G50",
+      "x": 1778,
+      "y": 368,
+      "tileX": 1778,
+      "tileY": 368,
+      "color": 1,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1716,368 1747,331 1809,331 1840,368 1809,405 1747,405",
+      "route_index": 50
     },
     {
-      "id": "R32",
-      "layer": "netherworld",
-      "region": "冥界",
-      "name": "白玉楼门前",
-      "route_index": 32,
-      "terrain": "ordinary",
-      "x": 1140,
-      "y": 180
-    },
-    {
-      "id": "R33",
-      "layer": "netherworld",
-      "region": "冥界",
-      "name": "归途界门",
-      "route_index": 33,
-      "terrain": "obstacle",
-      "x": 1260,
-      "y": 180
+      "id": "G51",
+      "x": 1956,
+      "y": 368,
+      "tileX": 1956,
+      "tileY": 368,
+      "color": 2,
+      "layer": "public",
+      "shape": "full",
+      "polygon": "1894,368 1925,331 1987,331 2018,368 1987,405 1925,405",
+      "route_index": 51
     },
     {
       "id": "P1-F1",
+      "x": 1600,
+      "y": 490,
+      "tileX": 1600,
+      "tileY": 490,
+      "color": 0,
       "layer": "finish",
-      "owner": "P1",
-      "finish_index": 1,
-      "x": 1920,
-      "y": 900
+      "shape": "full",
+      "polygon": "1538,490 1569,453 1631,453 1662,490 1631,527 1569,527"
     },
     {
       "id": "P1-F2",
+      "x": 1600,
+      "y": 612,
+      "tileX": 1600,
+      "tileY": 612,
+      "color": 0,
       "layer": "finish",
-      "owner": "P1",
-      "finish_index": 2,
-      "x": 1790,
-      "y": 880
+      "shape": "full",
+      "polygon": "1538,612 1569,575 1631,575 1662,612 1631,649 1569,649"
     },
     {
       "id": "P1-F3",
+      "x": 1600,
+      "y": 774,
+      "tileX": 1600,
+      "tileY": 774,
+      "color": 0,
       "layer": "finish",
-      "owner": "P1",
-      "finish_index": 3,
-      "x": 1700,
-      "y": 800
+      "shape": "full",
+      "polygon": "1538,774 1569,737 1631,737 1662,774 1631,811 1569,811"
     },
     {
       "id": "P1-F4",
+      "x": 1600,
+      "y": 869,
+      "tileX": 1600,
+      "tileY": 869,
+      "color": 0,
       "layer": "finish",
-      "owner": "P1",
-      "finish_index": 4,
-      "x": 1580,
-      "y": 800
+      "shape": "full",
+      "polygon": "1538,869 1569,832 1631,832 1662,869 1631,906 1569,906"
     },
     {
       "id": "P1-F5",
+      "x": 1600,
+      "y": 977,
+      "tileX": 1600,
+      "tileY": 977,
+      "color": 0,
       "layer": "finish",
-      "owner": "P1",
-      "finish_index": 5,
-      "x": 1470,
-      "y": 870
+      "shape": "full",
+      "polygon": "1538,977 1569,940 1631,940 1662,977 1631,1014 1569,1014"
     },
     {
       "id": "P1-F6",
+      "x": 1600,
+      "y": 1085,
+      "tileX": 1600,
+      "tileY": 1085,
+      "color": 0,
       "layer": "finish",
-      "owner": "P1",
-      "finish_index": 6,
-      "x": 1360,
-      "y": 880
+      "shape": "full",
+      "polygon": "1538,1085 1569,1048 1631,1048 1662,1085 1631,1122 1569,1122"
+    },
+    {
+      "id": "launch-0",
+      "x": 2312,
+      "y": 301,
+      "tileX": 2312,
+      "tileY": 301,
+      "color": 0,
+      "layer": "launch",
+      "shape": "full",
+      "polygon": "2250,301 2281,264 2343,264 2374,301 2343,338 2281,338"
     },
     {
       "id": "P2-F1",
+      "x": 2508,
+      "y": 1180,
+      "tileX": 2508,
+      "tileY": 1180,
+      "color": 1,
       "layer": "finish",
-      "owner": "P2",
-      "finish_index": 1,
-      "x": 1180,
-      "y": 1270
+      "shape": "full",
+      "polygon": "2446,1180 2477,1143 2539,1143 2570,1180 2539,1217 2477,1217"
     },
     {
       "id": "P2-F2",
+      "x": 2348,
+      "y": 1180,
+      "tileX": 2348,
+      "tileY": 1180,
+      "color": 1,
       "layer": "finish",
-      "owner": "P2",
-      "finish_index": 2,
-      "x": 1270,
-      "y": 1190
+      "shape": "full",
+      "polygon": "2286,1180 2317,1143 2379,1143 2410,1180 2379,1217 2317,1217"
     },
     {
       "id": "P2-F3",
+      "x": 2134,
+      "y": 1180,
+      "tileX": 2134,
+      "tileY": 1180,
+      "color": 1,
       "layer": "finish",
-      "owner": "P2",
-      "finish_index": 3,
-      "x": 1260,
-      "y": 1080
+      "shape": "full",
+      "polygon": "2072,1180 2103,1143 2165,1143 2196,1180 2165,1217 2103,1217"
     },
     {
       "id": "P2-F4",
+      "x": 2009,
+      "y": 1180,
+      "tileX": 2009,
+      "tileY": 1180,
+      "color": 1,
       "layer": "finish",
-      "owner": "P2",
-      "finish_index": 4,
-      "x": 1180,
-      "y": 1000
+      "shape": "full",
+      "polygon": "1947,1180 1978,1143 2040,1143 2071,1180 2040,1217 1978,1217"
     },
     {
       "id": "P2-F5",
+      "x": 1867,
+      "y": 1180,
+      "tileX": 1867,
+      "tileY": 1180,
+      "color": 1,
       "layer": "finish",
-      "owner": "P2",
-      "finish_index": 5,
-      "x": 1070,
-      "y": 1000
+      "shape": "full",
+      "polygon": "1805,1180 1836,1143 1898,1143 1929,1180 1898,1217 1836,1217"
     },
     {
       "id": "P2-F6",
+      "x": 1725,
+      "y": 1180,
+      "tileX": 1725,
+      "tileY": 1180,
+      "color": 1,
       "layer": "finish",
-      "owner": "P2",
-      "finish_index": 6,
-      "x": 1030,
-      "y": 900
+      "shape": "full",
+      "polygon": "1663,1180 1694,1143 1756,1143 1787,1180 1756,1217 1694,1217"
+    },
+    {
+      "id": "launch-1",
+      "x": 2757,
+      "y": 1721,
+      "tileX": 2757,
+      "tileY": 1721,
+      "color": 1,
+      "layer": "launch",
+      "shape": "full",
+      "polygon": "2695,1721 2726,1684 2788,1684 2819,1721 2788,1758 2726,1758"
     },
     {
       "id": "P3-F1",
+      "x": 1600,
+      "y": 1870,
+      "tileX": 1600,
+      "tileY": 1870,
+      "color": 2,
       "layer": "finish",
-      "owner": "P3",
-      "finish_index": 1,
-      "x": 600,
-      "y": 740
+      "shape": "full",
+      "polygon": "1538,1870 1569,1833 1631,1833 1662,1870 1631,1907 1569,1907"
     },
     {
       "id": "P3-F2",
+      "x": 1600,
+      "y": 1748,
+      "tileX": 1600,
+      "tileY": 1748,
+      "color": 2,
       "layer": "finish",
-      "owner": "P3",
-      "finish_index": 2,
-      "x": 710,
-      "y": 800
+      "shape": "full",
+      "polygon": "1538,1748 1569,1711 1631,1711 1662,1748 1631,1785 1569,1785"
     },
     {
       "id": "P3-F3",
+      "x": 1600,
+      "y": 1586,
+      "tileX": 1600,
+      "tileY": 1586,
+      "color": 2,
       "layer": "finish",
-      "owner": "P3",
-      "finish_index": 3,
-      "x": 750,
-      "y": 910
+      "shape": "full",
+      "polygon": "1538,1586 1569,1549 1631,1549 1662,1586 1631,1623 1569,1623"
     },
     {
       "id": "P3-F4",
+      "x": 1600,
+      "y": 1491,
+      "tileX": 1600,
+      "tileY": 1491,
+      "color": 2,
       "layer": "finish",
-      "owner": "P3",
-      "finish_index": 4,
-      "x": 850,
-      "y": 930
+      "shape": "full",
+      "polygon": "1538,1491 1569,1454 1631,1454 1662,1491 1631,1528 1569,1528"
     },
     {
       "id": "P3-F5",
+      "x": 1600,
+      "y": 1383,
+      "tileX": 1600,
+      "tileY": 1383,
+      "color": 2,
       "layer": "finish",
-      "owner": "P3",
-      "finish_index": 5,
-      "x": 940,
-      "y": 860
+      "shape": "full",
+      "polygon": "1538,1383 1569,1346 1631,1346 1662,1383 1631,1420 1569,1420"
     },
     {
       "id": "P3-F6",
+      "x": 1600,
+      "y": 1275,
+      "tileX": 1600,
+      "tileY": 1275,
+      "color": 2,
       "layer": "finish",
-      "owner": "P3",
-      "finish_index": 6,
-      "x": 960,
-      "y": 750
+      "shape": "full",
+      "polygon": "1538,1275 1569,1238 1631,1238 1662,1275 1631,1312 1569,1312"
+    },
+    {
+      "id": "launch-2",
+      "x": 888,
+      "y": 2059,
+      "tileX": 888,
+      "tileY": 2059,
+      "color": 2,
+      "layer": "launch",
+      "shape": "full",
+      "polygon": "826,2059 857,2022 919,2022 950,2059 919,2096 857,2096"
     },
     {
       "id": "P4-F1",
+      "x": 692,
+      "y": 1180,
+      "tileX": 692,
+      "tileY": 1180,
+      "color": 3,
       "layer": "finish",
-      "owner": "P4",
-      "finish_index": 1,
-      "x": 1540,
-      "y": 520
+      "shape": "full",
+      "polygon": "630,1180 661,1143 723,1143 754,1180 723,1217 661,1217"
     },
     {
       "id": "P4-F2",
+      "x": 852,
+      "y": 1180,
+      "tileX": 852,
+      "tileY": 1180,
+      "color": 3,
       "layer": "finish",
-      "owner": "P4",
-      "finish_index": 2,
-      "x": 1460,
-      "y": 600
+      "shape": "full",
+      "polygon": "790,1180 821,1143 883,1143 914,1180 883,1217 821,1217"
     },
     {
       "id": "P4-F3",
+      "x": 1066,
+      "y": 1180,
+      "tileX": 1066,
+      "tileY": 1180,
+      "color": 3,
       "layer": "finish",
-      "owner": "P4",
-      "finish_index": 3,
-      "x": 1350,
-      "y": 590
+      "shape": "full",
+      "polygon": "1004,1180 1035,1143 1097,1143 1128,1180 1097,1217 1035,1217"
     },
     {
       "id": "P4-F4",
+      "x": 1191,
+      "y": 1180,
+      "tileX": 1191,
+      "tileY": 1180,
+      "color": 3,
       "layer": "finish",
-      "owner": "P4",
-      "finish_index": 4,
-      "x": 1280,
-      "y": 520
+      "shape": "full",
+      "polygon": "1129,1180 1160,1143 1222,1143 1253,1180 1222,1217 1160,1217"
     },
     {
       "id": "P4-F5",
+      "x": 1333,
+      "y": 1180,
+      "tileX": 1333,
+      "tileY": 1180,
+      "color": 3,
       "layer": "finish",
-      "owner": "P4",
-      "finish_index": 5,
-      "x": 1160,
-      "y": 540
+      "shape": "full",
+      "polygon": "1271,1180 1302,1143 1364,1143 1395,1180 1364,1217 1302,1217"
     },
     {
       "id": "P4-F6",
+      "x": 1475,
+      "y": 1180,
+      "tileX": 1475,
+      "tileY": 1180,
+      "color": 3,
       "layer": "finish",
-      "owner": "P4",
-      "finish_index": 6,
-      "x": 1140,
-      "y": 650
+      "shape": "full",
+      "polygon": "1413,1180 1444,1143 1506,1143 1537,1180 1506,1217 1444,1217"
+    },
+    {
+      "id": "launch-3",
+      "x": 443,
+      "y": 639,
+      "tileX": 443,
+      "tileY": 639,
+      "color": 3,
+      "layer": "launch",
+      "shape": "full",
+      "polygon": "381,639 412,602 474,602 505,639 474,676 412,676"
     }
   ],
   "edges": [
     {
       "source": "G00",
       "target": "G01",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G01",
       "target": "G02",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G02",
       "target": "G03",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G03",
       "target": "G04",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G04",
       "target": "G05",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G05",
       "target": "G06",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G06",
       "target": "G07",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G07",
       "target": "G08",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G08",
       "target": "G09",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G09",
       "target": "G10",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G10",
       "target": "G11",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G11",
       "target": "G12",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G12",
       "target": "G13",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G13",
       "target": "G14",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G14",
       "target": "G15",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G15",
       "target": "G16",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G16",
       "target": "G17",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G17",
       "target": "G18",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G18",
       "target": "G19",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G19",
       "target": "G20",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G20",
       "target": "G21",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G21",
       "target": "G22",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G22",
       "target": "G23",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G23",
       "target": "G24",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G24",
       "target": "G25",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G25",
       "target": "G26",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G26",
       "target": "G27",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G27",
       "target": "G28",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G28",
       "target": "G29",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G29",
       "target": "G30",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G30",
       "target": "G31",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G31",
       "target": "G32",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G32",
       "target": "G33",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G33",
       "target": "G34",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G34",
       "target": "G35",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G35",
       "target": "G36",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G36",
       "target": "G37",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G37",
       "target": "G38",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G38",
       "target": "G39",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G39",
       "target": "G40",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G40",
       "target": "G41",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G41",
       "target": "G42",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G42",
       "target": "G43",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G43",
       "target": "G44",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G44",
       "target": "G45",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G45",
       "target": "G46",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G46",
       "target": "G47",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
       "source": "G47",
+      "target": "G48",
+      "kind": "road"
+    },
+    {
+      "source": "G48",
+      "target": "G49",
+      "kind": "road"
+    },
+    {
+      "source": "G49",
+      "target": "G50",
+      "kind": "road"
+    },
+    {
+      "source": "G50",
+      "target": "G51",
+      "kind": "road"
+    },
+    {
+      "source": "G51",
       "target": "G00",
-      "cost": 1,
-      "kind": "main"
+      "kind": "road"
     },
     {
-      "source": "G28",
-      "target": "R29",
-      "cost": 1,
-      "kind": "branch",
-      "cross_world": true
-    },
-    {
-      "source": "R29",
-      "target": "R30",
-      "cost": 1,
-      "kind": "branch",
-      "cross_world": false
-    },
-    {
-      "source": "R30",
-      "target": "R31",
-      "cost": 1,
-      "kind": "branch",
-      "cross_world": false
-    },
-    {
-      "source": "R31",
-      "target": "R32",
-      "cost": 1,
-      "kind": "branch",
-      "cross_world": false
-    },
-    {
-      "source": "R32",
-      "target": "R33",
-      "cost": 1,
-      "kind": "branch",
-      "cross_world": false
-    },
-    {
-      "source": "R33",
-      "target": "G34",
-      "cost": 1,
-      "kind": "branch",
-      "cross_world": true
-    },
-    {
-      "source": "G47",
+      "source": "G49",
       "target": "P1-F1",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P1"
+      "kind": "finish"
     },
     {
       "source": "P1-F1",
       "target": "P1-F2",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P1"
+      "kind": "finish"
     },
     {
       "source": "P1-F2",
       "target": "P1-F3",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P1"
+      "kind": "finish"
     },
     {
       "source": "P1-F3",
       "target": "P1-F4",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P1"
+      "kind": "finish"
     },
     {
       "source": "P1-F4",
       "target": "P1-F5",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P1"
+      "kind": "finish"
     },
     {
       "source": "P1-F5",
       "target": "P1-F6",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P1"
+      "kind": "finish"
     },
     {
-      "source": "G11",
+      "source": "launch-0",
+      "target": "G00",
+      "kind": "launch"
+    },
+    {
+      "source": "G10",
       "target": "P2-F1",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P2"
+      "kind": "finish"
     },
     {
       "source": "P2-F1",
       "target": "P2-F2",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P2"
+      "kind": "finish"
     },
     {
       "source": "P2-F2",
       "target": "P2-F3",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P2"
+      "kind": "finish"
     },
     {
       "source": "P2-F3",
       "target": "P2-F4",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P2"
+      "kind": "finish"
     },
     {
       "source": "P2-F4",
       "target": "P2-F5",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P2"
+      "kind": "finish"
     },
     {
       "source": "P2-F5",
       "target": "P2-F6",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P2"
+      "kind": "finish"
+    },
+    {
+      "source": "launch-1",
+      "target": "G13",
+      "kind": "launch"
     },
     {
       "source": "G23",
       "target": "P3-F1",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P3"
+      "kind": "finish"
     },
     {
       "source": "P3-F1",
       "target": "P3-F2",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P3"
+      "kind": "finish"
     },
     {
       "source": "P3-F2",
       "target": "P3-F3",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P3"
+      "kind": "finish"
     },
     {
       "source": "P3-F3",
       "target": "P3-F4",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P3"
+      "kind": "finish"
     },
     {
       "source": "P3-F4",
       "target": "P3-F5",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P3"
+      "kind": "finish"
     },
     {
       "source": "P3-F5",
       "target": "P3-F6",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P3"
+      "kind": "finish"
     },
     {
-      "source": "G35",
+      "source": "launch-2",
+      "target": "G26",
+      "kind": "launch"
+    },
+    {
+      "source": "G36",
       "target": "P4-F1",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P4"
+      "kind": "finish"
     },
     {
       "source": "P4-F1",
       "target": "P4-F2",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P4"
+      "kind": "finish"
     },
     {
       "source": "P4-F2",
       "target": "P4-F3",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P4"
+      "kind": "finish"
     },
     {
       "source": "P4-F3",
       "target": "P4-F4",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P4"
+      "kind": "finish"
     },
     {
       "source": "P4-F4",
       "target": "P4-F5",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P4"
+      "kind": "finish"
     },
     {
       "source": "P4-F5",
       "target": "P4-F6",
-      "cost": 1,
-      "kind": "finish",
-      "owner": "P4"
+      "kind": "finish"
+    },
+    {
+      "source": "launch-3",
+      "target": "G39",
+      "kind": "launch"
+    }
+  ],
+  "seats": [
+    {
+      "id": 0,
+      "start": "G00",
+      "launch": "launch-0",
+      "entry": "G49",
+      "flight": {
+        "from": "G17",
+        "to": "G29",
+        "cross": "P3-F3"
+      }
+    },
+    {
+      "id": 1,
+      "start": "G13",
+      "launch": "launch-1",
+      "entry": "G10",
+      "flight": {
+        "from": "G30",
+        "to": "G42",
+        "cross": "P4-F3"
+      }
+    },
+    {
+      "id": 2,
+      "start": "G26",
+      "launch": "launch-2",
+      "entry": "G23",
+      "flight": {
+        "from": "G43",
+        "to": "G03",
+        "cross": "P1-F3"
+      }
+    },
+    {
+      "id": 3,
+      "start": "G39",
+      "launch": "launch-3",
+      "entry": "G36",
+      "flight": {
+        "from": "G04",
+        "to": "G16",
+        "cross": "P2-F3"
+      }
     }
   ],
   "presentation": {
-    "hex_radius_x": 34,
-    "hex_radius_y": 23,
-    "depth": 7,
-    "regional_colors": [
-      {
-        "name": "博丽神社",
-        "fill": "#E7B6AA",
-        "stroke": "#94605A"
-      },
-      {
-        "name": "人间之里",
-        "fill": "#EAD7A6",
-        "stroke": "#8A7448"
-      },
-      {
-        "name": "魔法森林",
-        "fill": "#B9D0A9",
-        "stroke": "#587052"
-      },
-      {
-        "name": "妖怪之山山麓",
-        "fill": "#B7C7CC",
-        "stroke": "#59717A"
-      },
-      {
-        "name": "雾之湖",
-        "fill": "#A9D7DF",
-        "stroke": "#4D7C87"
-      },
-      {
-        "name": "红魔馆",
-        "fill": "#D5B7D4",
-        "stroke": "#805F80"
-      }
-    ],
     "docks": [
       {
-        "owner": "P1",
         "center": [
-          2360,
-          1120
+          2490,
+          504
         ],
         "exit": [
-          2250,
-          1120
+          2312,
+          301
         ]
       },
       {
-        "owner": "P2",
         "center": [
-          1010,
-          1600
+          2490,
+          1856
         ],
         "exit": [
-          1010,
-          1550
+          2757,
+          1721
         ]
       },
       {
-        "owner": "P3",
         "center": [
-          170,
-          610
+          710,
+          1856
         ],
         "exit": [
-          280,
-          610
+          888,
+          2059
         ]
       },
       {
-        "owner": "P4",
         "center": [
-          1610,
-          270
+          710,
+          504
         ],
         "exit": [
-          1610,
-          320
+          443,
+          639
         ]
       }
     ]

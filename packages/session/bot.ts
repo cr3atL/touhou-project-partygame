@@ -1,38 +1,37 @@
+import { HOME_START, ROAD_START, LAST_PUBLIC, FINISH } from '../core/constants';
 import { CHARACTERS } from '../content';
 import { getActions, reduceGame } from '../core/engine';
-import { branchesFor, nodeAt } from '../core/map';
+import { branchesFor, nodeAt, accelerations } from '../core/map';
 import type { Action, GameState, Piece } from '../core/types';
 
-/** Frozen v0.3 greedy policy for paired comparisons, never used by live games. */
-export function legacyBotAction(s: GameState): Action {
-  const options=getActions(s,CHARACTERS);
-  if(!options.length)throw new Error('当前局面没有可用操作');
-  return options.reduce((best,a)=>a.score>best.score?a:best);
-}
-const publicPiece=(p:Piece)=>p.progress>=0&&p.progress<=47;
+const publicPiece=(p:Piece)=>p.progress>=ROAD_START&&p.progress<=LAST_PUBLIC;
 function progressValue(p:Piece):number {
   if(p.progress<0)return -1;
-  if(p.progress===53)return 130;
-  if(p.progress>=48)return 80+(p.progress-48)*8;
+  if(p.progress===FINISH)return 130;
+  if(p.progress>=HOME_START)return 80+(p.progress-HOME_START)*8;
   // Approaching the private lane makes the next few rolls much more valuable.
   return .5*p.progress+.01*p.progress*p.progress+.14*Math.max(0,p.progress-35)**2;
 }
 /** Each opponent chooses a single die action; multiple pieces matching one die are not independent attacks. */
 function landingMasks(s:GameState,owner:number):Map<string,number> {
   const result=new Map<string,number>(),player=s.players[owner],definition=CHARACTERS[player.character];
-  const own=s.pieces.filter(p=>p.owner===owner&&publicPiece(p));
+  const own=s.pieces.filter(p=>p.owner===owner&&p.progress>=0&&p.progress<=LAST_PUBLIC);
   const nextTurn=player.turns+(s.current===owner?0:1),activeReady=nextTurn>=player.activeAt;
   for(const piece of own)for(let die=1;die<=6;die++) {
     const bases=[die];
-    if(player.character==='remilia'&&activeReady)bases.push(7-die);
-    if(definition.splitThreshold&&die>=definition.splitThreshold&&own.some(p=>p.id!==piece.id&&p.progress<47))bases.push(die-1);
+    if(publicPiece(piece)&&player.character==='remilia'&&activeReady)bases.push(7-die);
+    if(publicPiece(piece)&&definition.splitThreshold&&die>=definition.splitThreshold&&own.some(p=>p.id!==piece.id&&publicPiece(p)&&p.progress<LAST_PUBLIC))bases.push(die-1);
     for(const base of bases) {
       const steps=[Math.max(1,base-(piece.mark?.slow??0))];
       if(piece.mark&&definition.cleanseCooldown&&nextTurn>=player.passiveAt)steps.push(Math.max(1,base-1));
-      for(const step of steps)for(const dash of (player.character==='youmu'&&activeReady?[0,2]:[0])) {
-        const end=piece.progress+step+dash;if(end>47)continue;
+      for(const step of steps)for(const dash of (publicPiece(piece)&&player.character==='youmu'&&activeReady?[0,2]:[0])) {
+        const end=piece.progress+step+dash;if(end>LAST_PUBLIC)continue;
         for(const branch of branchesFor(piece,step+dash)) {
-          const node=nodeAt(piece,end,branch);result.set(node,(result.get(node)??0)|(1<<(die-1)));
+          const route=accelerations({...piece,progress:end}),cross=route.find(leg=>leg.cross)?.cross;
+          if(cross)result.set(cross,(result.get(cross)??0)|(1<<(die-1)));
+          const crossed=s.pieces.filter(p=>p.owner!==owner&&p.progress>=0&&p.progress<FINISH&&nodeAt(p)===cross&&p.shield===null).length;
+          if(crossed>=2&&piece.shield===null)continue;
+          const node=nodeAt(piece,route.at(-1)?.to??end,branch);result.set(node,(result.get(node)??0)|(1<<(die-1)));
         }
       }
     }
@@ -46,7 +45,7 @@ function threats(s:GameState,owner:number,cache:ThreatCache):Map<string,number> 
   let masks=cache.get(key);if(!masks){masks=landingMasks(s,owner);cache.set(key,masks);}return masks;
 }
 export function returnRisk(s:GameState,p:Piece,cache:ThreatCache=new Map()):number {
-  if(!publicPiece(p))return 0;
+  if(p.progress<0||p.progress>=FINISH)return 0;
   // A shield absorbs one encounter, so estimate P(at least two attacks) instead of P(any attack).
   let distribution=[1,0,0,0];
   for(const player of s.players.filter(q=>q.id!==p.owner&&!s.rankings.includes(q.id))) {

@@ -32,6 +32,7 @@ if (task === 'dev') {
     web: ['node_modules/vite/bin/vite.js', '--host', '0.0.0.0'],
     server: ['node_modules/tsx/dist/cli.mjs', 'apps/server/src/index.ts'],
     test: ['node_modules/vitest/vitest.mjs', 'run'],
+    'decision-network': ['node_modules/tsx/dist/cli.mjs','tests/decision-network.ts'],
     network: ['node_modules/tsx/dist/cli.mjs', 'tests/network.ts'],
     rooms: ['node_modules/tsx/dist/cli.mjs', 'tests/rooms.ts'],
     management: ['node_modules/tsx/dist/cli.mjs', 'tests/room-management.ts'],

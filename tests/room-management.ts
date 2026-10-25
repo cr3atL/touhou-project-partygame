@@ -18,6 +18,7 @@ function attach(room:Room):Peer {
   const peer={room,seat:-1,snapshot:null as RoomSnapshot|null,notices:[] as string[],closed:false,closeCode:0};
   room.onMessage('welcome',(data:{seat:number})=>{peer.seat=data.seat;});
   room.onMessage('snapshot',(snapshot:RoomSnapshot)=>{peer.snapshot=snapshot;});
+  room.onMessage('timer',()=>{});
   room.onMessage('notice',(notice:string)=>peer.notices.push(notice));
   room.onLeave(code=>{peer.closed=true;peer.closeCode=code;});
   peers.push(peer);room.send('sync');return peer;

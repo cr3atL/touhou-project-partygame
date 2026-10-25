@@ -32,6 +32,7 @@ function attach(room: Room) {
   room.onLeave(() => { peer.closed = true; });
   room.onMessage('welcome', (data: { seat: number }) => { peer.seat = data.seat; });
   room.onMessage('snapshot', (snapshot: RoomSnapshot) => { peer.snapshot = snapshot; });
+  room.onMessage('timer',()=>{});
   room.onMessage('notice', (notice: string) => peer.notices.push(notice));
   room.send('sync'); return peer;
 }
@@ -63,6 +64,7 @@ try {
   await until(() => peers.every(p => !!p.snapshot?.game), 'start');
   let commands = 0;
   for (; commands < 120 && peers[0].snapshot!.game!.phase !== 'over'; commands++) {
+    await until(()=>Date.now()>=(peers[0].snapshot!.timer?.blockedUntil??0),'server presentation');
     const state = peers[0].snapshot!.game!;
     const actor = peers.find(p => p.seat === state.current)!;
     const command = botAction(state).command;

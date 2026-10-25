@@ -1,3 +1,4 @@
+import { DecisionClock, presentationDuration } from '../../../packages/session/decisionClock';
 import { Server, Room, type Client } from '@colyseus/core';
 import { WebSocketTransport } from '@colyseus/ws-transport';
 import { randomInt } from 'node:crypto';
@@ -12,6 +13,7 @@ export class PartyRoom extends Room {
   private seats: (Seat & { session?: string; bot?: boolean })[] = [];
   private game: GameState | null = null;
   private revision = 0;
+  private decisionClock:DecisionClock | null = null;
   private hostSession: string | null = null;
   private reconnecting = new Map<string, ReturnType<Room['allowReconnection']>>();
   private random = () => randomInt(0, 0x1000000) / 0x1000000;
@@ -59,6 +61,7 @@ export class PartyRoom extends Room {
         for (let i = this.seats.length - 1; i > 0; i--) { const j = randomInt(i + 1); [this.seats[i], this.seats[j]] = [this.seats[j], this.seats[i]]; }
         this.seats.forEach((s, id) => { s.id = id; });
         this.game = createGame(this.seats.map(s => ({ name: s.name, character: s.character, bot: !!s.bot })), CHARACTERS);
+        this.decisionClock=new DecisionClock(this.game.turn);
         for (const connected of this.clients) this.welcome(connected);
         this.lock();
       } else throw new Error('未知房间操作');
@@ -66,11 +69,15 @@ export class PartyRoom extends Room {
     }));
     this.onMessage('command', (client, payload) => this.guard(client, () => {
       if (!this.game) throw new Error('对局尚未开始');
+      const now=Date.now();
+      const time=this.decisionClock!.update(this.game,now);
+      if(time.takeover)throw new Error('本回合已由式神接管');
+      if(now<time.blockedUntil)throw new Error('演出尚未结束');
       const seat = this.seat(client);
       if (seat.id !== this.game.current || this.game.players[seat.id].bot) throw new Error('当前不是你的回合');
       if (payload?.revision !== this.game.revision) throw new Error('局面已更新，请重新选择');
       if (!payload.command || JSON.stringify(payload.command).length > 6000) throw new Error('无效指令');
-      this.game = reduceGame(this.game, payload.command as Command, CHARACTERS, this.random); this.publish();
+      this.applyCommand(payload.command as Command);
     }));
     this.onMessage('rematch', client => this.guard(client, () => {
       this.requireHost(client);
@@ -80,11 +87,14 @@ export class PartyRoom extends Room {
       this.unlock(); this.publish();
     }));
     this.clock.setInterval(() => {
-      if (this.game && this.game.phase !== 'over' && this.game.players[this.game.current].bot) {
-        try { this.game = reduceGame(this.game, botAction(this.game).command, CHARACTERS, this.random); this.publish(); }
-        catch (error) { console.error('Room bot failed', error); }
-      }
-    }, 650);
+      if(!this.game||this.game.phase==='over')return;
+      const now=Date.now(),time=this.decisionClock!.update(this.game,now);
+      if(now<time.blockedUntil)return;
+      if(this.game.players[this.game.current].bot||time.takeover){
+        try {this.applyCommand(botAction(this.game).command);}
+        catch(error){console.error('Room bot failed',error);}
+      } else this.broadcast('timer',{timer:time,serverTime:now});
+    },250);
   }
   onJoin(client: Client, options: { name?: string; protocol?: number }) {
     if (options.protocol !== VERSIONS.protocol) throw new Error('客户端通信版本不兼容');
@@ -117,6 +127,10 @@ export class PartyRoom extends Room {
     else this.seats = this.seats.filter(s => s !== seat);
     this.publish();
   }
+  private applyCommand(command:Command){
+    const before=this.game!,next=reduceGame(before,command,CHARACTERS,this.random);
+    this.game=next;this.decisionClock!.block(next,presentationDuration(before,next));this.publish();
+  }
   private seat(client: Client) {
     const seat = this.seats.find(s => s.session === client.sessionId); if (!seat) throw new Error('席位不存在'); return seat;
   }
@@ -134,7 +148,7 @@ export class PartyRoom extends Room {
   }
   private guard(client: Client, callback: () => void) { try { callback(); } catch (error) { client.send('notice', error instanceof Error ? error.message : '操作失败'); } }
   private welcome(client: Client) { const seat = this.seats.find(s => s.session === client.sessionId); if (seat) client.send('welcome', { seat: seat.id, protocol: VERSIONS.protocol }); }
-  private snapshot(): RoomSnapshot { return { protocol: VERSIONS.protocol, rules: VERSIONS.rules, roomId: this.roomId, revision: this.revision, hostSeat: this.host()?.id ?? null, seats: this.seats.map(({ id, name, character, connected, ready, bot }) => ({ id, name, character, connected, ready, bot })), game: this.game }; }
+  private snapshot(): RoomSnapshot { return { protocol: VERSIONS.protocol, rules: VERSIONS.rules, roomId: this.roomId, revision: this.revision, hostSeat: this.host()?.id ?? null, seats: this.seats.map(({ id, name, character, connected, ready, bot }) => ({ id, name, character, connected, ready, bot })), game: this.game, timer:this.game?this.decisionClock?.update(this.game):undefined, serverTime:Date.now() }; }
   private publish() { this.revision++; this.broadcast('snapshot', this.snapshot()); }
 }
 export function createPartyServer() {

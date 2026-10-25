@@ -85,7 +85,7 @@ export function useGamePresentation(source: GameState | null, session = 0) {
             sounds.set(`${blocked}-${delay}`,{blocked,delay});
           }
           for(const {blocked,delay} of sounds.values())playSound(blocked?'nodamage':'kira00',.65,delay);
-        } else if (!packet.spell && (events.some(e => ['cleanse','passive','mark'].includes(e.type)) || packet.before.choice && ['wind','advance'].includes(packet.before.choice.kind) && moved)) playSound('kira00', .5);
+        } else if (!packet.spell && (events.some(e => ['cleanse','passive','mark'].includes(e.type)) || packet.before.choice && packet.before.choice.kind==='advance' && moved)) playSound('kira00', .5);
         if (events.some(e => e.type === 'place' || e.type === 'move' && e.to?.startsWith('done'))) playSound('cardget', .7, impactDelay);
         else if (moved && !packet.spell) playSound('piece-move', .95);
         if (events.some(e => e.type === 'turn' || e.type === 'extra')) playSound('ok00', .4, moved ? 650 : 0);

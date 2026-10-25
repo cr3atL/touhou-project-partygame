@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { CHARACTERS } from '../packages/content';
 import { getActions, reduceGame } from '../packages/core/engine';
-import { scenario } from '../packages/session/scenarios';
+import { scenario } from './helpers/scenarios';
 import { presentationBeat, SPELL_FLIGHT_MS, spellPieceMotion, spellSequence } from '../apps/web/src/presentationModel';
 import { framePoints, cameraScale } from '../apps/web/src/boardViewport';
 import { piecePoint, SIZE } from '../apps/web/src/boardModel';
@@ -68,7 +68,7 @@ describe('符卡演出取景', () => {
   });
   it('无地图目标不移动镜头；分散目标保持完整取景', () => {
     expect(framePoints([],{width:390,height:600})).toBeNull();
-    const camera=framePoints([{x:200,y:200},{x:2300,y:1500}],{width:390,height:600})!;
+    const camera=framePoints([{x:200,y:200},{x:3000,y:2200}],{width:390,height:600})!;
     expect(camera.zoom).toBe(1);
   });
 });

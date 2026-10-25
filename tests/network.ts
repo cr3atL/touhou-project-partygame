@@ -1,10 +1,12 @@
+import { FINISH } from '../packages/core/constants';
+import type { DecisionClock } from '../packages/session/decisionClock';
 import assert from 'node:assert/strict';
 import { Client, type Room } from '@colyseus/sdk';
 import { createPartyServer } from '../apps/server/src/index';
 import { matchMaker } from '@colyseus/core';
 import { CHARACTERS, CHARACTER_LIST } from '../packages/content';
 import { getActions, reduceGame } from '../packages/core/engine';
-import { scenario, finishScenario } from '../packages/session/scenarios';
+import { scenario, finishScenario } from './helpers/scenarios';
 import type { GameState } from '../packages/core/types';
 import { VERSIONS } from '../packages/core/types';
 import { botAction, type RoomSnapshot } from '../packages/session';
@@ -20,8 +22,15 @@ function attach(room: Room) {
   const peer = { room, seat: -1, snapshot: null as RoomSnapshot | null, notices: [] as string[] };
   room.onMessage('welcome', (data: { seat: number }) => { peer.seat = data.seat; });
   room.onMessage('snapshot', (s: RoomSnapshot) => { peer.snapshot = s; });
+  room.onMessage('timer',()=>{});
   room.onMessage('notice', (s: string) => peer.notices.push(s));
   room.send('sync'); return peer;
+}
+// Skip only the visual waiting interval for the existing high-volume synchronization checks.
+// Real wall-clock behavior is covered in decision-network.ts.
+function finishPresentation(roomId:string){
+ const local=matchMaker.getLocalRoomById(roomId) as unknown as {decisionClock:DecisionClock};
+ local.decisionClock.value.blockedUntil=Date.now();
 }
 let failed=false;
 try {
@@ -46,13 +55,13 @@ try {
     if (state.phase === 'over') break;
     const actor = peers.find(p => p.seat === state.current)!;
     const command=botAction(state).command; if(command.type==='cast')skills.add(command.skill);
-    actor.room.send('command', { revision: state.revision, command });
+    finishPresentation(first.room.roomId);actor.room.send('command', { revision: state.revision, command });
     await until(() => peers.every(p => p.snapshot!.game!.revision === state.revision + 1), `command ${i}`);
     const canonical = JSON.stringify(peers[0].snapshot!.game);
     assert(peers.every(p => JSON.stringify(p.snapshot!.game) === canonical), 'all four game states must match');
     if (i === 0) {
       const notices = actor.notices.length;
-      actor.room.send('command', { revision: state.revision, command });
+      finishPresentation(first.room.roomId);actor.room.send('command', { revision: state.revision, command });
       await until(() => actor.notices.length > notices, 'reject stale command');
       assert.equal(peers[0].snapshot!.game!.revision, state.revision + 1);
     }
@@ -70,7 +79,7 @@ try {
         const command=step===0?getActions(state,CHARACTERS).find(a=>a.kind==='cast')!.command:botAction(state).command;
         if(command.type==='cast')skills.add(command.skill);
         const expected=command.type==='roll'?null:reduceGame(state,command,CHARACTERS,()=>{throw new Error('unexpected randomness');});
-        peers.find(p=>p.seat===state.current)!.room.send('command',{revision:state.revision,command});
+        finishPresentation(first.room.roomId);peers.find(p=>p.seat===state.current)!.room.send('command',{revision:state.revision,command});
         await until(()=>peers.every(p=>p.snapshot!.game!.revision===state.revision+1),'scenario command');
         const canonical=JSON.stringify(peers[0].snapshot!.game);
         assert(peers.every(p=>JSON.stringify(p.snapshot!.game)===canonical));
@@ -87,11 +96,11 @@ try {
       const fixture=place===0?finishScenario():structuredClone(peers[0].snapshot!.game!);
       fixture.current=place;fixture.phase='action';fixture.choice=null;fixture.queue=[];
       fixture.dice={value:1,natural:1,source:'natural',extra:false};
-      for(const p of fixture.pieces.filter(p=>p.owner===place)){p.progress=p.index===0?52:53;p.mark=null;p.shield=null;}
+      for(const p of fixture.pieces.filter(p=>p.owner===place)){p.progress=p.index===0?FINISH-1:FINISH;p.mark=null;p.shield=null;}
       fixture.revision=peers[0].snapshot!.game!.revision+1;localRoom.game=fixture;localRoom.publish();
       await until(()=>peers.every(p=>p.snapshot!.game!.revision===fixture.revision),'podium fixture');
       const command=getActions(fixture,CHARACTERS).find(a=>a.kind==='move')!.command;
-      peers.find(p=>p.seat===place)!.room.send('command',{revision:fixture.revision,command});
+      finishPresentation(first.room.roomId);peers.find(p=>p.seat===place)!.room.send('command',{revision:fixture.revision,command});
       await until(()=>peers.every(p=>p.snapshot!.game!.revision===fixture.revision+1),'podium placement');
       const canonical=JSON.stringify(peers[0].snapshot!.game);
       assert(peers.every(p=>JSON.stringify(p.snapshot!.game)===canonical));

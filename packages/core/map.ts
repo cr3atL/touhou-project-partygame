@@ -1,61 +1,54 @@
 import mapData from './data/board.json';
 import type { Branch, GameState, Piece } from './types';
-export interface MapNode { id: string; x: number; y: number; layer: string; region?: string; name?: string; terrain?: string; route_index?: number }
+import { TRACK_LENGTH, LAST_PUBLIC, ROAD_START, HOME_START, FINISH } from './constants';
+export { TRACK_LENGTH, LAST_PUBLIC, ROAD_START, HOME_START, FINISH } from './constants';
+export interface MapNode { id: string; x: number; y: number; layer: string; color?: number; shape?:string; diagonal?:string; tileX?:number; tileY?:number; polygon?:string; name?: string; terrain?: string; route_index?: number }
 export const MAP = mapData;
 export const NODES = Object.fromEntries(mapData.nodes.map(n => [n.id, n])) as Record<string, MapNode>;
-export const STARTS = [0, 12, 24, 36];
-export const COLORS = ['#e05c76', '#5ba9de', '#62b397', '#dfb554'];
-export const ground = (n: number) => `G${String((n + 48) % 48).padStart(2, '0')}`;
-export function nodeAt(piece: Piece, progress = piece.progress, branch = piece.branch): string {
+export const STARTS = [0, 13, 26, 39];
+export const COLORS = ['#df6073', '#e1b447', '#5b9ed4', '#63ad86'];
+export const ground = (n: number) => `G${String((n + TRACK_LENGTH) % TRACK_LENGTH).padStart(2, '0')}`;
+export function nodeAt(piece: Piece, progress = piece.progress, _branch = piece.branch): string {
   if (progress < 0) return `airport-${piece.owner}`;
-  if (progress >= 53) return `done-${piece.owner}`;
-  if (progress >= 48) return `P${piece.owner + 1}-F${progress - 47}`;
-  const g = (STARTS[piece.owner] + progress) % 48;
-  return branch === 'spirit' && g >= 29 && g <= 33 ? `R${g}` : ground(g);
+  if (progress === 0) return `launch-${piece.owner}`;
+  if (progress >= FINISH) return `done-${piece.owner}`;
+  if (progress >= HOME_START) return `P${piece.owner + 1}-F${progress - LAST_PUBLIC}`;
+  return ground(STARTS[piece.owner] + progress-ROAD_START);
 }
 export function progressAt(owner: number, node: string): number {
-  if (!/^[GR]\d\d$/.test(node)) return -1;
-  return (Number(node.slice(1)) - STARTS[owner] + 48) % 48;
+  return /^G\d\d$/.test(node) ? (Number(node.slice(1)) - STARTS[owner] + TRACK_LENGTH) % TRACK_LENGTH+ROAD_START : -1;
 }
-export function branchAt(piece: Piece, progress: number, destination?: string): Branch | null {
-  const fork = (28 - STARTS[piece.owner] + 48) % 48;
-  if (progress <= fork) return null;
-  if (destination?.startsWith('R')) return 'spirit';
-  if (destination && /^G(29|30|31|32|33)$/.test(destination)) return 'ground';
-  return piece.branch ?? 'ground';
-}
-const adjacency = new Map<string, string[]>();
-for (const edge of mapData.edges.filter(e => e.kind !== 'finish')) {
-  adjacency.set(edge.source, [...(adjacency.get(edge.source) ?? []), edge.target]);
-  adjacency.set(edge.target, [...(adjacency.get(edge.target) ?? []), edge.source]);
-}
+export function branchAt(_piece: Piece, _progress: number): Branch | null { return 'ground'; }
+/** Skill range follows the public road, never a shortcut or a private lane. */
 export function distance(a: string, b: string, owner?: number): number {
-  if (a === b) return 0;
-  const seen = new Set([a]); const queue: [string, number][] = [[a, 0]];
-  for (let i = 0; i < queue.length; i++) {
-    const [at, d] = queue[i];
-    for (const next of adjacency.get(at) ?? []) {
-      if (owner !== undefined && Math.abs(progressAt(owner, at) - progressAt(owner, next)) !== 1) continue;
-      if (next === b) return d + 1;
-      if (!seen.has(next)) { seen.add(next); queue.push([next, d + 1]); }
-    }
-  }
-  return Infinity;
+  if(a === b) return 0;
+  if(!/^G\d\d$/.test(a) || !/^G\d\d$/.test(b)) return Infinity;
+  if(owner !== undefined) return Math.abs(progressAt(owner,a)-progressAt(owner,b));
+  const d=Math.abs(Number(a.slice(1))-Number(b.slice(1)));
+  return Math.min(d,TRACK_LENGTH-d);
 }
-export function forward(node: string, steps: number, branch: Branch): string[] {
-  const result: string[] = []; let current = node;
-  for (let i = 0; i < steps; i++) {
-    current = current === 'G28' && branch === 'spirit' ? 'R29'
-      : current === 'R33' ? 'G34' : current.startsWith('R') ? `R${Number(current.slice(1)) + 1}` : ground(Number(current.slice(1)) + 1);
-    result.push(current);
-  }
+export function forward(node: string, steps: number, _branch: Branch): string[] {
+  return Array.from({length:steps},(_,i)=>ground(Number(node.slice(1))+i+1));
+}
+export function branchesFor(_piece: Piece, _steps: number): Branch[] { return ['ground']; }
+export function empty(state: GameState, node: string): boolean { return !state.pieces.some(p => p.progress >= 0 && p.progress < FINISH && nodeAt(p) === node); }
+
+export function diceEnd(progress:number, steps:number):number {
+  const end=progress+steps;
+  return end>FINISH ? FINISH-(end-FINISH) : end;
+}
+export interface Acceleration { from:number; to:number; kind:'jump'|'flight'; cross?:string }
+/** A finite sequence: jump, connecting flight, final jump; a lone flight may also jump once. */
+export function accelerations(piece:Piece):Acceleration[] {
+  let at=piece.progress;
+  if(at<ROAD_START || at>LAST_PUBLIC) return [];
+  const result:Acceleration[]=[];
+  const jump=()=>{
+    if(NODES[nodeAt(piece,at)]?.color!==piece.owner || at+4>LAST_PUBLIC)return;
+    result.push({from:at,to:at+4,kind:'jump'});at+=4;
+  };
+  const flight=MAP.seats[piece.owner].flight,entrance=progressAt(piece.owner,flight.from),end=progressAt(piece.owner,flight.to);
+  if(at!==entrance)jump();
+  if(at===entrance){result.push({from:at,to:end,kind:'flight',cross:flight.cross});at=end;jump();}
   return result;
-}
-export function branchesFor(piece: Piece, steps: number): Branch[] {
-  const fork = (28 - STARTS[piece.owner] + 48) % 48;
-  return piece.progress <= fork && piece.progress + steps > fork ? ['ground', 'spirit'] : [piece.branch ?? 'ground'];
-}
-export function empty(state: GameState, node: string): boolean { return !state.pieces.some(p => p.progress >= 0 && p.progress < 53 && nodeAt(p) === node); }
-export function terrain(_state: GameState, node: string): string {
-  return NODES[node]?.terrain ?? 'ordinary';
 }

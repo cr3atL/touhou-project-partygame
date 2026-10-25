@@ -33,8 +33,8 @@ export function usePresentationSettings() {
   }, []);
   return [settings, setSettings] as const;
 }
-export function PresentationSettingsDialog({ settings, onChange, onClose }: {
-  settings: PresentationSettings; onChange(value: PresentationSettings): void; onClose(): void;
+export function PresentationSettingsDialog({ settings, onChange, onClose, onReturnToLobby }: {
+  settings: PresentationSettings; onChange(value: PresentationSettings): void; onClose(): void; onReturnToLobby?(): void;
 }) {
   const panel = useRef<HTMLDivElement>(null);
   const close = useRef(onClose); close.current = onClose;
@@ -58,10 +58,8 @@ export function PresentationSettingsDialog({ settings, onChange, onClose }: {
       <label>音效<input type="checkbox" checked={settings.sound} onChange={e => onChange({...settings, sound:e.target.checked})}/></label>
       <label className="volume-setting">音量 <input aria-label="音效音量" type="range" min="0" max="100" value={Math.round(settings.volume*100)} onChange={e => onChange({...settings, volume:Number(e.target.value)/100})}/><output>{Math.round(settings.volume*100)}%</output></label>
       <label>地图特效<input type="checkbox" checked={settings.effects} onChange={e => onChange({...settings, effects:e.target.checked})}/></label>
-      <label>符卡镜头特写 <small>实验性</small><input type="checkbox" checked={settings.closeup} onChange={e => onChange({...settings, closeup:e.target.checked})}/></label>
-      <p>先聚焦施放者，随特效转向受影响棋子，结算后恢复视野。手动移动地图可接管镜头。</p>
-      <button className="secondary wide" disabled={!settings.sound} onClick={() => { unlockAudio(); playSound('cat00', .8); }}>试听符卡宣告</button>
-      <div className="sound-previews"><button className="secondary" disabled={!settings.sound} onClick={() => { unlockAudio(); playSound('dice-roll', .9); playSound('dice-settle', .85, 800); }}>试听投骰</button><button className="secondary" disabled={!settings.sound} onClick={() => { unlockAudio(); playSound('piece-move', .95); }}>试听移动</button></div>
+      <label>符卡镜头特写 <input type="checkbox" checked={settings.closeup} onChange={e => onChange({...settings, closeup:e.target.checked})}/></label>
+      {onReturnToLobby&&<button className="secondary wide settings-return" onClick={onReturnToLobby}>回到大厅</button>}
     </div>
   </div>;
 }

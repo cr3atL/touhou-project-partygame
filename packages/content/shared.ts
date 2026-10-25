@@ -1,5 +1,6 @@
+import { ROAD_START, LAST_PUBLIC } from '../core/constants';
 import { action, type Action, type CastCommand, type Piece, type RuleView } from '../core/types';
-export const publicOwn = (v: RuleView) => v.own.filter(p => p.progress >= 0 && p.progress <= 47);
+export const publicOwn = (v: RuleView) => v.own.filter(p => p.progress >= ROAD_START && p.progress <= LAST_PUBLIC);
 export function groups<T>(items: T[], max = 2): T[][] {
   const out: T[][] = [];
   function visit(start: number, chosen: T[]) {

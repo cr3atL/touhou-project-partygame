@@ -1,6 +1,6 @@
-export const VERSIONS = { rules: '0.4.1', map: '0.1.0', protocol: 3, save: 3 } as const;
+export const VERSIONS = { rules: '0.5.0', map: '1.1.0', protocol: 5, save: 5 } as const;
 export type CharacterId = 'reimu' | 'marisa' | 'yukari' | 'remilia' | 'flandre' | 'yuyuko' | 'youmu';
-export type Branch = 'ground' | 'spirit';
+export type Branch = 'ground';
 export interface Player { id: number; name: string; character: CharacterId; bot: boolean; turns: number; activeAt: number; passiveAt: number; bufferUsed: boolean }
 export interface Piece { id: string; owner: number; index: number; progress: number; branch: Branch | null; shield: number | null; mark: { caster: number; expires: number; slow: number; retreat: number } | null }
 /** Movement allowance is independent of the original natural die and its extra action. */
@@ -13,11 +13,11 @@ export interface GameState {
   versions: typeof VERSIONS; revision: number; players: Player[]; pieces: Piece[];
   current: number; turn: number; round: number; phase: 'roll' | 'action' | 'resolving' | 'over';
   dice: Dice | null; queue: Effect[]; choice: Choice | null; winner: number | null; rankings: number[];
-  flags: { first: boolean; active: boolean; extra: boolean; used: Record<string, boolean>; moved: string[]; targeted: string[]; locked: string[]; rewritten: boolean };
+  flags: { first: boolean; active: boolean; extra: boolean; used: Record<string, boolean>; moved: string[]; locked: string[]; rewritten: boolean; sixes: number; lastDiePiece: string | null };
   events: GameEvent[]; eventId: number; returns: number[];
   history: { command: Command; random: number[] }[];
 }
-export interface CastCommand { type: 'cast'; skill: string; caster?: string; targets?: string[]; branch?: Branch; mode?: 'advance' | 'switch' }
+export interface CastCommand { type: 'cast'; skill: string; caster?: string; targets?: string[]; branch?: Branch; steps?: number }
 export interface MoveCommand { type: 'move'; piece: string; branch?: Branch; cleanse?: boolean; splitPiece?: string; splitBranch?: Branch }
 export type Command = { type: 'roll' } | MoveCommand | CastCommand | { type: 'choose'; option: string } | { type: 'pass' };
 export interface Action { id: string; kind: Command['type']; label: string; detail?: string; command: Command; pieces: string[]; nodes: string[]; score: number }
@@ -36,7 +36,6 @@ export interface CharacterDefinition {
   actions(view: RuleView): Action[];
   cast(view: RuleView, command: CastCommand): Effect[];
   afterDice?(view: RuleView, result: DiceResult): Effect[];
-  terrainRetreat?(view: RuleView, piece: Piece, steps: number): Effect[] | null;
   knockback?(view: RuleView, piece: Piece, steps: number): number;
 }
 export type Registry = Record<CharacterId, CharacterDefinition>;

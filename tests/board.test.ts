@@ -2,51 +2,18 @@ import {readFileSync} from 'node:fs';
 import {describe,it,expect} from 'vitest';
 import {CHARACTERS} from '../packages/content';
 import {getActions,reduceGame} from '../packages/core/engine';
-import {MAP,NODES,nodeAt} from '../packages/core/map';
-import original from './fixtures/map-topology.json';
-import {scenario,mapScenario,finishScenario} from '../packages/session/scenarios';
+import {MAP,NODES,nodeAt,progressAt,FINISH} from '../packages/core/map';
+import {scenario,finishScenario} from './helpers/scenarios';
 import {actionsForPiece,destinationActions,pieceGroups,displayPoint,nodePoint,eventTravelPoints} from '../apps/web/src/boardModel';
 
-describe('精确地图与地图操作',()=>{
-  it('地图完整保留连边、赛程与地形，并展示全部节点',()=>{
-    expect(MAP.edges).toEqual(original.edges);
-    expect(MAP.nodes.map(({id,terrain})=>({id,terrain}))).toEqual(original.nodes.map(({id,terrain})=>({id,terrain})));
-    expect(NODES.G00).toMatchObject({x:2050,y:1080});
-    const svg=readFileSync('public/maps/board.svg','utf8');
-    for(const node of MAP.nodes) expect(svg).toContain(`data-node="${node.id}"`);
-    expect(MAP.nodes).toHaveLength(77);expect(MAP.edges).toHaveLength(78);
-  });
-  it('单结果出场可直接提交；新版减速落点映射到可点击落点',()=>{
-    const s=scenario('reimu'), moves=getActions(s,CHARACTERS).filter(a=>a.kind==='move');
-    const spawn=actionsForPiece(moves,'p0-2');expect(spawn).toHaveLength(1);
-    expect(reduceGame(s,spawn[0].command,CHARACTERS).pieces.find(p=>p.id==='p0-2')!.progress).toBe(0);
-    const options=actionsForPiece(moves,'p0-0');expect(options.map(a=>a.nodes[0]).sort()).toEqual(['G11']);
-    for(const a of options) expect(destinationActions(options,a.nodes[0])).toEqual([a]);
-  });
-  it('分支落点、逻辑位置和动画使用相同节点，包含落点迷雾返回',()=>{
-    const s=mapScenario('branch'), options=actionsForPiece(getActions(s,CHARACTERS).filter(a=>a.kind==='move'),'p0-0');
-    expect(options.map(a=>a.nodes[0])).toEqual(['G31','R31']);
-    const a=destinationActions(options,'R31')[0], next=reduceGame(s,a.command,CHARACTERS), piece=next.pieces[0];
-    expect(nodeAt(piece)).toBe('R30');
-    expect(eventTravelPoints(s,next,piece)).toEqual([NODES.G28,NODES.R29,NODES.R30,NODES.R31,NODES.R30]);
-  });
-  it('多棋落点暂停撞击，逐枚选择且不连带处理同格棋子',()=>{
-    const s=mapScenario('stack'), groups=pieceGroups(s), node=groups.get('G03')!;
-    expect(node).toHaveLength(4);const logical=node.map(p=>nodeAt(p));
-    node.forEach(p=>displayPoint(p,groups));expect(node.map(p=>nodeAt(p))).toEqual(logical);
-    const move=actionsForPiece(getActions(s,CHARACTERS).filter(a=>a.kind==='move'),'p0-0').find(a=>a.kind==='move')!;
-    const arrived=reduceGame(s,move.command,CHARACTERS);expect(arrived.choice?.kind).toBe('collision');
-    expect(pieceGroups(arrived).get('G03')).toHaveLength(5);
-    const target=actionsForPiece(getActions(arrived,CHARACTERS),'p1-1');expect(target).toHaveLength(1);
-    const next=reduceGame(arrived,target[0].command,CHARACTERS);
-    expect(next.pieces.find(p=>p.id==='p1-1')).toMatchObject({progress:39,shield:null});
-    expect(next.pieces.find(p=>p.id==='p1-0')!.progress).toBe(39);
-    expect(next.pieces.find(p=>p.id==='p2-0')!.progress).toBe(27);
-  });
-  it('完成落点显示在本席 F6，单次走棋立即判胜',()=>{
-    const s=finishScenario(), a=actionsForPiece(getActions(s,CHARACTERS).filter(a=>a.kind==='move'),'p0-0');
-    expect(a).toHaveLength(1);expect(a[0].nodes).toEqual(['done-0']);
-    expect(nodePoint(a[0].nodes[0])).toBe(NODES['P1-F6']);
-    expect(reduceGame(s,a[0].command,CHARACTERS).winner).toBe(0);
-  });
+describe('新棋盘与操作',()=>{
+ it('52格四色环道、四条六格终点道，没有旧地图节点或地形',()=>{expect(MAP.nodes).toHaveLength(80);expect(MAP.edges).toHaveLength(80);expect(MAP.nodes.filter(n=>n.layer==='public')).toHaveLength(52);for(let owner=0;owner<4;owner++)expect(MAP.nodes.filter(n=>n.layer==='public'&&n.color===owner)).toHaveLength(13);const svg=readFileSync('public/maps/board.svg','utf8');for(const n of MAP.nodes)expect(svg).toContain(`data-node="${n.id}"`);expect(svg).not.toMatch(/G00<|R29|迷雾|顺风|障碍/);});
+ it('航线与实际交叉格共线，地图数据和规则使用相同落点',()=>{for(const seat of MAP.seats){const a=NODES[seat.flight.from],b=NODES[seat.flight.to],c=NODES[seat.flight.cross];const cross=(b.tileX!-a.tileX!)*(c.y-a.tileY!)-(b.tileY!-a.tileY!)*(c.x-a.tileX!);expect(Math.abs(cross)).toBeLessThan(1600);}});
+ it('内转角的两半来自同一六边形，外转角只显示一个半块',()=>{for(const pair of [['G03','G04'],['G16','G17'],['G29','G30'],['G42','G43']]){const a=NODES[pair[0]],b=NODES[pair[1]];expect(a.tileX).toBe(b.tileX);expect(a.tileY).toBe(b.tileY);expect(a.shape).not.toBe(b.shape);expect(a.polygon).not.toBe(b.polygon);}for(const id of ['G00','G07','G13','G20','G26','G33','G39','G46'])expect(NODES[id].shape).not.toBe('full');});
+ it('出场格独立于公共赛道，出场动画直接从机场抵达出场格',()=>{const s=scenario('yukari');s.pieces[2].progress=-1;const next=reduceGame(s,actionsForPiece(getActions(s,CHARACTERS),'p0-2')[0].command,CHARACTERS);expect(nodeAt(next.pieces[2])).toBe('launch-0');expect(eventTravelPoints(s,next,next.pieces[2])).not.toContainEqual(NODES.G00);expect(MAP.nodes.filter(n=>n.layer==='launch')).toHaveLength(4);});
+ it('单结果出场可直接提交，自动跳格最终落点可点击',()=>{const s=scenario('yukari');for(const p of s.pieces)p.progress=-1;s.pieces[0].progress=5;s.dice={value:1,natural:1,source:'natural',extra:false};const moves=getActions(s,CHARACTERS).filter(a=>a.kind==='move');const spawn=actionsForPiece(moves,'p0-2');expect(spawn).toHaveLength(1);expect(reduceGame(s,spawn[0].command,CHARACTERS).pieces[2].progress).toBe(0);const actions=actionsForPiece(moves,'p0-0');expect(actions[0].nodes).toEqual(['G09']);expect(destinationActions(actions,'G09')).toHaveLength(1);});
+ it('同格选择显示偏移不改变规则位置，所有敌棋自动参与撞击',()=>{const s=scenario('yukari');for(const p of s.pieces)p.progress=-1;s.pieces[0].progress=4;for(const id of ['p1-0','p1-1','p2-0']){const p=s.pieces.find(p=>p.id===id)!;p.progress=progressAt(p.owner,'G04');}s.dice={value:1,natural:1,source:'natural',extra:false};const groups=pieceGroups(s);for(const p of groups.get('G04')!)displayPoint(p,groups);expect(groups.get('G04')!.every(p=>nodeAt(p)==='G04')).toBe(true);const next=reduceGame(s,actionsForPiece(getActions(s,CHARACTERS),'p0-0')[0].command,CHARACTERS);expect(next.choice).toBeNull();expect(next.returns).toEqual([1,2,1,0]);});
+ it('折返动画真实经过终点，完成位置仍为本席F6',()=>{const s=finishScenario();s.dice={value:3,natural:3,source:'natural',extra:false};const next=reduceGame(s,actionsForPiece(getActions(s,CHARACTERS),'p0-0')[0].command,CHARACTERS);const points=eventTravelPoints(s,next,next.pieces[0]);expect(points).toContainEqual(NODES['P1-F6']);expect(next.pieces[0].progress).toBe(FINISH-2);expect(nodePoint('done-0')).toBe(NODES['P1-F6']);});
+ it('航线移动动画经过实际交叉格，不沿环道绕行',()=>{const s=scenario('yukari');for(const p of s.pieces)p.progress=-1;s.pieces[0].progress=17;s.dice={value:1,natural:1,source:'natural',extra:false};const n=reduceGame(s,actionsForPiece(getActions(s,CHARACTERS),'p0-0')[0].command,CHARACTERS);expect(eventTravelPoints(s,n,n.pieces[0])).toEqual([NODES.G16,NODES.G17,NODES['P3-F3'],NODES.G29,NODES.G33]);});
+ it('release棋盘不绘制格子编号，棋子序号保留',()=>{const code=readFileSync('apps/web/src/Board.tsx','utf8');expect(code).toContain('import.meta.env.DEV&&Object.values(NODES)');expect(code).toContain('{p.index+1}');});
 });

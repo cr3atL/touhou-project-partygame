@@ -1,7 +1,7 @@
 import { publicAsset } from './assets';
 
-export type Sound = 'cat00' | 'pldead00' | 'nep00' | 'slash' | 'nodamage' | 'kira00' | 'cardget' | 'select00' | 'ok00' | 'cancel00' | 'dice-roll' | 'dice-settle' | 'piece-move';
-const sounds: Sound[] = ['cat00','pldead00','nep00','slash','nodamage','kira00','cardget','select00','ok00','cancel00','dice-roll','dice-settle','piece-move'];
+export type Sound = 'cat00' | 'pldead00' | 'nep00' | 'slash' | 'nodamage' | 'kira00' | 'cardget' | 'select00' | 'ok00' | 'cancel00' | 'dice-roll' | 'dice-settle' | 'piece-move' | 'timeout';
+const sounds: Sound[] = ['cat00','pldead00','nep00','slash','nodamage','kira00','cardget','select00','ok00','cancel00','dice-roll','dice-settle','piece-move','timeout'];
 let context: AudioContext | undefined, master: GainNode | undefined;
 let enabled = true, volume = .45;
 let generation = 0;

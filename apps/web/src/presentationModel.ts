@@ -1,3 +1,4 @@
+import { FINISH } from '../../../packages/core/constants';
 import type { CharacterId, GameEvent, GameState } from '../../../packages/core/types';
 import { piecePoint, type Point } from './boardModel';
 
@@ -35,9 +36,9 @@ export function spellSequence(beat: PresentationBeat): SpellSequence | null {
   }
   const targets = ids.flatMap((id, index) => {
     const before = beat.before.pieces.find(p => p.id === id), after = beat.after.pieces.find(p => p.id === id);
-    if (!before || !after || before.progress < 0 || before.progress >= 53) return [];
+    if (!before || !after || before.progress < 0 || before.progress >= FINISH) return [];
     const launch = 220 + index * 600;
-    const from = piecePoint(before), to = after.progress >= 0 && after.progress < 53 ? piecePoint(after) : from;
+    const from = piecePoint(before), to = after.progress >= 0 && after.progress < FINISH ? piecePoint(after) : from;
     return [{ piece:id, launch, impact:launch+SPELL_FLIGHT_MS, from, to }];
   });
   return {caster:source.id, origin:piecePoint(source), targets, duration:Math.max(920,(targets.at(-1)?.impact ?? 0)+900)};

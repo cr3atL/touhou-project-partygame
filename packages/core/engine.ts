@@ -1,8 +1,9 @@
+import { ROAD_START, LAST_PUBLIC, FINISH } from './constants';
 import { action, VERSIONS, type Action, type Branch, type CharacterId, type ChoiceOption, type Command, type DiceResult, type Effect, type GameState, type MoveCommand, type Piece, type Random, type Registry, type RuleView } from './types';
-import { branchAt, branchesFor, distance, nodeAt, terrain } from './map';
+import { branchAt, branchesFor, distance, nodeAt, diceEnd, accelerations } from './map';
 
-export const freshFlags = (): GameState['flags'] => ({ first:true, active:false, extra:false, used:{}, moved:[], targeted:[], locked:[], rewritten:false });
-const isPublic = (p: Piece) => p.progress >= 0 && p.progress <= 47;
+export const freshFlags = (): GameState['flags'] => ({ first:true, active:false, extra:false, used:{}, moved:[], locked:[], rewritten:false, sixes:0, lastDiePiece:null });
+const isPublic = (p: Piece) => p.progress >= ROAD_START && p.progress <= LAST_PUBLIC;
 export function pieceLabel(s: GameState, id: string, registry: Registry): string {
   const p=s.pieces.find(p=>p.id===id)!;
   return `${registry[s.players[p.owner].character].short}${'①②③④'[p.index]}`;
@@ -26,29 +27,31 @@ function choose(s:GameState,kind:string,prompt:string,options:ChoiceOption[],ski
 }
 function forwardOptions(s:GameState,p:Piece,steps:number,registry:Registry):ChoiceOption[] {
   if(!isPublic(p))return [];
-  const n=Math.min(steps,47-p.progress);if(n<=0)return [];
+  const n=Math.min(steps,LAST_PUBLIC-p.progress);if(n<=0)return [];
   return branchesFor(p,n).map(branch=>({id:`${p.id}-${branch}`,label:`${pieceLabel(s,p.id,registry)} → ${nodeAt(p,p.progress+n,branch)}`,pieces:[p.id],nodes:[nodeAt(p,p.progress+n,branch)],effects:[{type:'displace',piece:p.id,steps:n,branch}],score:n}));
 }
 export function advanceOptions(s:GameState,registry:Registry,exclude?:string,steps=1):ChoiceOption[] {
   return s.pieces.filter(p=>p.owner===s.current&&p.id!==exclude).flatMap(p=>forwardOptions(s,p,steps,registry));
 }
 function moveScore(s:GameState,p:Piece,end:number,branch:Branch,steps:number) {
-  const node=nodeAt(p,end,branch);
-  const enemies=s.pieces.filter(e=>e.owner!==s.current&&isPublic(e)&&nodeAt(e)===node&&!s.flags.targeted.includes(e.id));
-  const hit=Math.max(0,...enemies.map(e=>e.shield!==null?1:e.progress*.35+4));
-  const t=terrain(s,node), groundValue=t==='wind'?2:t==='mist'?-1:t==='obstacle'?-2:0;
-  return steps+groundValue+hit+(end===53?80:p.progress*.025);
+  const route=end<=LAST_PUBLIC?accelerations({...p,progress:end}):[];
+  const destination=route.at(-1)?.to??end,node=nodeAt(p,destination,branch);
+  const enemies=s.pieces.filter(e=>e.owner!==p.owner&&e.progress>=0&&e.progress<FINISH&&nodeAt(e)===node);
+  const destroyed=enemies.filter(e=>e.shield===null);
+  const hit=destroyed.reduce((n,e)=>n+e.progress*.35+4,0);
+  return steps+(destination-end)+hit-(destroyed.length>=2&&p.shield===null?p.progress+15:0)+(end===FINISH?80:p.progress*.025);
 }
 export function movementOptions(s:GameState,steps:number,registry:Registry,publicOnly=false):ChoiceOption[] {
-  return s.pieces.filter(p=>p.owner===s.current&&p.progress>=0&&p.progress<53&&!s.flags.locked.includes(p.id)).flatMap(p=>{
+  return s.pieces.filter(p=>p.owner===s.current&&p.progress>=0&&p.progress<FINISH&&(!publicOnly||isPublic(p))&&!s.flags.locked.includes(p.id)).flatMap(p=>{
     const actual=Math.max(1,steps-(p.mark?.slow??0));
-    if(p.progress+actual>(publicOnly?47:53))return [];
-    return branchesFor(p,actual).map(branch=>({id:`${p.id}-${branch}`,label:`${pieceLabel(s,p.id,registry)} → ${nodeAt(p,p.progress+actual,branch)}`,effects:[{type:'diceMove',piece:p.id,steps:actual,branch}],pieces:[p.id],nodes:[nodeAt(p,p.progress+actual,branch)],score:moveScore(s,p,p.progress+actual,branch,actual)}));
+    if(publicOnly&&p.progress+actual>LAST_PUBLIC)return [];
+    const end=diceEnd(p.progress,actual);
+    return branchesFor(p,actual).map(branch=>({id:`${p.id}-${branch}`,label:`${pieceLabel(s,p.id,registry)} → ${nodeAt(p,end,branch)}`,effects:[{type:'diceMove',piece:p.id,steps:actual,branch}],pieces:[p.id],nodes:[nodeAt(p,end,branch)],score:moveScore(s,p,end,branch,actual)}));
   });
 }
 export function view(s:GameState,registry:Registry,owner=s.current):RuleView {
   return {state:s,player:s.players[owner],own:s.pieces.filter(p=>p.owner===owner),enemies:s.pieces.filter(p=>p.owner!==owner&&isPublic(p)),node:nodeAt,distance,at:id=>s.pieces.find(p=>p.id===id)!,label:id=>pieceLabel(s,id,registry),
-    path:(p,steps,branch)=>Array.from({length:Math.max(0,Math.min(steps,47-p.progress))},(_,i)=>nodeAt(p,p.progress+i+1,branch)),
+    path:(p,steps,branch)=>Array.from({length:Math.max(0,Math.min(steps,LAST_PUBLIC-p.progress))},(_,i)=>nodeAt(p,p.progress+i+1,branch)),
     moves:(steps,publicOnly)=>movementOptions(s,steps,registry,publicOnly),optionsAdvance:(exclude,steps)=>advanceOptions(s,registry,exclude,steps)};
 }
 function effectiveSteps(s:GameState,p:Piece,command:MoveCommand):number {
@@ -63,22 +66,23 @@ export function getActions(s:GameState,registry:Registry):Action[] {
   if(s.phase==='roll')return [action({type:'roll'},'掷骰',[],[],1)];
   if(s.phase!=='action'||!s.dice)return [];
   const v=view(s,registry),character=registry[v.player.character],results:Action[]=[];
-  for(const p of v.own.filter(p=>p.progress<53&&!s.flags.locked.includes(p.id))) {
+  for(const p of v.own.filter(p=>p.progress<FINISH&&!s.flags.locked.includes(p.id))) {
     if(p.progress<0) {
-      if(!s.flags.rewritten)results.push(action({type:'move',piece:p.id},`${v.label(p.id)} 出场`,[p.id],[nodeAt(p,0)],3.5+(v.own.every(q=>q.progress<0||q.progress===53)?10:0)));
+      if(!s.flags.rewritten)results.push(action({type:'move',piece:p.id},`${v.label(p.id)} 出场`,[p.id],[nodeAt(p,0)],3.5+(v.own.every(q=>q.progress<0||q.progress===FINISH)?10:0)));
       continue;
     }
     const splits:Pick<MoveCommand,'splitPiece'|'splitBranch'>[]=[{}];
     if(isPublic(p)&&character.splitThreshold&&s.dice.value>=character.splitThreshold&&!s.flags.used.publicMove) {
-      for(const q of v.own.filter(q=>q.id!==p.id&&isPublic(q)&&q.progress<47))for(const splitBranch of branchesFor(q,1))splits.push({splitPiece:q.id,splitBranch});
+      for(const q of v.own.filter(q=>q.id!==p.id&&isPublic(q)&&q.progress<LAST_PUBLIC&&!s.flags.locked.includes(q.id)))for(const splitBranch of branchesFor(q,1))splits.push({splitPiece:q.id,splitBranch});
     }
     for(const split of splits)for(const cleanse of (p.mark&&character.cleanseCooldown&&v.player.turns>=v.player.passiveAt?[false,true]:[false])) {
-      const base:MoveCommand={type:'move',piece:p.id,...split,...(cleanse?{cleanse:true}:{})},steps=effectiveSteps(s,p,base),end=p.progress+steps;
-      if(end>53||(s.flags.rewritten&&(!isPublic(p)||end>47)))continue;
+      const base:MoveCommand={type:'move',piece:p.id,...split,...(cleanse?{cleanse:true}:{})},steps=effectiveSteps(s,p,base),end=diceEnd(p.progress,steps);
+      if(s.flags.rewritten&&(!isPublic(p)||p.progress+steps>LAST_PUBLIC))continue;
       for(const branch of branchesFor(p,steps)) {
-        const label=`${v.label(p.id)} → ${nodeAt(p,end,branch)}`;
-        const detail=[`${steps} 格`,cleanse?'白楼剑净化':'',split.splitPiece?`${v.label(split.splitPiece)} ＋1`:'',branch==='spirit'?'冥界':''].filter(Boolean).join(' · ');
-        results.push(action({...base,branch},label,[p.id,...(split.splitPiece?[split.splitPiece]:[])],[nodeAt(p,end,branch)],moveScore(s,p,end,branch,steps)+(split.splitPiece?1.1:0)+(cleanse?1.2:0),detail));
+        const destination=accelerations({...p,progress:end}).at(-1)?.to??end;
+        const label=`${v.label(p.id)} → ${nodeAt(p,destination,branch)}`;
+        const detail=[`${steps} 格`,cleanse?'白楼剑净化':'',split.splitPiece?`${v.label(split.splitPiece)} ＋1`:''].filter(Boolean).join(' · ');
+        results.push(action({...base,branch},label,[p.id,...(split.splitPiece?[split.splitPiece]:[])],[nodeAt(p,destination,branch)],moveScore(s,p,end,branch,steps)+(split.splitPiece?1.1:0)+(cleanse?1.2:0),detail));
       }
     }
   }
@@ -98,14 +102,20 @@ export function reduceGame(previous:GameState,command:Command,registry:Registry,
     const option=s.choice!.options.find(o=>o.id===command.option)!;emit(s,'choice',option.label,option.pieces);s.choice=null;prepend(s,option.effects);
   } else if(command.type==='roll') {
     const n=random();draws.push(n);const value=Math.max(1,Math.min(6,Math.floor(n*6)+1));
-    s.dice={value,natural:value,source:'natural',extra:s.flags.first&&value===6};s.phase='action';emit(s,'dice',`${p.name} 掷出 ${value}`);
+    s.flags.sixes=value===6?s.flags.sixes+1:0;
+    s.dice={value,natural:value,source:'natural',extra:value===6};s.phase='action';emit(s,'dice',`${p.name} 掷出 ${value}`);
+    if(s.flags.sixes===3){
+      const last=s.pieces.find(q=>q.id===s.flags.lastDiePiece);
+      emit(s,'overheat','连续第三个自然六点 · 取消行动',last?[last.id]:[]);
+      if(last&&last.progress>=0&&last.progress<FINISH&&!block(s,last,registry))returnPiece(s,last,registry);
+      prepend(s,[{type:'finishTurn'}]);
+    }
   } else if(command.type==='cast') {
     const c=registry[p.character];s.flags.active=true;p.activeAt=p.turns+c.cooldown;
-    for(const id of command.targets??[])if(s.pieces.find(q=>q.id===id)!.owner!==s.current&&!s.flags.targeted.includes(id))s.flags.targeted.push(id);
     emit(s,'skill',`${p.name} · ${c.active}`,legal.pieces);prepend(s,c.cast(view(s,registry),command));
   } else if(command.type==='move') {
     const piece=s.pieces.find(q=>q.id===command.piece)!,steps=effectiveSteps(s,piece,command),fromPublic=isPublic(piece),spawn=piece.progress<0;
-    const result:DiceResult={piece:piece.id,fromPublic,toPublic:!spawn&&piece.progress+steps<=47,first:s.flags.first,natural:s.dice!.natural,steps,spawn};
+    const result:DiceResult={piece:piece.id,fromPublic,toPublic:!spawn&&piece.progress+steps<=LAST_PUBLIC,first:s.flags.first,natural:s.dice!.natural,steps,spawn};
     if(command.cleanse) {piece.mark=null;p.passiveAt=p.turns+registry[p.character].cleanseCooldown!;emit(s,'cleanse',`${pieceLabel(s,piece.id,registry)} 白楼剑 · 净化，本次少走一格（最低一格）`,[piece.id]);}
     else if(piece.mark)emit(s,'slow',`${pieceLabel(s,piece.id,registry)} 无寿之梦 · 本次 ${steps} 格`,[piece.id]);
     if(fromPublic)s.flags.used.publicMove=true;
@@ -118,7 +128,7 @@ function moved(s:GameState,p:Piece,progress:number,branch:Branch|null,registry:R
   const from=nodeAt(p);p.progress=progress;p.branch=branch;const to=nodeAt(p);
   if(!isPublic(p))p.mark=null;
   emit(s,'move',`${pieceLabel(s,p.id,registry)} ${reason} → ${to}`,[p.id],from,to);
-  if(progress===53&&!s.rankings.includes(p.owner)&&s.pieces.filter(q=>q.owner===p.owner).every(q=>q.progress===53)) {
+  if(progress===FINISH&&!s.rankings.includes(p.owner)&&s.pieces.filter(q=>q.owner===p.owner).every(q=>q.progress===FINISH)) {
     s.rankings.push(p.owner);s.winner=s.rankings[0];s.choice=null;
     emit(s,'place',`${s.players[p.owner].name} 获得第${s.rankings.length}名`);
     if(s.rankings.length===3) {s.phase='over';s.queue=[];emit(s,'over','前三名已决出，巡游结束');}
@@ -148,7 +158,7 @@ function settle(s:GameState,registry:Registry) {
       case 'lockDice':s.flags.locked.push(e.piece);emit(s,'lock',`${pieceLabel(s,e.piece,registry)} 本回合不能用骰子行动`,[e.piece]);break;
       case 'choice':choose(s,e.kind,e.prompt,e.options,!!e.skip);break;
       case 'shield': {
-        const ids=(e.ids as string[]).filter(id=>{const p=s.pieces.find(q=>q.id===id)!;return p.progress>=0&&p.progress<53;});
+        const ids=(e.ids as string[]).filter(id=>{const p=s.pieces.find(q=>q.id===id)!;return p.progress>=0&&p.progress<FINISH;});
         for(const id of ids) {const p=s.pieces.find(q=>q.id===id)!;p.shield=s.players[p.owner].turns+1;}
         if(ids.length)emit(s,'shield','获得一次保护',ids);break;
       }
@@ -171,46 +181,64 @@ function settle(s:GameState,registry:Registry) {
           const defender=registry[s.players[piece.owner].character],reduced=defender.knockback?.(view(s,registry,piece.owner),piece,steps)??steps;
           if(reduced!==steps)emit(s,'passive',`${pieceLabel(s,piece.id,registry)} 境界缓冲 · 少退一格`,[piece.id]);steps=reduced;
         }
-        const end=Math.max(0,Math.min(47,piece.progress+steps));
+        const end=Math.max(0,Math.min(LAST_PUBLIC,piece.progress+steps));
         if(end!==piece.progress)moved(s,piece,end,steps>0?(e.branch??piece.branch??'ground'):branchAt(piece,end),registry,steps>0?'前进':'后退');
         break;
       }
-      case 'switchRoute':if(piece)moved(s,piece,piece.progress,e.branch,registry,'经间隙换路');break;
       case 'offerAdvance': {
         const options=piece?forwardOptions(s,piece,e.steps,registry):advanceOptions(s,registry,e.exclude,e.steps);
         choose(s,'advance',e.prompt??'额外前进',options,!!e.skip);break;
       }
       case 'diceMove': {
         if(!piece)break;
-        s.flags.moved.push(piece.id);
+        s.flags.moved.push(piece.id);s.flags.lastDiePiece=piece.id;
         if(piece.progress<0) {moved(s,piece,0,null,registry,'出场');break;}
-        moved(s,piece,piece.progress+e.steps,e.branch??piece.branch??'ground',registry,`${e.steps} 格`);
-        if(!s.rankings.includes(piece.owner)&&isPublic(piece))prepend(s,[{type:'collision',piece:piece.id},{type:'terrain',piece:piece.id}]);
+        const end=diceEnd(piece.progress,e.steps);
+        if(piece.progress+e.steps>FINISH){
+          // The intermediate endpoint is visual only; completion requires an exact landing.
+          const from=nodeAt(piece);
+          emit(s,'bounce',`${pieceLabel(s,piece.id,registry)} 终点折返`,[piece.id],from,nodeAt(piece,FINISH));
+        }
+        moved(s,piece,end,e.branch??'ground',registry,`${e.steps} 格`);
+        if(!s.rankings.includes(piece.owner)&&isPublic(piece)) {
+          const route=accelerations(piece), effects:Effect[]=[];
+          for(const leg of route){
+            if(leg.cross)effects.push({type:'collision',piece:piece.id,node:leg.cross});
+            effects.push({type:'accelerate',piece:piece.id,end:leg.to,kind:leg.kind});
+          }
+          effects.push({type:'collision',piece:piece.id});
+          if(route[0]?.kind==='jump')effects.push({type:'float',piece:piece.id});
+          prepend(s,effects);
+        }
         break;
       }
+      case 'accelerate':
+        if(piece&&isPublic(piece))moved(s,piece,e.end,'ground',registry,e.kind==='flight'?'航线飞行':'同色跳格');
+        break;
       case 'collision': {
-        const enemies=s.pieces.filter(p=>p.owner!==s.current&&isPublic(p)&&nodeAt(p)===nodeAt(piece!)&&!s.flags.targeted.includes(p.id));
-        if(enemies.length===1)prepend(s,[{type:'collisionHit',piece:enemies[0].id}]);
-        else if(enemies.length>1)choose(s,'collision','选择一枚同格敌棋撞击',enemies.map(p=>({id:p.id,label:`撞击 ${pieceLabel(s,p.id,registry)}`,effects:[{type:'collisionHit',piece:p.id}],pieces:[p.id],score:p.shield!==null?1:p.progress+1})));
+        if(!piece||!isPublic(piece))break;
+        const at=e.node??nodeAt(piece);
+        if(e.node)emit(s,'crossing','航线交叉',[piece.id],nodeAt(piece),at);
+        const enemies=s.pieces.filter(p=>p.owner!==piece.owner&&p.progress>=0&&p.progress<FINISH&&nodeAt(p)===at);
+        let destroyed=0;
+        for(const enemy of enemies)if(!block(s,enemy,registry)){returnPiece(s,enemy,registry);destroyed++;}
+        if(destroyed>=2){
+          emit(s,'mutual',`同一位置撞毁 ${destroyed} 枚 · 同归于尽`,[piece.id]);
+          if(!block(s,piece,registry))returnPiece(s,piece,registry);
+        }
         break;
       }
-      case 'collisionHit':if(piece&&isPublic(piece)&&!s.flags.targeted.includes(piece.id)&&!block(s,piece,registry))returnPiece(s,piece,registry);break;
-      case 'terrain': {
-        if(!piece||!isPublic(piece))break;
-        const type=terrain(s,nodeAt(piece));
-        if(type==='wind')choose(s,'wind','顺风 · 前进两格？',forwardOptions(s,piece,2,registry),true);
-        else if(type==='mist'||type==='obstacle') {
-          const steps=type==='mist'?-1:-2;
-          prepend(s,character.terrainRetreat?.(view(s,registry),piece,steps)??[{type:'displace',piece:piece.id,steps}]);
-        }break;
-      }
+      case 'float':
+        if(piece&&isPublic(piece)&&piece.progress<LAST_PUBLIC&&character.id==='reimu'&&!s.flags.used.float)
+          choose(s,'advance','浮游 · 前进一格？',[{id:'float',label:'浮游',pieces:[piece.id],nodes:[nodeAt(piece,piece.progress+1)],effects:[{type:'flag',key:'float'},{type:'displace',piece:piece.id,steps:1}],score:1}],true);
+        break;
       case 'afterDice': {
         const r=e.result as DiceResult,p=s.pieces.find(p=>p.id===r.piece)!;
         p.mark=null;
         prepend(s,character.afterDice?.(view(s,registry),r)??[]);break;
       }
       case 'afterAction':
-        if(s.dice?.extra&&!s.flags.extra) {s.flags.extra=true;s.flags.first=false;s.flags.rewritten=false;s.dice=null;s.phase='roll';emit(s,'extra','自然六点 · 追加一次行动');}
+        if(s.dice?.extra) {s.flags.extra=true;s.flags.first=false;s.flags.rewritten=false;s.dice=null;s.phase='roll';emit(s,'extra','自然六点 · 追加一次行动');}
         else prepend(s,[{type:'finishTurn'}]);break;
       case 'finishTurn': {
         const effects:Effect[]=[];
@@ -235,13 +263,16 @@ function settle(s:GameState,registry:Registry) {
 }
 export function assertGame(s:GameState) {
   if(!s||s.players?.length!==4||s.pieces?.length!==16)throw new Error('棋子或席位数量错误');
-  if(![0,1,2,3].includes(s.current)||!['roll','action','resolving','over'].includes(s.phase)||!Array.isArray(s.history)||!Array.isArray(s.queue)||!s.flags?.targeted||!s.flags?.locked)throw new Error('对局状态格式错误');
-  if(!Array.isArray(s.rankings)||s.rankings.length>3||new Set(s.rankings).size!==s.rankings.length||s.rankings.some(id=>!s.players[id]||!s.pieces.filter(p=>p.owner===id).every(p=>p.progress===53))||s.winner!==(s.rankings[0]??null)||!Number.isInteger(s.round)||s.round<1)throw new Error('名次状态格式错误');
+  if(!s?.versions||Object.entries(VERSIONS).some(([key,value])=>s.versions[key as keyof typeof VERSIONS]!==value))throw new Error('规则或地图版本不兼容');
+  if(!Number.isInteger(s.flags?.sixes)||s.flags.sixes<0||s.flags.sixes>3)throw new Error('六点状态格式错误');
+  if(![0,1,2,3].includes(s.current)||!['roll','action','resolving','over'].includes(s.phase)||!Array.isArray(s.history)||!Array.isArray(s.queue)||!s.flags?.locked)throw new Error('对局状态格式错误');
+  if(!Array.isArray(s.rankings)||s.rankings.length>3||new Set(s.rankings).size!==s.rankings.length||s.rankings.some(id=>!s.players[id]||!s.pieces.filter(p=>p.owner===id).every(p=>p.progress===FINISH))||s.winner!==(s.rankings[0]??null)||!Number.isInteger(s.round)||s.round<1)throw new Error('名次状态格式错误');
   if((s.phase==='over')!==(s.rankings.length===3)||(s.phase!=='over'&&s.rankings.includes(s.current)))throw new Error('赛程结束状态错误');
   if(new Set(s.players.map(p=>p.character)).size!==4||new Set(s.pieces.map(p=>p.id)).size!==16)throw new Error('角色或棋子重复');
   for(const p of s.players)if(!Number.isInteger(p.turns)||p.turns<0||!Number.isInteger(p.activeAt)||!Number.isInteger(p.passiveAt))throw new Error('冷却格式错误');
   for(const p of s.pieces) {
-    if(!Number.isInteger(p.progress)||p.progress< -1||p.progress>53||!s.players[p.owner]||p.id!==`p${p.owner}-${p.index}`)throw new Error('赛程或棋子格式错误');
+    if(!Number.isInteger(p.progress)||p.progress< -1||p.progress>FINISH||!s.players[p.owner]||p.id!==`p${p.owner}-${p.index}`)throw new Error('赛程或棋子格式错误');
+    if(p.branch!==null&&p.branch!=='ground')throw new Error('旧地图支线已停用');
     if(p.mark&&(!isPublic(p)||!Number.isInteger(p.mark.expires)||p.mark.slow<1||p.mark.retreat<1))throw new Error('附着状态格式错误');
   }
   if(s.dice&&(!Number.isInteger(s.dice.natural)||s.dice.natural<1||s.dice.natural>6||!Number.isInteger(s.dice.value)||s.dice.value<1||s.dice.value>6))throw new Error('骰子格式错误');
