@@ -3,17 +3,16 @@ import {describe,it,expect} from 'vitest';
 import {CHARACTERS} from '../packages/content';
 import {getActions,reduceGame} from '../packages/core/engine';
 import {MAP,NODES,nodeAt} from '../packages/core/map';
-import original from '../docs/maps/幻想乡巡游-v0.1.json';
+import original from './fixtures/map-topology.json';
 import {scenario,mapScenario,finishScenario} from '../packages/session/scenarios';
 import {actionsForPiece,destinationActions,pieceGroups,displayPoint,nodePoint,eventTravelPoints} from '../apps/web/src/boardModel';
 
 describe('精确地图与地图操作',()=>{
-  it('展示换为 v0.3 后完整保留原始连边、赛程与地形',()=>{
+  it('地图完整保留连边、赛程与地形，并展示全部节点',()=>{
     expect(MAP.edges).toEqual(original.edges);
     expect(MAP.nodes.map(({id,terrain})=>({id,terrain}))).toEqual(original.nodes.map(({id,terrain})=>({id,terrain})));
     expect(NODES.G00).toMatchObject({x:2050,y:1080});
     const svg=readFileSync('public/maps/board.svg','utf8');
-    expect(svg).toBe(readFileSync('output/design/vector-map-v0.3/幻想乡巡游-矢量路线审查-v0.3.svg','utf8'));
     for(const node of MAP.nodes) expect(svg).toContain(`data-node="${node.id}"`);
     expect(MAP.nodes).toHaveLength(77);expect(MAP.edges).toHaveLength(78);
   });

@@ -1,4 +1,4 @@
-import mapData from '../../output/design/vector-map-v0.3/幻想乡巡游-矢量路线审查-v0.3.json';
+import mapData from './data/board.json';
 import type { Branch, GameState, Piece } from './types';
 export interface MapNode { id: string; x: number; y: number; layer: string; region?: string; name?: string; terrain?: string; route_index?: number }
 export const MAP = mapData;

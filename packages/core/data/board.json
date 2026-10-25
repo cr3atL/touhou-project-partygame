@@ -1,0 +1,1405 @@
+{
+  "version": "0.1",
+  "title": "幻想乡巡游",
+  "coordinate_system": {
+    "width": 2520,
+    "height": 1740
+  },
+  "public_nodes": 53,
+  "public_route_length": 48,
+  "finish_length": 6,
+  "main_route": [
+    "G00",
+    "G01",
+    "G02",
+    "G03",
+    "G04",
+    "G05",
+    "G06",
+    "G07",
+    "G08",
+    "G09",
+    "G10",
+    "G11",
+    "G12",
+    "G13",
+    "G14",
+    "G15",
+    "G16",
+    "G17",
+    "G18",
+    "G19",
+    "G20",
+    "G21",
+    "G22",
+    "G23",
+    "G24",
+    "G25",
+    "G26",
+    "G27",
+    "G28",
+    "G29",
+    "G30",
+    "G31",
+    "G32",
+    "G33",
+    "G34",
+    "G35",
+    "G36",
+    "G37",
+    "G38",
+    "G39",
+    "G40",
+    "G41",
+    "G42",
+    "G43",
+    "G44",
+    "G45",
+    "G46",
+    "G47"
+  ],
+  "branch": {
+    "fork": "G28",
+    "merge": "G34",
+    "ground": [
+      "G28",
+      "G29",
+      "G30",
+      "G31",
+      "G32",
+      "G33",
+      "G34"
+    ],
+    "netherworld": [
+      "G28",
+      "R29",
+      "R30",
+      "R31",
+      "R32",
+      "R33",
+      "G34"
+    ],
+    "equal_cost": 6
+  },
+  "seats": [
+    {
+      "id": "P1",
+      "color": "#BD5167",
+      "start": "G00",
+      "entry": "G47",
+      "finish": [
+        "P1-F1",
+        "P1-F2",
+        "P1-F3",
+        "P1-F4",
+        "P1-F5",
+        "P1-F6"
+      ],
+      "pieces": 4
+    },
+    {
+      "id": "P2",
+      "color": "#477DA9",
+      "start": "G12",
+      "entry": "G11",
+      "finish": [
+        "P2-F1",
+        "P2-F2",
+        "P2-F3",
+        "P2-F4",
+        "P2-F5",
+        "P2-F6"
+      ],
+      "pieces": 4
+    },
+    {
+      "id": "P3",
+      "color": "#418266",
+      "start": "G24",
+      "entry": "G23",
+      "finish": [
+        "P3-F1",
+        "P3-F2",
+        "P3-F3",
+        "P3-F4",
+        "P3-F5",
+        "P3-F6"
+      ],
+      "pieces": 4
+    },
+    {
+      "id": "P4",
+      "color": "#B28A32",
+      "start": "G36",
+      "entry": "G35",
+      "finish": [
+        "P4-F1",
+        "P4-F2",
+        "P4-F3",
+        "P4-F4",
+        "P4-F5",
+        "P4-F6"
+      ],
+      "pieces": 4
+    }
+  ],
+  "nodes": [
+    {
+      "id": "G00",
+      "layer": "ground",
+      "region": "博丽神社与兽道",
+      "route_index": 0,
+      "terrain": "ordinary",
+      "x": 2050,
+      "y": 1080
+    },
+    {
+      "id": "G01",
+      "layer": "ground",
+      "region": "博丽神社与兽道",
+      "route_index": 1,
+      "terrain": "ordinary",
+      "x": 2060,
+      "y": 1190
+    },
+    {
+      "id": "G02",
+      "layer": "ground",
+      "region": "博丽神社与兽道",
+      "route_index": 2,
+      "terrain": "ordinary",
+      "x": 1960,
+      "y": 1240
+    },
+    {
+      "id": "G03",
+      "layer": "ground",
+      "region": "博丽神社与兽道",
+      "route_index": 3,
+      "terrain": "wind",
+      "x": 1910,
+      "y": 1340
+    },
+    {
+      "id": "G04",
+      "layer": "ground",
+      "region": "博丽神社与兽道",
+      "route_index": 4,
+      "terrain": "ordinary",
+      "x": 1800,
+      "y": 1370
+    },
+    {
+      "id": "G05",
+      "layer": "ground",
+      "region": "博丽神社与兽道",
+      "route_index": 5,
+      "terrain": "ordinary",
+      "x": 1700,
+      "y": 1430
+    },
+    {
+      "id": "G06",
+      "layer": "ground",
+      "region": "博丽神社与兽道",
+      "route_index": 6,
+      "terrain": "ordinary",
+      "x": 1590,
+      "y": 1430
+    },
+    {
+      "id": "G07",
+      "layer": "ground",
+      "region": "博丽神社与兽道",
+      "route_index": 7,
+      "terrain": "mist",
+      "x": 1510,
+      "y": 1350
+    },
+    {
+      "id": "G08",
+      "layer": "ground",
+      "region": "人类村落",
+      "route_index": 8,
+      "terrain": "ordinary",
+      "x": 1400,
+      "y": 1350
+    },
+    {
+      "id": "G09",
+      "layer": "ground",
+      "region": "人类村落",
+      "route_index": 9,
+      "terrain": "obstacle",
+      "x": 1330,
+      "y": 1430
+    },
+    {
+      "id": "G10",
+      "layer": "ground",
+      "region": "人类村落",
+      "route_index": 10,
+      "terrain": "ordinary",
+      "x": 1220,
+      "y": 1450
+    },
+    {
+      "id": "G11",
+      "layer": "ground",
+      "region": "人类村落",
+      "route_index": 11,
+      "terrain": "ordinary",
+      "x": 1120,
+      "y": 1390
+    },
+    {
+      "id": "G12",
+      "layer": "ground",
+      "region": "人类村落",
+      "route_index": 12,
+      "terrain": "ordinary",
+      "x": 1010,
+      "y": 1430
+    },
+    {
+      "id": "G13",
+      "layer": "ground",
+      "region": "人类村落",
+      "route_index": 13,
+      "terrain": "ordinary",
+      "x": 900,
+      "y": 1440
+    },
+    {
+      "id": "G14",
+      "layer": "ground",
+      "region": "人类村落",
+      "route_index": 14,
+      "terrain": "ordinary",
+      "x": 810,
+      "y": 1370
+    },
+    {
+      "id": "G15",
+      "layer": "ground",
+      "region": "人类村落",
+      "route_index": 15,
+      "terrain": "wind",
+      "x": 700,
+      "y": 1340
+    },
+    {
+      "id": "G16",
+      "layer": "ground",
+      "region": "香霖堂与魔法森林",
+      "route_index": 16,
+      "terrain": "ordinary",
+      "x": 590,
+      "y": 1320
+    },
+    {
+      "id": "G17",
+      "layer": "ground",
+      "region": "香霖堂与魔法森林",
+      "route_index": 17,
+      "terrain": "ordinary",
+      "x": 500,
+      "y": 1250
+    },
+    {
+      "id": "G18",
+      "layer": "ground",
+      "region": "香霖堂与魔法森林",
+      "route_index": 18,
+      "terrain": "ordinary",
+      "x": 410,
+      "y": 1210
+    },
+    {
+      "id": "G19",
+      "layer": "ground",
+      "region": "香霖堂与魔法森林",
+      "route_index": 19,
+      "terrain": "mist",
+      "x": 380,
+      "y": 1100
+    },
+    {
+      "id": "G20",
+      "layer": "ground",
+      "region": "香霖堂与魔法森林",
+      "route_index": 20,
+      "terrain": "ordinary",
+      "x": 420,
+      "y": 1000
+    },
+    {
+      "id": "G21",
+      "layer": "ground",
+      "region": "香霖堂与魔法森林",
+      "route_index": 21,
+      "terrain": "obstacle",
+      "x": 350,
+      "y": 920
+    },
+    {
+      "id": "G22",
+      "layer": "ground",
+      "region": "香霖堂与魔法森林",
+      "route_index": 22,
+      "terrain": "ordinary",
+      "x": 370,
+      "y": 810
+    },
+    {
+      "id": "G23",
+      "layer": "ground",
+      "region": "香霖堂与魔法森林",
+      "route_index": 23,
+      "terrain": "ordinary",
+      "x": 460,
+      "y": 720
+    },
+    {
+      "id": "G24",
+      "layer": "ground",
+      "region": "妖怪之山山麓",
+      "route_index": 24,
+      "terrain": "ordinary",
+      "x": 420,
+      "y": 610
+    },
+    {
+      "id": "G25",
+      "layer": "ground",
+      "region": "妖怪之山山麓",
+      "route_index": 25,
+      "terrain": "ordinary",
+      "x": 470,
+      "y": 510
+    },
+    {
+      "id": "G26",
+      "layer": "ground",
+      "region": "妖怪之山山麓",
+      "route_index": 26,
+      "terrain": "ordinary",
+      "x": 590,
+      "y": 500
+    },
+    {
+      "id": "G27",
+      "layer": "ground",
+      "region": "妖怪之山山麓",
+      "route_index": 27,
+      "terrain": "wind",
+      "x": 670,
+      "y": 420
+    },
+    {
+      "id": "G28",
+      "layer": "ground",
+      "region": "妖怪之山山麓",
+      "route_index": 28,
+      "terrain": "ordinary",
+      "x": 780,
+      "y": 410
+    },
+    {
+      "id": "G29",
+      "layer": "ground",
+      "region": "妖怪之山山麓",
+      "route_index": 29,
+      "terrain": "ordinary",
+      "x": 890,
+      "y": 460
+    },
+    {
+      "id": "G30",
+      "layer": "ground",
+      "region": "妖怪之山山麓",
+      "route_index": 30,
+      "terrain": "ordinary",
+      "x": 1000,
+      "y": 450
+    },
+    {
+      "id": "G31",
+      "layer": "ground",
+      "region": "妖怪之山山麓",
+      "route_index": 31,
+      "terrain": "mist",
+      "x": 1080,
+      "y": 390
+    },
+    {
+      "id": "G32",
+      "layer": "ground",
+      "region": "雾之湖",
+      "route_index": 32,
+      "terrain": "ordinary",
+      "x": 1200,
+      "y": 380
+    },
+    {
+      "id": "G33",
+      "layer": "ground",
+      "region": "雾之湖",
+      "route_index": 33,
+      "terrain": "obstacle",
+      "x": 1310,
+      "y": 400
+    },
+    {
+      "id": "G34",
+      "layer": "ground",
+      "region": "雾之湖",
+      "route_index": 34,
+      "terrain": "ordinary",
+      "x": 1410,
+      "y": 460
+    },
+    {
+      "id": "G35",
+      "layer": "ground",
+      "region": "雾之湖",
+      "route_index": 35,
+      "terrain": "ordinary",
+      "x": 1500,
+      "y": 400
+    },
+    {
+      "id": "G36",
+      "layer": "ground",
+      "region": "雾之湖",
+      "route_index": 36,
+      "terrain": "ordinary",
+      "x": 1610,
+      "y": 380
+    },
+    {
+      "id": "G37",
+      "layer": "ground",
+      "region": "雾之湖",
+      "route_index": 37,
+      "terrain": "ordinary",
+      "x": 1720,
+      "y": 400
+    },
+    {
+      "id": "G38",
+      "layer": "ground",
+      "region": "雾之湖",
+      "route_index": 38,
+      "terrain": "ordinary",
+      "x": 1800,
+      "y": 480
+    },
+    {
+      "id": "G39",
+      "layer": "ground",
+      "region": "雾之湖",
+      "route_index": 39,
+      "terrain": "wind",
+      "x": 1910,
+      "y": 500
+    },
+    {
+      "id": "G40",
+      "layer": "ground",
+      "region": "红魔馆",
+      "route_index": 40,
+      "terrain": "ordinary",
+      "x": 2020,
+      "y": 520
+    },
+    {
+      "id": "G41",
+      "layer": "ground",
+      "region": "红魔馆",
+      "route_index": 41,
+      "terrain": "ordinary",
+      "x": 2110,
+      "y": 590
+    },
+    {
+      "id": "G42",
+      "layer": "ground",
+      "region": "红魔馆",
+      "route_index": 42,
+      "terrain": "ordinary",
+      "x": 2160,
+      "y": 690
+    },
+    {
+      "id": "G43",
+      "layer": "ground",
+      "region": "红魔馆",
+      "route_index": 43,
+      "terrain": "mist",
+      "x": 2120,
+      "y": 780
+    },
+    {
+      "id": "G44",
+      "layer": "ground",
+      "region": "红魔馆",
+      "route_index": 44,
+      "terrain": "ordinary",
+      "x": 2200,
+      "y": 840
+    },
+    {
+      "id": "G45",
+      "layer": "ground",
+      "region": "红魔馆",
+      "route_index": 45,
+      "terrain": "obstacle",
+      "x": 2220,
+      "y": 940
+    },
+    {
+      "id": "G46",
+      "layer": "ground",
+      "region": "红魔馆",
+      "route_index": 46,
+      "terrain": "ordinary",
+      "x": 2170,
+      "y": 1030
+    },
+    {
+      "id": "G47",
+      "layer": "ground",
+      "region": "红魔馆",
+      "route_index": 47,
+      "terrain": "ordinary",
+      "x": 2060,
+      "y": 940
+    },
+    {
+      "id": "R29",
+      "layer": "netherworld",
+      "region": "冥界",
+      "name": "幽明结界",
+      "route_index": 29,
+      "terrain": "ordinary",
+      "x": 780,
+      "y": 180
+    },
+    {
+      "id": "R30",
+      "layer": "netherworld",
+      "region": "冥界",
+      "name": "白玉楼阶梯",
+      "route_index": 30,
+      "terrain": "ordinary",
+      "x": 900,
+      "y": 180
+    },
+    {
+      "id": "R31",
+      "layer": "netherworld",
+      "region": "冥界",
+      "name": "樱庭蝶雾",
+      "route_index": 31,
+      "terrain": "mist",
+      "x": 1020,
+      "y": 180
+    },
+    {
+      "id": "R32",
+      "layer": "netherworld",
+      "region": "冥界",
+      "name": "白玉楼门前",
+      "route_index": 32,
+      "terrain": "ordinary",
+      "x": 1140,
+      "y": 180
+    },
+    {
+      "id": "R33",
+      "layer": "netherworld",
+      "region": "冥界",
+      "name": "归途界门",
+      "route_index": 33,
+      "terrain": "obstacle",
+      "x": 1260,
+      "y": 180
+    },
+    {
+      "id": "P1-F1",
+      "layer": "finish",
+      "owner": "P1",
+      "finish_index": 1,
+      "x": 1920,
+      "y": 900
+    },
+    {
+      "id": "P1-F2",
+      "layer": "finish",
+      "owner": "P1",
+      "finish_index": 2,
+      "x": 1790,
+      "y": 880
+    },
+    {
+      "id": "P1-F3",
+      "layer": "finish",
+      "owner": "P1",
+      "finish_index": 3,
+      "x": 1700,
+      "y": 800
+    },
+    {
+      "id": "P1-F4",
+      "layer": "finish",
+      "owner": "P1",
+      "finish_index": 4,
+      "x": 1580,
+      "y": 800
+    },
+    {
+      "id": "P1-F5",
+      "layer": "finish",
+      "owner": "P1",
+      "finish_index": 5,
+      "x": 1470,
+      "y": 870
+    },
+    {
+      "id": "P1-F6",
+      "layer": "finish",
+      "owner": "P1",
+      "finish_index": 6,
+      "x": 1360,
+      "y": 880
+    },
+    {
+      "id": "P2-F1",
+      "layer": "finish",
+      "owner": "P2",
+      "finish_index": 1,
+      "x": 1180,
+      "y": 1270
+    },
+    {
+      "id": "P2-F2",
+      "layer": "finish",
+      "owner": "P2",
+      "finish_index": 2,
+      "x": 1270,
+      "y": 1190
+    },
+    {
+      "id": "P2-F3",
+      "layer": "finish",
+      "owner": "P2",
+      "finish_index": 3,
+      "x": 1260,
+      "y": 1080
+    },
+    {
+      "id": "P2-F4",
+      "layer": "finish",
+      "owner": "P2",
+      "finish_index": 4,
+      "x": 1180,
+      "y": 1000
+    },
+    {
+      "id": "P2-F5",
+      "layer": "finish",
+      "owner": "P2",
+      "finish_index": 5,
+      "x": 1070,
+      "y": 1000
+    },
+    {
+      "id": "P2-F6",
+      "layer": "finish",
+      "owner": "P2",
+      "finish_index": 6,
+      "x": 1030,
+      "y": 900
+    },
+    {
+      "id": "P3-F1",
+      "layer": "finish",
+      "owner": "P3",
+      "finish_index": 1,
+      "x": 600,
+      "y": 740
+    },
+    {
+      "id": "P3-F2",
+      "layer": "finish",
+      "owner": "P3",
+      "finish_index": 2,
+      "x": 710,
+      "y": 800
+    },
+    {
+      "id": "P3-F3",
+      "layer": "finish",
+      "owner": "P3",
+      "finish_index": 3,
+      "x": 750,
+      "y": 910
+    },
+    {
+      "id": "P3-F4",
+      "layer": "finish",
+      "owner": "P3",
+      "finish_index": 4,
+      "x": 850,
+      "y": 930
+    },
+    {
+      "id": "P3-F5",
+      "layer": "finish",
+      "owner": "P3",
+      "finish_index": 5,
+      "x": 940,
+      "y": 860
+    },
+    {
+      "id": "P3-F6",
+      "layer": "finish",
+      "owner": "P3",
+      "finish_index": 6,
+      "x": 960,
+      "y": 750
+    },
+    {
+      "id": "P4-F1",
+      "layer": "finish",
+      "owner": "P4",
+      "finish_index": 1,
+      "x": 1540,
+      "y": 520
+    },
+    {
+      "id": "P4-F2",
+      "layer": "finish",
+      "owner": "P4",
+      "finish_index": 2,
+      "x": 1460,
+      "y": 600
+    },
+    {
+      "id": "P4-F3",
+      "layer": "finish",
+      "owner": "P4",
+      "finish_index": 3,
+      "x": 1350,
+      "y": 590
+    },
+    {
+      "id": "P4-F4",
+      "layer": "finish",
+      "owner": "P4",
+      "finish_index": 4,
+      "x": 1280,
+      "y": 520
+    },
+    {
+      "id": "P4-F5",
+      "layer": "finish",
+      "owner": "P4",
+      "finish_index": 5,
+      "x": 1160,
+      "y": 540
+    },
+    {
+      "id": "P4-F6",
+      "layer": "finish",
+      "owner": "P4",
+      "finish_index": 6,
+      "x": 1140,
+      "y": 650
+    }
+  ],
+  "edges": [
+    {
+      "source": "G00",
+      "target": "G01",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G01",
+      "target": "G02",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G02",
+      "target": "G03",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G03",
+      "target": "G04",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G04",
+      "target": "G05",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G05",
+      "target": "G06",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G06",
+      "target": "G07",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G07",
+      "target": "G08",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G08",
+      "target": "G09",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G09",
+      "target": "G10",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G10",
+      "target": "G11",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G11",
+      "target": "G12",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G12",
+      "target": "G13",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G13",
+      "target": "G14",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G14",
+      "target": "G15",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G15",
+      "target": "G16",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G16",
+      "target": "G17",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G17",
+      "target": "G18",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G18",
+      "target": "G19",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G19",
+      "target": "G20",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G20",
+      "target": "G21",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G21",
+      "target": "G22",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G22",
+      "target": "G23",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G23",
+      "target": "G24",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G24",
+      "target": "G25",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G25",
+      "target": "G26",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G26",
+      "target": "G27",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G27",
+      "target": "G28",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G28",
+      "target": "G29",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G29",
+      "target": "G30",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G30",
+      "target": "G31",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G31",
+      "target": "G32",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G32",
+      "target": "G33",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G33",
+      "target": "G34",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G34",
+      "target": "G35",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G35",
+      "target": "G36",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G36",
+      "target": "G37",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G37",
+      "target": "G38",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G38",
+      "target": "G39",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G39",
+      "target": "G40",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G40",
+      "target": "G41",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G41",
+      "target": "G42",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G42",
+      "target": "G43",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G43",
+      "target": "G44",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G44",
+      "target": "G45",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G45",
+      "target": "G46",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G46",
+      "target": "G47",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G47",
+      "target": "G00",
+      "cost": 1,
+      "kind": "main"
+    },
+    {
+      "source": "G28",
+      "target": "R29",
+      "cost": 1,
+      "kind": "branch",
+      "cross_world": true
+    },
+    {
+      "source": "R29",
+      "target": "R30",
+      "cost": 1,
+      "kind": "branch",
+      "cross_world": false
+    },
+    {
+      "source": "R30",
+      "target": "R31",
+      "cost": 1,
+      "kind": "branch",
+      "cross_world": false
+    },
+    {
+      "source": "R31",
+      "target": "R32",
+      "cost": 1,
+      "kind": "branch",
+      "cross_world": false
+    },
+    {
+      "source": "R32",
+      "target": "R33",
+      "cost": 1,
+      "kind": "branch",
+      "cross_world": false
+    },
+    {
+      "source": "R33",
+      "target": "G34",
+      "cost": 1,
+      "kind": "branch",
+      "cross_world": true
+    },
+    {
+      "source": "G47",
+      "target": "P1-F1",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P1"
+    },
+    {
+      "source": "P1-F1",
+      "target": "P1-F2",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P1"
+    },
+    {
+      "source": "P1-F2",
+      "target": "P1-F3",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P1"
+    },
+    {
+      "source": "P1-F3",
+      "target": "P1-F4",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P1"
+    },
+    {
+      "source": "P1-F4",
+      "target": "P1-F5",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P1"
+    },
+    {
+      "source": "P1-F5",
+      "target": "P1-F6",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P1"
+    },
+    {
+      "source": "G11",
+      "target": "P2-F1",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P2"
+    },
+    {
+      "source": "P2-F1",
+      "target": "P2-F2",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P2"
+    },
+    {
+      "source": "P2-F2",
+      "target": "P2-F3",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P2"
+    },
+    {
+      "source": "P2-F3",
+      "target": "P2-F4",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P2"
+    },
+    {
+      "source": "P2-F4",
+      "target": "P2-F5",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P2"
+    },
+    {
+      "source": "P2-F5",
+      "target": "P2-F6",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P2"
+    },
+    {
+      "source": "G23",
+      "target": "P3-F1",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P3"
+    },
+    {
+      "source": "P3-F1",
+      "target": "P3-F2",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P3"
+    },
+    {
+      "source": "P3-F2",
+      "target": "P3-F3",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P3"
+    },
+    {
+      "source": "P3-F3",
+      "target": "P3-F4",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P3"
+    },
+    {
+      "source": "P3-F4",
+      "target": "P3-F5",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P3"
+    },
+    {
+      "source": "P3-F5",
+      "target": "P3-F6",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P3"
+    },
+    {
+      "source": "G35",
+      "target": "P4-F1",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P4"
+    },
+    {
+      "source": "P4-F1",
+      "target": "P4-F2",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P4"
+    },
+    {
+      "source": "P4-F2",
+      "target": "P4-F3",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P4"
+    },
+    {
+      "source": "P4-F3",
+      "target": "P4-F4",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P4"
+    },
+    {
+      "source": "P4-F4",
+      "target": "P4-F5",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P4"
+    },
+    {
+      "source": "P4-F5",
+      "target": "P4-F6",
+      "cost": 1,
+      "kind": "finish",
+      "owner": "P4"
+    }
+  ],
+  "presentation": {
+    "hex_radius_x": 34,
+    "hex_radius_y": 23,
+    "depth": 7,
+    "regional_colors": [
+      {
+        "name": "博丽神社",
+        "fill": "#E7B6AA",
+        "stroke": "#94605A"
+      },
+      {
+        "name": "人间之里",
+        "fill": "#EAD7A6",
+        "stroke": "#8A7448"
+      },
+      {
+        "name": "魔法森林",
+        "fill": "#B9D0A9",
+        "stroke": "#587052"
+      },
+      {
+        "name": "妖怪之山山麓",
+        "fill": "#B7C7CC",
+        "stroke": "#59717A"
+      },
+      {
+        "name": "雾之湖",
+        "fill": "#A9D7DF",
+        "stroke": "#4D7C87"
+      },
+      {
+        "name": "红魔馆",
+        "fill": "#D5B7D4",
+        "stroke": "#805F80"
+      }
+    ],
+    "docks": [
+      {
+        "owner": "P1",
+        "center": [
+          2360,
+          1120
+        ],
+        "exit": [
+          2250,
+          1120
+        ]
+      },
+      {
+        "owner": "P2",
+        "center": [
+          1010,
+          1600
+        ],
+        "exit": [
+          1010,
+          1550
+        ]
+      },
+      {
+        "owner": "P3",
+        "center": [
+          170,
+          610
+        ],
+        "exit": [
+          280,
+          610
+        ]
+      },
+      {
+        "owner": "P4",
+        "center": [
+          1610,
+          270
+        ],
+        "exit": [
+          1610,
+          320
+        ]
+      }
+    ]
+  }
+}

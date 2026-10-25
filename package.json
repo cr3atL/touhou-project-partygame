@@ -8,8 +8,6 @@
     "packages/*"
   ],
   "scripts": {
-    "predev": "node scripts/sync-map.mjs",
-    "prebuild": "node scripts/sync-map.mjs",
     "dev": "node scripts/run.mjs dev",
     "dev:web": "node scripts/run.mjs web",
     "dev:server": "node scripts/run.mjs server",
@@ -19,10 +17,8 @@
     "test": "node scripts/run.mjs test",
     "test:network": "node scripts/run.mjs network",
     "test:rooms": "node scripts/run.mjs rooms",
-    "simulate": "node scripts/run.mjs simulate",
     "check": "node scripts/run.mjs check",
-    "preview": "node scripts/run.mjs preview",
-    "compare:bots": "node scripts/run.mjs compare"
+    "preview": "node scripts/run.mjs preview"
   },
   "engines": {
     "node": ">=22"
