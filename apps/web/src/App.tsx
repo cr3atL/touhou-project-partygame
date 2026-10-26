@@ -1,5 +1,7 @@
 import { DecisionClock, remainingTime, type DecisionTime } from '../../../packages/session/decisionClock';
+import { PlayClock, elapsedPlayTime, formatPlayTime, type PlayTime } from '../../../packages/session/playClock';
 import { playSound } from './audio';
+import { setMusic } from './music';
 import { FINISH } from '../../../packages/core/constants';
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { Client, type Room } from '@colyseus/sdk';
@@ -59,10 +61,15 @@ export default function App() {
   const [resumeToken, setResumeToken] = useState(sessionStorage.getItem('party-reconnect') || '');
   const fileInput = useRef<HTMLInputElement>(null);
   const decisionClock=useRef<DecisionClock | null>(null);
+  const playClock=useRef<PlayClock | null>(null);
   const onlineTime=useRef<DecisionTime | null>(null);
+  const onlinePlayTime=useRef<PlayTime | null>(null);
   const [time,setTime]=useState<DecisionTime | null>(null);
+  const [elapsedMs,setElapsedMs]=useState(0);
   const lastBeep=useRef('');
   const sourceGame = mode === 'online' ? snapshot?.game ?? null : game;
+  const inMatch = !!sourceGame;
+  useEffect(() => { setMusic(inMatch ? 'game' : 'title'); }, [inMatch]);
   const presentation = useGamePresentation(sourceGame, presentationSession);
   const currentGame = presentation.game;
   const inputLocked = presentation.busy || pendingRevision !== null || (mode==='online'&&!!time&&Date.now()<time.blockedUntil) || (mode==='local'&&settingsOpen);
@@ -89,14 +96,30 @@ export default function App() {
       const now=Date.now();let value:DecisionTime|null=null;
       if(mode==='local'){
         decisionClock.current??=new DecisionClock(sourceGame.turn,now);
+        playClock.current??=new PlayClock(now);
         value=decisionClock.current.update(sourceGame,now,settingsOpen||presentation.busy);
-        if(now-lastSave>=1000){try{localStorage.setItem('party-save-v060',saveGame(sourceGame,value));lastSave=now;}catch{/* optional autosave */}}
-      }else if(onlineTime.current)value={...onlineTime.current,remainingMs:remainingTime(onlineTime.current,now),at:now};
+        const playTime=playClock.current.update(sourceGame,now,settingsOpen);
+        setElapsedMs(playTime.elapsedMs);
+        if(now-lastSave>=1000){try{localStorage.setItem('party-save-v060',saveGame(sourceGame,value,playTime));lastSave=now;}catch{/* optional autosave */}}
+      }else{
+        if(onlineTime.current)value={...onlineTime.current,remainingMs:remainingTime(onlineTime.current,now),at:now};
+        setElapsedMs(onlinePlayTime.current?elapsedPlayTime(onlinePlayTime.current,now):0);
+      }
       setTime(value);
       const second=value?Math.ceil(value.remainingMs/1000):60,key=`${value?.turn}-${second}`;
       if(value&&!value.paused&&now>=value.blockedUntil&&!value.takeover&&second>=1&&second<=5&&key!==lastBeep.current){lastBeep.current=key;playSound('timeout',.8);}
     };
     tick();const interval=setInterval(tick,100);return()=>clearInterval(interval);
+  },[sourceGame,mode,settingsOpen,presentation.busy]);
+  useEffect(() => {
+    if(mode!=='local'||!sourceGame)return;
+    const save=()=>{
+      const now=Date.now();
+      try { localStorage.setItem('party-save-v060',saveGame(sourceGame,decisionClock.current?.update(sourceGame,now,settingsOpen||presentation.busy),playClock.current?.update(sourceGame,now,settingsOpen))); } catch { /* optional autosave */ }
+    };
+    const hidden=()=>{if(document.hidden)save();};
+    window.addEventListener('pagehide',save);document.addEventListener('visibilitychange',hidden);
+    return()=>{window.removeEventListener('pagehide',save);document.removeEventListener('visibilitychange',hidden);};
   },[sourceGame,mode,settingsOpen,presentation.busy]);
   useEffect(() => {
     if (mode !== 'local' || !game || game.phase === 'over' || (!game.players[game.current].bot&&!time?.takeover) || settingsOpen || presentation.busy || currentGame?.revision !== game.revision) return;
@@ -119,7 +142,7 @@ export default function App() {
     const next = roster.map((p,i)=>({...p,name:p.name.trim()||(p.bot?`机器人 ${i+1}`:`玩家 ${i+1}`)}));
     if(next.every(p=>p.bot)){setNotice('请至少保留一位玩家');return;}
     if (new Set(next.map(p => p.character)).size !== 4) { setNotice('请选择四名不同的角色'); return; }
-    decisionClock.current=null;setTime(null);setPresentationSession(n=>n+1);
+    decisionClock.current=null;playClock.current=new PlayClock();setElapsedMs(0);setTime(null);setPresentationSession(n=>n+1);
     setMode('local');setGame(createGame(next, CHARACTERS, {opening:true}));
   }
   const savedGame = useMemo(()=>sourceGame?null:localStorage.getItem('party-save-v060') || localStorage.getItem('party-save-v050') || localStorage.getItem('party-save-v031') || localStorage.getItem('party-save-v03') || localStorage.getItem('party-save'),[sourceGame]);
@@ -127,17 +150,23 @@ export default function App() {
   if(savedGame){try{canContinue=loadGame(savedGame).phase!=='over';}catch{/* retained incompatible save */}}
   function resumeLocal(){
     if(!savedGame)return;
-    try{const loaded=loadGame(savedGame);decisionClock.current=new DecisionClock(loaded.turn,Date.now(),JSON.parse(savedGame).timer);setTime(null);setPresentationSession(n=>n+1);setMode('local');setGame(loaded);setSettingsOpen(true);}catch(error){setNotice(String(error));}
+    try{const loaded=loadGame(savedGame),saved=JSON.parse(savedGame),now=Date.now();decisionClock.current=new DecisionClock(loaded.turn,now,saved.timer);playClock.current=new PlayClock(now,saved.playTime,true);setElapsedMs(playClock.current.value.elapsedMs);setTime(null);setPresentationSession(n=>n+1);setMode('local');setGame(loaded);setSettingsOpen(true);}catch(error){setNotice(String(error));}
   }
   function bindRoom(joined: Room, address: string) {
     room.current = joined;
     sessionStorage.setItem('party-reconnect', joined.reconnectionToken); sessionStorage.setItem('party-endpoint', address); setResumeToken(joined.reconnectionToken);
     joined.onMessage('welcome', (data: { seat: number }) => setSeat(data.seat));
-    const syncTime=(timer:DecisionTime|undefined,serverTime=Date.now())=>{if(timer){const now=Date.now();onlineTime.current={...timer,at:now,blockedUntil:now+Math.max(0,timer.blockedUntil-serverTime)};setTime(onlineTime.current);}};
-    joined.onMessage('timer',(data:{timer:DecisionTime;serverTime:number})=>syncTime(data.timer,data.serverTime));
+    onlineTime.current=null;onlinePlayTime.current=null;setElapsedMs(0);setTime(null);
+    const syncTime=(timer:DecisionTime|undefined,playTime:PlayTime|undefined,serverTime=Date.now())=>{
+      const now=Date.now();
+      if(timer){onlineTime.current={...timer,at:now,blockedUntil:now+Math.max(0,timer.blockedUntil-serverTime)};setTime(onlineTime.current);}
+      if(playTime){onlinePlayTime.current={...playTime,elapsedMs:elapsedPlayTime(playTime,serverTime),at:now};setElapsedMs(onlinePlayTime.current.elapsedMs);}
+    };
+    joined.onMessage('timer',(data:{timer:DecisionTime;playTime?:PlayTime;serverTime:number})=>syncTime(data.timer,data.playTime,data.serverTime));
     joined.onMessage('snapshot', (s: RoomSnapshot) => {
       if (s.protocol !== VERSIONS.protocol || s.rules !== VERSIONS.rules) { setNotice('房间版本不兼容'); void joined.leave(); return; }
-      syncTime(s.timer,s.serverTime);setSnapshot(s);
+      if(!s.game){onlineTime.current=null;onlinePlayTime.current=null;setElapsedMs(0);setTime(null);}
+      syncTime(s.timer,s.playTime,s.serverTime);setSnapshot(s);
       sessionStorage.setItem('party-reconnect', joined.reconnectionToken); setResumeToken(joined.reconnectionToken);
     });
     joined.onMessage('notice', (text: string) => {submitting.current=false;setPendingRevision(null);setNotice(text);});
@@ -166,7 +195,8 @@ export default function App() {
   }
   async function leave() {
     if(mode==='local'&&game){
-      try {localStorage.setItem('party-save-v060',saveGame(game,decisionClock.current?.update(game,Date.now(),true)));}catch{/* optional autosave */}
+      const now=Date.now();
+      try {localStorage.setItem('party-save-v060',saveGame(game,decisionClock.current?.update(game,now,true),playClock.current?.update(game,now,true)));}catch{/* optional autosave */}
     }
     setSettingsOpen(false);setSpellOpen(false);setLogOpen(false);setDetailPlayer(null);setPendingRevision(null);submitting.current=false;
     const active=room.current;room.current=null;
@@ -176,7 +206,7 @@ export default function App() {
   }
   function manageMember(action: MemberAction) { room.current?.send('manage',action); }
   function importSave(file: File) {
-    void file.text().then(text => { try { const loaded=loadGame(text); setPresentationSession(n=>n+1); decisionClock.current=new DecisionClock(loaded.turn,Date.now(),JSON.parse(text).timer);setGame(loaded); setMode('local'); setSettingsOpen(true); } catch (error) { setNotice(String(error)); } });
+    void file.text().then(text => { try { const loaded=loadGame(text),saved=JSON.parse(text),now=Date.now(); setPresentationSession(n=>n+1); decisionClock.current=new DecisionClock(loaded.turn,now,saved.timer);playClock.current=new PlayClock(now,saved.playTime,true);setElapsedMs(playClock.current.value.elapsedMs);setTime(null);setGame(loaded); setMode('local'); setSettingsOpen(true); } catch (error) { setNotice(String(error)); } });
   }
   const lobby = mode === 'online' && snapshot && !snapshot.game;
   const ownSeat = snapshot?.seats.find(s => s.id === seat);
@@ -266,7 +296,7 @@ export default function App() {
       <section className={`board-panel ${mine && !inputLocked && (tab === 'cast' || currentGame.choice || selected || actions.some(a=>a.kind==='pass')) ? 'has-decision' : ''}`} aria-label="地图与操作">
         <div className={`map-stage ${presentation.beat?.spell?.character==='remilia'&&!presentation.spell?'is-fate':''}`}>
           {currentGame.phase==='opening'?<section className="opening-order" aria-label="开局掷骰"><h2>掷骰决定行动顺序</h2><p>{currentGame.opening!.round>1?'平点玩家继续掷骰':'点数从大到小行动'}</p><ol>{currentGame.players.map(p=><li key={p.id} className={p.id===currentGame.current?'is-current':''}><span>P{p.id+1} {playerIdentity(currentGame,p.id)}</span><strong>{currentGame.opening!.rolls.filter(r=>r.seat===p.id).map(r=>r.value).join(' → ')||'—'}</strong></li>)}</ol></section>:<Suspense fallback={<div className="board-canvas loading-board">正在展开幻想乡…</div>}><Board key={currentGame.players.map(p => p.character).join('-')} game={currentGame} preview={preview} selected={selected} picked={targets} zoom={zoom} viewReset={viewReset} focusRequest={focusRequest} eligible={eligible} destinations={destinations} menu={mapMenu} beat={presentation.beat} declaring={!!presentation.spell} effects={presentationSettings.effects} closeup={presentationSettings.closeup} onPiece={choosePiece} onNode={chooseNode} onAction={a=>{setMapMenu(null);setArmed(a);if(tab!=='cast')setSelected(a.pieces[0]??null);}} onZoom={setZoom} onCloseMenu={()=>setMapMenu(null)}/></Suspense>}
-          <div className="board-topline"><span>{currentGame.phase==='opening'?'开局':`第 ${currentGame.round} 轮`}<strong>{playerIdentity(currentGame,currentGame.current)}</strong></span>{currentGame.phase!=='over'&&<div className={`turn-timer ${time&&time.remainingMs<=5000?'is-urgent':''} ${time?.takeover?'is-takeover':''}`} role="timer" aria-label="本回合剩余时间">{time?.takeover?'机器人托管':<>{Math.ceil((time?.remainingMs??60000)/1000)}<span>s</span></>}</div>}{currentGame.phase!=='opening'&&<details className="order-details"><summary>行动顺序</summary><ol>{currentGame.turnOrder.map(id=><li key={id}>P{id+1} {playerIdentity(currentGame,id)}</li>)}</ol></details>}</div>
+          <div className="board-topline"><span className="round-status"><span className="round-time">{currentGame.phase==='opening'?'开局':`第 ${currentGame.round} 轮`}<time className="play-timer" role="timer" aria-label="对局游玩时间" title="对局游玩时间">{formatPlayTime(elapsedMs)}</time></span><strong>{playerIdentity(currentGame,currentGame.current)}</strong></span>{currentGame.phase!=='over'&&<div className={`turn-timer ${time&&time.remainingMs<=5000?'is-urgent':''} ${time?.takeover?'is-takeover':''}`} role="timer" aria-label="本回合剩余时间">{time?.takeover?'机器人托管':<>{Math.ceil((time?.remainingMs??60000)/1000)}<span>s</span></>}</div>}{currentGame.phase!=='opening'&&<details className="order-details"><summary>行动顺序</summary><ol>{currentGame.turnOrder.map(id=><li key={id}>P{id+1} {playerIdentity(currentGame,id)}</li>)}</ol></details>}</div>
           <div className="map-tools"><button aria-label="对局菜单" title="对局菜单" onClick={()=>setSettingsOpen(true)}>⚙</button><span/><button aria-label="定位当前棋子" title="定位当前棋子" onClick={()=>setFocusRequest(n=>n+1)}>◎</button><span/><button aria-label="缩小地图" onClick={()=>setZoom(Math.max(1,zoom-.25))}>−</button><button aria-label="查看全图" onClick={()=>{setZoom(1);setViewReset(n=>n+1);}}>{Math.round(zoom*100)}%</button><button aria-label="放大地图" onClick={()=>setZoom(Math.min(3,zoom+.25))}>＋</button>{mode==='online'&&seat===hostSeat&&<><span/><button className="room-manage-button" onClick={()=>setMembersOpen(true)}>房间管理</button></>}</div>
           {currentGame.phase!=='over'&&<div className="game-controls">
             <button className={`spell-launcher ${skillActions.length && mine && !inputLocked ? 'available' : ''}`} aria-label="查看符卡" aria-expanded={spellOpen} aria-controls="spell-window" onClick={()=>{setSpellOpen(!spellOpen);}}><Glyph id={operator!.character} small/><span><strong>{operatorChar!.active}</strong><small>{spellStatus}</small></span><span className="spell-expand">{spellOpen?'−':'＋'}</span></button>

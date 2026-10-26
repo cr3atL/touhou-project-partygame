@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import type { GameState } from '../../../packages/core/types';
-import { playSound, stopAudio } from './audio';
+import { playSound, stopGameAudio } from './audio';
 import { presentationBeat, SPELL_DECLARE_MS, SPELL_RETURN_MS, spellSequence, type PresentationBeat, type SpellPresentation } from './presentationModel';
 
 /** Playback is local to the view; rules and server revisions never depend on animation. */
@@ -22,7 +22,7 @@ export function useGamePresentation(source: GameState | null, session = 0) {
       sessionRef.current = session;
       state.generation++;
       state.latest = source; state.shown = source; state.queue = []; state.running = false;
-      setGame(source); setBusy(false); setRolling(false); setSpell(null); setBeat(null); stopAudio();
+      setGame(source); setBusy(false); setRolling(false); setSpell(null); setBeat(null); stopGameAudio();
       return;
     }
     // Lobby/connection updates may repeat the same authoritative game snapshot.

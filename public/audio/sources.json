@@ -1,6 +1,22 @@
 {
   "source": "https://thbwiki.cc/脚本对照表/ECL#音效",
   "note": "se_*.mp3 为东方Project原作音效，经THBWiki音效对照表引用；非项目原创或CC0素材。dice-roll.wav、dice-settle.wav、piece-move.wav 为项目合成音效，生成源为 scripts/generate-feedback-audio.mjs。",
+  "music": {
+    "author": "ajapa",
+    "site": "ajapaのBGM",
+    "source": "http://ajapabgm.s323.xrea.com/index.html",
+    "terms": "http://ajapabgm.s323.xrea.com/riyoukiyaku.html",
+    "note": "东方Project改编曲，非CC0。按作者规则用于游戏配乐：禁止音频直链、单独售卖音乐及作为素材二次分发；遵守东方Project二次创作指南。网页仅从项目本地资源播放。",
+    "files": {
+      "bgm-title.mp3": { "title": "少女奇想天外曲", "original": "少女奇想曲", "usage": "标题与大厅", "downloaded": "2026-10-27" },
+      "bgm-game.mp3": { "title": "恋色ジャズタイム", "original": "恋色マスタースパーク", "usage": "对局随机轮播", "downloaded": "2026-10-27" },
+      "bgm-game-cirno.mp3": { "title": "チルノの日常", "original": "おてんば恋娘", "usage": "对局随机轮播", "downloaded": "2026-10-27" },
+      "bgm-game-momiji.mp3": { "title": "椛の日常", "original": "フォールオブフォール", "usage": "对局随机轮播", "downloaded": "2026-10-27" },
+      "bgm-game-sunflower.mp3": { "title": "向日葵's Coffee", "original": "今昔幻想郷", "usage": "对局随机轮播", "downloaded": "2026-10-27" },
+      "bgm-game-forest-cafe.mp3": { "title": "魔法の森のカフェ", "original": "恋色マスタースパーク", "usage": "对局随机轮播", "downloaded": "2026-10-27" },
+      "bgm-game-tea.mp3": { "title": "紅茶を飲みましょう", "original": "風神少女", "usage": "对局随机轮播", "downloaded": "2026-10-27" }
+    }
+  },
   "files": {
     "se_cat00.mp3": "https://upload.thbwiki.cc/8/82/se_cat00.mp3",
     "se_pldead00.mp3": "https://upload.thbwiki.cc/c/c9/se_pldead00.mp3",

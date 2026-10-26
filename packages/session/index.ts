@@ -1,9 +1,10 @@
 import type { DecisionTime } from './decisionClock';
+import type { PlayTime } from './playClock';
 import { CHARACTERS } from '../content';
 import { assertGame, reduceGame } from '../core/engine';
 import { VERSIONS, type Action, type CharacterId, type Command, type GameState } from '../core/types';
-export interface Save { format: number; rules: string; game: GameState; timer?: DecisionTime; }
-export function saveGame(game: GameState, timer?: DecisionTime): string { return JSON.stringify({ format: VERSIONS.save, rules: VERSIONS.rules, game, timer } satisfies Save, null, 2); }
+export interface Save { format: number; rules: string; game: GameState; timer?: DecisionTime; playTime?: PlayTime; }
+export function saveGame(game: GameState, timer?: DecisionTime, playTime?: PlayTime): string { return JSON.stringify({ format: VERSIONS.save, rules: VERSIONS.rules, game, timer, playTime } satisfies Save, null, 2); }
 export function loadGame(text: string): GameState {
   const data = JSON.parse(text) as Save;
   // v0.1.5 uses the same map and movement rules; retain its already assigned seats/order.
@@ -31,4 +32,4 @@ export function replayGame(initial: GameState, history: GameState['history']): G
 }
 export interface Seat { id: number; name: string; character: CharacterId; ready: boolean; connected: boolean; bot?: boolean; }
 export const ROOM_KICKED_CODE = 4100;
-export interface RoomSnapshot { protocol: number; rules: string; roomId: string; revision: number; hostSeat?: number | null; seats: Seat[]; game: GameState | null; timer?: DecisionTime; serverTime?: number; }
+export interface RoomSnapshot { protocol: number; rules: string; roomId: string; revision: number; hostSeat?: number | null; seats: Seat[]; game: GameState | null; timer?: DecisionTime; playTime?: PlayTime; serverTime?: number; }

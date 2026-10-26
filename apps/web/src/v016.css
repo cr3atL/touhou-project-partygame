@@ -90,6 +90,9 @@ input, select { background: #fffdf7; border: 1px solid #bacac8; color: #28424c; 
 .game-layout .board-topline { position: relative; grid-area: 1 / 1; left: auto; top: auto; width: auto; max-width: none; justify-self: stretch; align-self: stretch; height: auto; margin: 0; padding: 0 16px; display: flex; align-items: center; gap: 18px; background: none; border: 0; border-radius: 0; box-shadow: none; color: #687e80; font-size: 12px; }
 .game-layout .board-topline > span { display: flex; align-items: center; gap: 14px; min-width: 0; }
 .board-topline strong { color: #28424c; font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.board-topline .round-status { min-width: 0; }
+.round-time { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.play-timer { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .game-layout .turn-timer { position: static; transform: none; justify-self: auto; padding: 0; min-width: 48px; height: auto; border: 0; box-shadow: none; background: none; color: #687e80; font-size: 19px; font-variant-numeric: tabular-nums; letter-spacing: 0; }
 .game-layout .turn-timer span { color: inherit; font-size: 11px; }
 .game-layout .turn-timer.is-urgent { color: #bf3d43; font-weight: 700; }
@@ -230,6 +233,7 @@ input, select { background: #fffdf7; border: 1px solid #bacac8; color: #28424c; 
   .game-layout .board-topline { font-size: 10px; padding: 0 10px; gap: 10px; }
   .game-layout .board-topline > span { flex: 1; gap: 7px; }
   .board-topline strong { font-size: 12px; }
+  .game-layout .board-topline .round-status { flex-direction: column; align-items: flex-start; gap: 1px; }
   .game-layout .turn-timer { min-width: 31px; font-size: 17px; }
   .order-details { font-size: 10px; }
   .game-layout .map-prompt { font-size: 12px; padding: 10px; }

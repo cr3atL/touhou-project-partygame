@@ -7,6 +7,7 @@ import { CHARACTERS } from '../packages/content';
 import { getActions } from '../packages/core/engine';
 import { freshFlags } from '../packages/core/engine';
 import { DecisionClock } from '../packages/session/decisionClock';
+import { PlayClock } from '../packages/session/playClock';
 import type { RoomSnapshot } from '../packages/session';
 
 const server=createPartyServer(),peers:{room:Room;seat:number;snapshot:RoomSnapshot|null;notices:string[]}[]=[];
@@ -29,7 +30,8 @@ try{
   for(const p of peers)p.room.send('lobby',{type:'ready'});
   await until(()=>peers[0].snapshot!.seats.every(s=>s.ready),'ready');peers[0].room.send('lobby',{type:'start'});
   await until(()=>peers.every(p=>!!p.snapshot?.game),'start');
-  const local=matchMaker.getLocalRoomById(peers[0].room.roomId) as unknown as {game:GameState;decisionClock:DecisionClock;publish():void};
+  const local=matchMaker.getLocalRoomById(peers[0].room.roomId) as unknown as {game:GameState;decisionClock:DecisionClock;playClock:PlayClock;publish():void};
+  assert(peers[0].snapshot!.playTime,'match starts with whole-match clock');
   while(local.game.phase==='opening'){
     const openingActor=peers.find(p=>p.seat===local.game.current)!;
     const revision=local.game.revision;local.decisionClock.value.blockedUntil=Date.now();
@@ -46,14 +48,17 @@ try{
   for(let i=0;i<4;i++)actor.room.send('sync');
   await pause(300);
   assert(local.decisionClock.update(local.game).remainingMs<12_000,'sync must not reset timer');
+  const elapsedBeforeDrop=local.playClock.update(local.game).elapsedMs;
+  assert(elapsedBeforeDrop>=300,'whole-match clock includes opening and sync waiting');
   const token=actor.room.reconnectionToken,oldSeat=actor.seat;
   await actor.room.leave(false);
   const resumed=attach(await client().reconnect(token));peers[peers.indexOf(actor)]=resumed;actor=resumed;
   await until(()=>!!actor.snapshot?.game&&actor.seat===oldSeat,'reconnect');
   assert(actor.snapshot!.timer!.remainingMs<12_000,'reconnect keeps remaining budget');
+  assert(actor.snapshot!.playTime!.elapsedMs>=elapsedBeforeDrop,'reconnect retains whole-match elapsed time');
   actor.room.send('command',{revision:local.game.revision,command:{type:'roll'}});
   await until(()=>local.game.revision===initialRevision+1,'roll');
-  const during=local.decisionClock.update(local.game),revision=local.game.revision;
+  const during=local.decisionClock.update(local.game),playDuring=local.playClock.update(local.game).elapsedMs,revision=local.game.revision;
   const command=getActions(local.game,CHARACTERS).find(a=>a.kind==='move')!.command;
   const notices=actor.notices.length;
   actor.room.send('command',{revision,command});
@@ -61,6 +66,7 @@ try{
   assert.equal(local.game.revision,revision);
   await pause(500);
   assert.equal(local.decisionClock.update(local.game).remainingMs,during.remainingMs,'presentation pauses budget');
+  assert(local.playClock.update(local.game).elapsedMs>=playDuring+450,'whole-match time continues during presentation');
   await until(()=>Date.now()>=local.decisionClock.value.blockedUntil,'presentation completes');
   await pause(300);
   assert(local.decisionClock.update(local.game).remainingMs<during.remainingMs,'budget resumes automatically');
@@ -71,7 +77,22 @@ try{
   assert(local.game.players.every(p=>!p.bot),'temporary timeout does not change permanent control');
   assert.equal(local.decisionClock.value.takeover,false,'next turn restores human control');
   assert(local.decisionClock.value.remainingMs>59_000);
-  console.log(JSON.stringify({authoritativeTimer:true,syncCannotExtend:true,reconnectKeepsBudget:true,presentationPauseBounded:true,timeoutFinishesTurn:true,humanControlRestored:true}));
+  local.game.phase='over';local.publish();
+  await until(()=>peers.every(p=>p.snapshot?.game?.phase==='over'),'match finished');
+  const finished=peers[0].snapshot!.playTime!.elapsedMs;
+  assert(peers.every(p=>p.snapshot!.playTime!.paused),'all peers receive frozen whole-match time');
+  await pause(300);local.publish();
+  await until(()=>peers[0].snapshot!.revision===peers[1].snapshot!.revision,'final sync');
+  assert.equal(local.playClock.update(local.game).elapsedMs,finished,'results waiting does not count');
+  const host=peers.find(p=>p.seat===peers[0].snapshot!.hostSeat)!;
+  host.room.send('rematch');
+  await until(()=>peers.every(p=>p.snapshot?.game===null),'rematch lobby');
+  assert(peers.every(p=>!p.snapshot!.playTime),'lobby clears previous match clock');
+  for(const p of peers)p.room.send('lobby',{type:'ready'});
+  await until(()=>peers[0].snapshot!.seats.every(s=>s.ready),'rematch ready');host.room.send('lobby',{type:'start'});
+  await until(()=>peers.every(p=>!!p.snapshot?.game),'rematch start');
+  assert(peers[0].snapshot!.playTime!.elapsedMs<300,'new match starts from zero');
+  console.log(JSON.stringify({authoritativeTimer:true,syncCannotExtend:true,reconnectKeepsBudget:true,presentationPauseBounded:true,timeoutFinishesTurn:true,humanControlRestored:true,wholeMatchTime:true,elapsedSurvivesReconnect:true,includesAnimations:true,freezesOnFinish:true,rematchResets:true}));
 }finally{
   await Promise.allSettled(peers.map(p=>p.room.leave()));await server.gracefullyShutdown(false);
 }

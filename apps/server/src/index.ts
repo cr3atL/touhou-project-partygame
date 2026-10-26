@@ -1,4 +1,5 @@
 import { DecisionClock, presentationDuration } from '../../../packages/session/decisionClock';
+import { PlayClock } from '../../../packages/session/playClock';
 import { Server, Room, type Client } from '@colyseus/core';
 import { WebSocketTransport } from '@colyseus/ws-transport';
 import { randomInt } from 'node:crypto';
@@ -14,6 +15,7 @@ export class PartyRoom extends Room {
   private game: GameState | null = null;
   private revision = 0;
   private decisionClock:DecisionClock | null = null;
+  private playClock:PlayClock | null = null;
   private hostSession: string | null = null;
   private reconnecting = new Map<string, ReturnType<Room['allowReconnection']>>();
   private random = () => randomInt(0, 0x1000000) / 0x1000000;
@@ -61,6 +63,7 @@ export class PartyRoom extends Room {
         this.seats.sort((a,b)=>a.id-b.id);
         this.game = createGame(this.seats.map(s => ({ name: s.name, character: s.character, bot: !!s.bot })), CHARACTERS, {opening:true});
         this.decisionClock=new DecisionClock(this.game.turn);
+        this.playClock=new PlayClock();
         for (const connected of this.clients) this.welcome(connected);
         this.lock();
       } else throw new Error('未知房间操作');
@@ -81,18 +84,18 @@ export class PartyRoom extends Room {
     this.onMessage('rematch', client => this.guard(client, () => {
       this.requireHost(client);
       if (this.game && this.game.phase !== 'over') throw new Error('请先完成当前对局');
-      this.game = null; this.seats = this.seats.filter(s => s.connected || s.bot);
+      this.game = null; this.playClock = null; this.decisionClock = null; this.seats = this.seats.filter(s => s.connected || s.bot);
       for (const seat of this.seats) seat.ready = !!seat.bot;
       this.unlock(); this.publish();
     }));
     this.clock.setInterval(() => {
       if(!this.game||this.game.phase==='over')return;
-      const now=Date.now(),time=this.decisionClock!.update(this.game,now);
+      const now=Date.now(),time=this.decisionClock!.update(this.game,now),playTime=this.playClock!.update(this.game,now);
       if(now<time.blockedUntil)return;
       if(this.game.players[this.game.current].bot||time.takeover){
         try {this.applyCommand(botAction(this.game).command);}
         catch(error){console.error('Room bot failed',error);}
-      } else this.broadcast('timer',{timer:time,serverTime:now});
+      } else this.broadcast('timer',{timer:time,playTime,serverTime:now});
     },250);
   }
   onJoin(client: Client, options: { name?: string; protocol?: number }) {
@@ -128,7 +131,7 @@ export class PartyRoom extends Room {
   }
   private applyCommand(command:Command){
     const before=this.game!,next=reduceGame(before,command,CHARACTERS,this.random);
-    this.game=next;this.decisionClock!.block(next,presentationDuration(before,next));this.publish();
+    this.game=next;this.playClock!.update(next);this.decisionClock!.block(next,presentationDuration(before,next));this.publish();
   }
   private seat(client: Client) {
     const seat = this.seats.find(s => s.session === client.sessionId); if (!seat) throw new Error('席位不存在'); return seat;
@@ -147,7 +150,10 @@ export class PartyRoom extends Room {
   }
   private guard(client: Client, callback: () => void) { try { callback(); } catch (error) { client.send('notice', error instanceof Error ? error.message : '操作失败'); } }
   private welcome(client: Client) { const seat = this.seats.find(s => s.session === client.sessionId); if (seat) client.send('welcome', { seat: seat.id, protocol: VERSIONS.protocol }); }
-  private snapshot(): RoomSnapshot { return { protocol: VERSIONS.protocol, rules: VERSIONS.rules, roomId: this.roomId, revision: this.revision, hostSeat: this.host()?.id ?? null, seats: this.seats.map(({ id, name, character, connected, ready, bot }) => ({ id, name, character, connected, ready, bot })), game: this.game, timer:this.game?this.decisionClock?.update(this.game):undefined, serverTime:Date.now() }; }
+  private snapshot(): RoomSnapshot {
+    const now=Date.now();
+    return { protocol: VERSIONS.protocol, rules: VERSIONS.rules, roomId: this.roomId, revision: this.revision, hostSeat: this.host()?.id ?? null, seats: this.seats.map(({ id, name, character, connected, ready, bot }) => ({ id, name, character, connected, ready, bot })), game: this.game, timer:this.game?this.decisionClock?.update(this.game,now):undefined, playTime:this.game?this.playClock?.update(this.game,now):undefined, serverTime:now };
+  }
   private publish() { this.revision++; this.broadcast('snapshot', this.snapshot()); }
 }
 export function createPartyServer() {

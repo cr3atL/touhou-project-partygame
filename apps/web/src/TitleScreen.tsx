@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode, type KeyboardEvent } from 
 import { version } from '../../../package.json';
 import { CharacterCatalog } from './CharacterCatalog';
 import { publicAsset } from './assets';
+import { GAME_MUSIC } from './music';
 
 // Approved rendered artwork; model and Blender sources stay outside public/.
 export const TITLE_ART = {
@@ -51,7 +52,7 @@ export function TitleScreen({local,online,canContinue,onContinue,onSettings,init
       {(page==='main'||page==='modes')?<nav className="title-menu" ref={menu} aria-label={page==='main'?'主菜单':'模式选择'} onKeyDown={navigate}>
         {page==='main'?<><button onClick={()=>setPage('modes')}>开始游戏</button><button disabled={!canContinue} onClick={onContinue}>继续游戏</button><button onClick={()=>setPage('intro')}>游戏介绍</button><button onClick={onSettings}>设置</button><button onClick={()=>setPage('about')}>关于游戏</button></>:<><button onClick={()=>setPage('local')}>本机游玩</button><button onClick={()=>setPage('online')}>联机游玩</button><button className="menu-back" onClick={back}>返回</button></>}
       </nav>:<div className={`title-page ${page==='intro'||page==='about'?'reading-page':''}`}><div className="title-page-heading"><h2>{{local:'本机游玩',online:'联机游玩',intro:'游戏介绍',about:'关于游戏'}[page]}</h2><button onClick={back}>← 返回</button></div>
-        {page==='local'?local:page==='online'?online:page==='intro'?<><p>四位旅人轮流掷骰，率先让四枚棋子抵达终点。前三名决出后结束对局。</p><p>所有点数均可让棋子出场。同色跳格与专属航线会自动触发，终点需要恰好抵达，超出则折返。</p><p>掷骰后选择棋子，查看路线与结果，再确认移动。每回合 60 秒；超时由机器人完成当前回合。</p><p>点击玩家头像查看技能与棋子状态。主动符卡与骰子相邻，掷骰后可按条件施放。</p><CharacterCatalog/></>:<><p>东方 Project 同人派对游戏 · v{version}</p><h3>v0.1.6 更新日志</h3><ul><li>整体重构界面布局，添加主页封面。</li><li>优化游玩界面顶部的玩家排序，固定按 P1、P2、P3、P4 排列；行动顺序由开局掷骰决定。</li></ul><h3>后续计划</h3><ul><li>对局界面的美化。</li><li>可能会添加更精美的角色立绘。</li></ul><p>原作：上海爱丽丝幻乐团 / ZUN</p><p>封面角色模型：<a href="https://3d.nicovideo.jp/works/td1809" target="_blank" rel="noreferrer">schwarz（博麗霊夢）</a>。角色经 3D 摆姿与渲染，背景由 AI 生成。</p><p>程序、SVG 图形及封面合成：项目贡献者。<a href={publicAsset('cover/sources.json')} target="_blank" rel="noreferrer">封面来源</a> · <a href={publicAsset('audio/sources.json')} target="_blank" rel="noreferrer">音效来源</a></p></>}
+        {page==='local'?local:page==='online'?online:page==='intro'?<><p>四位旅人轮流掷骰，率先让四枚棋子抵达终点。前三名决出后结束对局。</p><p>所有点数均可让棋子出场。同色跳格与专属航线会自动触发，终点需要恰好抵达，超出则折返。</p><p>掷骰后选择棋子，查看路线与结果，再确认移动。每回合 60 秒；超时由机器人完成当前回合。</p><p>点击玩家头像查看技能与棋子状态。主动符卡与骰子相邻，掷骰后可按条件施放。</p><CharacterCatalog/></>:<><p>东方 Project 同人派对游戏 · v{version}</p><h3>v0.1.61 更新日志</h3><ul><li>添加整局游玩计时，扣除本机暂停时间，读档后继续累计。</li><li>补全大厅鼠标、键盘与手机交互音效。</li><li>添加标题与大厅背景音乐，对局六首随机轮播，音乐与音效可分别调节。</li></ul><h3>v0.1.6 更新日志</h3><ul><li>整体重构界面布局，添加主页封面。</li><li>优化游玩界面顶部的玩家排序，固定按 P1、P2、P3、P4 排列；行动顺序由开局掷骰决定。</li></ul><h3>后续计划</h3><ul><li>对局界面的美化。</li><li>可能会添加更精美的角色立绘。</li></ul><p>原作：上海爱丽丝幻乐团 / ZUN</p><p>封面角色模型：<a href="https://3d.nicovideo.jp/works/td1809" target="_blank" rel="noreferrer">schwarz（博麗霊夢）</a>。角色经 3D 摆姿与渲染，背景由 AI 生成。</p><p>背景音乐：<a href="http://ajapabgm.s323.xrea.com/index.html" target="_blank" rel="noreferrer">ajapaのBGM</a>。「少女奇想天外曲」（标题与大厅）；对局随机轮播{GAME_MUSIC.map(song=>`「${song.title}」`).join('、')}。</p><p>程序、SVG 图形及封面合成：项目贡献者。<a href={publicAsset('cover/sources.json')} target="_blank" rel="noreferrer">封面来源</a> · <a href={publicAsset('audio/sources.json')} target="_blank" rel="noreferrer">音频来源</a></p></>}
       </div>}
     </section>
     </div>

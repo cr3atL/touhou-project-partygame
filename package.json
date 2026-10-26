@@ -1,6 +1,6 @@
 {
   "name": "gensokyo-party",
-  "version": "0.1.6",
+  "version": "0.1.61",
   "private": true,
   "type": "module",
   "workspaces": [
