@@ -11,6 +11,7 @@ export function installUIAudio() {
     return element && !element.matches(':disabled,[aria-disabled="true"]') ? element : null;
   };
   const select = (element: Element | null) => {
+    if (!document.querySelector('.title-screen,.lobby')) return;
     if (!element || element === lastSelection || element.classList.contains('dice-button')) return;
     lastSelection = element; playUISound('select00');
   };
