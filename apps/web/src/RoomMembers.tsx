@@ -9,7 +9,7 @@ export interface MemberAction { type: 'removeBot' | 'kick'; seat: number; revisi
 interface Props { snapshot: RoomSnapshot; seat: number | null; hostSeat: number | null | undefined; onManage(action: MemberAction): void }
 function RemoveMember({ member, snapshot, onManage }: { member: Seat; snapshot: RoomSnapshot; onManage(action: MemberAction): void }) {
   if(member.bot && snapshot.game)return null;
-  return <button className="member-remove" aria-label={member.bot?`移除${member.name}`:`踢出${member.name}`} onClick={()=>onManage({type:member.bot?'removeBot':'kick',seat:member.id,revision:snapshot.revision})}>{member.bot?'移除式神':'踢出玩家'}</button>;
+  return <button className="member-remove" aria-label={member.bot?`移除${member.name}`:`踢出${member.name}`} onClick={()=>onManage({type:member.bot?'removeBot':'kick',seat:member.id,revision:snapshot.revision})}>{member.bot?'移除机器人':'踢出玩家'}</button>;
 }
 export function LobbySeats({ snapshot, seat, hostSeat, onManage, onCharacter }: Props & { onCharacter(character: CharacterId): void }) {
   return <div className="lobby-seats">{[0,1,2,3].map(id=>{
@@ -42,9 +42,9 @@ export function RoomMembersDialog({ snapshot, seat, hostSeat, onManage, onClose 
     <div className="window-heading"><h3>房间管理</h3><button aria-label="关闭房间管理" onClick={onClose}>×</button></div>
     {snapshot.seats.map(member=><div className="room-member" key={member.id}>
       <img src={publicAsset(`characters/${member.character}-chibi.svg`)} alt=""/>
-      <div><strong>{member.name}{member.id===seat?' · 你':''}</strong><span>{member.id===hostSeat?'房主':member.bot?'式神':member.connected?'在线':'重连中'}</span></div>
+      <div><strong>{member.name}{member.id===seat?' · 你':''}</strong><span>{member.id===hostSeat?'房主':member.bot?'机器人':member.connected?'在线':'重连中'}</span></div>
       {seat===hostSeat&&member.id!==seat&&<RemoveMember member={member} snapshot={snapshot} onManage={onManage}/>}
     </div>)}
-    {snapshot.game&&<p>踢出玩家后，该席位由式神接管。</p>}
+    {snapshot.game&&<p>踢出玩家后，该席位由机器人接管。</p>}
   </div></div>;
 }

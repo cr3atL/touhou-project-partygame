@@ -20,7 +20,7 @@ describe('地图手势视口', () => {
       expect(n.y-104).toBeGreaterThanOrEqual(area.y);
       expect(n.tileY!+70).toBeLessThanOrEqual(area.y+area.height);
     }
-    expect(cameraArea({width:1200,height:680})).toEqual({x:0,y:0,...SIZE});
+    expect(cameraArea({width:1200,height:680})).toBe(PLAY_AREA);
   });
   it('切分地砖的可点击区域随移动端地砖一同放大',()=>{
     for(const id of ['G03','G04']){

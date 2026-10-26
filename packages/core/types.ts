@@ -1,4 +1,4 @@
-export const VERSIONS = { rules: '0.5.0', map: '1.1.0', protocol: 5, save: 5 } as const;
+export const VERSIONS = { rules: '0.6.0', map: '1.1.0', protocol: 6, save: 6 } as const;
 export type CharacterId = 'reimu' | 'marisa' | 'yukari' | 'remilia' | 'flandre' | 'yuyuko' | 'youmu';
 export type Branch = 'ground';
 export interface Player { id: number; name: string; character: CharacterId; bot: boolean; turns: number; activeAt: number; passiveAt: number; bufferUsed: boolean }
@@ -11,7 +11,9 @@ export interface Choice { id: number; kind: string; prompt: string; options: Cho
 export interface GameEvent { id: number; turn: number; type: string; text: string; pieces: string[]; from?: string; to?: string }
 export interface GameState {
   versions: typeof VERSIONS; revision: number; players: Player[]; pieces: Piece[];
-  current: number; turn: number; round: number; phase: 'roll' | 'action' | 'resolving' | 'over';
+  current: number; turn: number; round: number; phase: 'opening' | 'roll' | 'action' | 'resolving' | 'over';
+  turnOrder: number[];
+  opening?: { groups: number[][]; pending: number[]; round: number; rolls: { seat: number; value: number; round: number }[] };
   dice: Dice | null; queue: Effect[]; choice: Choice | null; winner: number | null; rankings: number[];
   flags: { first: boolean; active: boolean; extra: boolean; used: Record<string, boolean>; moved: string[]; locked: string[]; rewritten: boolean; sixes: number; lastDiePiece: string | null };
   events: GameEvent[]; eventId: number; returns: number[];

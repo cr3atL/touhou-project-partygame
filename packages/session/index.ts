@@ -6,6 +6,13 @@ export interface Save { format: number; rules: string; game: GameState; timer?: 
 export function saveGame(game: GameState, timer?: DecisionTime): string { return JSON.stringify({ format: VERSIONS.save, rules: VERSIONS.rules, game, timer } satisfies Save, null, 2); }
 export function loadGame(text: string): GameState {
   const data = JSON.parse(text) as Save;
+  // v0.1.5 uses the same map and movement rules; retain its already assigned seats/order.
+  const old = { rules:'0.5.0', map:'1.1.0', protocol:5, save:5 };
+  if(data.format===5&&data.rules===old.rules&&data.game?.versions&&Object.entries(old).every(([key,value])=>(data.game.versions as unknown as Record<string,unknown>)[key]===value)){
+    data.format=VERSIONS.save;data.rules=VERSIONS.rules;data.game.versions={...VERSIONS};data.game.turnOrder=[0,1,2,3];
+    for(const player of data.game.players)if(player.bot)player.name=player.name.replace(/^式神(?=\s*\d)/,'机器人');
+    for(const event of data.game.events)event.text=event.text.replace(/式神(?=\s*\d)/g,'机器人');
+  }
   if (data.format !== VERSIONS.save || data.rules !== VERSIONS.rules || data.game?.versions?.rules !== VERSIONS.rules || data.game?.versions?.save !== VERSIONS.save || data.game?.versions?.protocol !== VERSIONS.protocol || data.game?.versions?.map !== VERSIONS.map) throw new Error('存档版本不兼容，旧对局已保留');
   assertGame(data.game); return data.game;
 }

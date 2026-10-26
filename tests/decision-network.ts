@@ -30,6 +30,14 @@ try{
   await until(()=>peers[0].snapshot!.seats.every(s=>s.ready),'ready');peers[0].room.send('lobby',{type:'start'});
   await until(()=>peers.every(p=>!!p.snapshot?.game),'start');
   const local=matchMaker.getLocalRoomById(peers[0].room.roomId) as unknown as {game:GameState;decisionClock:DecisionClock;publish():void};
+  while(local.game.phase==='opening'){
+    const openingActor=peers.find(p=>p.seat===local.game.current)!;
+    const revision=local.game.revision;local.decisionClock.value.blockedUntil=Date.now();
+    openingActor.room.send('command',{revision,command:{type:'roll'}});
+    await until(()=>local.game.revision>revision,'opening dice');
+  }
+  local.decisionClock.value.blockedUntil=Date.now();
+  const initialRevision=local.game.revision;
   let actor=peers.find(p=>p.seat===local.game.current)!;
   // A short in-process starting budget avoids a minute-long test; all subsequent ticks are real.
   local.decisionClock.value.remainingMs=12_000;
@@ -44,7 +52,7 @@ try{
   await until(()=>!!actor.snapshot?.game&&actor.seat===oldSeat,'reconnect');
   assert(actor.snapshot!.timer!.remainingMs<12_000,'reconnect keeps remaining budget');
   actor.room.send('command',{revision:local.game.revision,command:{type:'roll'}});
-  await until(()=>local.game.revision===1,'roll');
+  await until(()=>local.game.revision===initialRevision+1,'roll');
   const during=local.decisionClock.update(local.game),revision=local.game.revision;
   const command=getActions(local.game,CHARACTERS).find(a=>a.kind==='move')!.command;
   const notices=actor.notices.length;
@@ -59,7 +67,7 @@ try{
   // Start a timeout at a pending choice/action; the seat remains a human seat.
   local.game.flags=freshFlags();local.game.dice={value:1,natural:1,source:'natural',extra:false};local.game.phase='action';
   local.decisionClock.value.remainingMs=100;local.decisionClock.value.at=Date.now();local.publish();
-  await until(()=>local.game.turn>turn,'temporary shikigami completes turn');
+  await until(()=>local.game.turn>turn,'temporary bot completes turn');
   assert(local.game.players.every(p=>!p.bot),'temporary timeout does not change permanent control');
   assert.equal(local.decisionClock.value.takeover,false,'next turn restores human control');
   assert(local.decisionClock.value.remainingMs>59_000);

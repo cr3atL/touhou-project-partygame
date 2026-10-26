@@ -3,7 +3,7 @@ import { SIZE, PLAY_AREA, type Point } from './boardModel';
 export interface Camera { zoom: number; pan: Point }
 export interface Bounds { width: number; height: number }
 export function cameraArea(bounds:Bounds) {
-  return bounds.width<=800 ? PLAY_AREA : {x:0,y:0,width:SIZE.width,height:SIZE.height};
+  return PLAY_AREA;
 }
 export function cameraScale(zoom: number, bounds: Bounds) {
   const area=cameraArea(bounds);

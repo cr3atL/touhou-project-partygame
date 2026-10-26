@@ -7,7 +7,7 @@ export function GameLog({game,expanded,onExpanded}:{game:GameState;expanded:bool
   const feed=useRef<HTMLDivElement>(null);
   const [following,setFollowing]=useState(true);
   const turns=gameLogTurns(game);
-  const recent=turns.flatMap(t=>t.entries.map(e=>({...e,owner:t.owner}))).slice(-3);
+  const recent=turns.flatMap(t=>t.entries.map(e=>({...e,owner:t.owner}))).slice(-1);
   useLayoutEffect(()=>{
     if(feed.current&&following)feed.current.scrollTop=feed.current.scrollHeight;
   },[game.eventId,expanded,following]);

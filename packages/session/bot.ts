@@ -70,7 +70,7 @@ export function botAction(s:GameState):Action {
   const owner=s.current,cache:ThreatCache=new Map();
   // Search copies contain no historical log: decisions use only the current public position.
   const compact={...s,history:[],events:[]} as GameState;
-  const apply=(state:GameState,a:Action)=>reduceGame(state,a.command,CHARACTERS,()=>{throw new Error('式神不能预知随机骰子');});
+  const apply=(state:GameState,a:Action)=>reduceGame(state,a.command,CHARACTERS,()=>{throw new Error('机器人不能预知随机骰子');});
   function resolvedValue(state:GameState,depth=0):number {
     if(state.choice&&state.current===owner&&depth<8)return Math.max(...getActions(state,CHARACTERS).map(a=>resolvedValue(apply(state,a),depth+1)));
     return boardValue(state,owner,cache);

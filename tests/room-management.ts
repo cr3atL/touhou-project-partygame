@@ -43,7 +43,7 @@ try {
   await denied(guest,{type:'kick',seat:host.seat},/房主/);
   await denied(host,{type:'kick',seat:host.seat},/自己/);
   await denied(host,{type:'kick',seat:99},/席位不存在/);
-  await denied(host,{type:'removeBot',seat:guest.seat},/不是式神/);
+  await denied(host,{type:'removeBot',seat:guest.seat},/不是机器人/);
   const oldRevision=host.snapshot!.revision,oldSeat=removed.seat,oldToken=removed.room.reconnectionToken;
   host.room.send('manage',{type:'kick',seat:oldSeat,revision:oldRevision});
   await until(()=>removed.closed&&host.snapshot!.seats.length===3,'kick lobby player');

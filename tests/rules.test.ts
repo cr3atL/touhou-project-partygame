@@ -61,10 +61,10 @@ describe('角色技能与新版规则',()=>{
   it('现世斩仍可无目标冲刺，私人入口截断且不撞击',()=>{let s=base('youmu');put(s,'p0-0',LAST_PUBLIC-1);at(s,'p1-0','G49');s=cast(s,a=>a.pieces.length===1);expect(piece(s).progress).toBe(LAST_PUBLIC);expect(piece(s,'p1-0').progress).toBeGreaterThanOrEqual(0);});
 });
 
-describe('存档、回放和式神',()=>{
+describe('存档、回放和机器人',()=>{
  it('七角色场景均可保存并施放新主动',()=>{for(const c of CHARACTER_LIST){const s=scenario(c.id);assertGame(s);expect(getActions(s,CHARACTERS).some(a=>a.kind==='cast'),c.id).toBe(true);expect(loadGame(saveGame(s))).toEqual(s);}});
  it('旧地图及旧协议存档明确拒绝，不尝试按新地图重放',()=>{const s=base();for(const key of ['rules','map','protocol','save'] as const){const data=JSON.parse(saveGame(s));data.game.versions[key]='old';expect(()=>loadGame(JSON.stringify(data))).toThrow(/不兼容/);}expect(()=>loadGame(readFileSync('tests/fixtures/legacy-incompatible-save.json','utf8'))).toThrow();});
  it('连续三个自然六点包含返航与结束回合的回放完全一致',()=>{const initial=createGame(['yukari','reimu','marisa','youmu'].map(character=>({name:character,character:character as CharacterId})),CHARACTERS);let s=initial;for(let i=0;i<3;i++){s=reduceGame(s,{type:'roll'},CHARACTERS,()=>.99);if(i<2)s=move(s,`p0-${i}`);}expect(replayGame(initial,s.history)).toEqual(s);});
  it('真实随机结果和新技能能够精确回放',()=>{const initial=createGame(CHARACTER_LIST.slice(0,4).map(c=>({name:c.short,character:c.id})),CHARACTERS);let s=initial;const rng=seededRandom(1234);for(let i=0;i<200;i++)s=reduceGame(s,botAction(s).command,CHARACTERS,rng);expect(replayGame(initial,s.history)).toEqual(s);});
- it('四组式神完成前三名，无越界、空选择或死循环',()=>{for(let offset=0;offset<4;offset++){const roster=Array.from({length:4},(_,i)=>({name:`AI${i}`,character:CHARACTER_LIST[(offset+i)%7].id,bot:true}));const r=simulate(createGame(roster,CHARACTERS),18000,123+offset);expect(r.state.phase,`offset ${offset}`).toBe('over');expect(r.state.rankings).toHaveLength(3);assertGame(r.state);}},60000);
+ it('四组机器人完成前三名，无越界、空选择或死循环',()=>{for(let offset=0;offset<4;offset++){const roster=Array.from({length:4},(_,i)=>({name:`AI${i}`,character:CHARACTER_LIST[(offset+i)%7].id,bot:true}));const r=simulate(createGame(roster,CHARACTERS),18000,123+offset);expect(r.state.phase,`offset ${offset}`).toBe('over');expect(r.state.rankings).toHaveLength(3);assertGame(r.state);}},60000);
 });

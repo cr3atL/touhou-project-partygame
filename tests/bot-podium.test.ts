@@ -14,18 +14,18 @@ const at=(s:GameState,id:string,node:string)=>put(s,id,progressAt(Number(id[1]),
 const step=(s:GameState,id='p0-0')=>reduceGame(s,getActions(s,CHARACTERS).find(a=>a.kind==='move'&&a.pieces[0]===id)!.command,CHARACTERS);
 function placed(s:GameState,ids:number[]){for(const id of ids)for(const p of s.pieces.filter(p=>p.owner===id)){p.progress=FINISH;p.mark=null;p.shield=null;}s.rankings=ids;s.winner=ids[0]??null;}
 
-describe('式神目标与风险',()=>{
+describe('机器人目标与风险',()=>{
  it('旧地图的机器人记录不能作为新对局载入',()=>{expect(()=>loadGame(JSON.stringify({format:3,rules:'0.4.1',game:recorded}))).toThrow(/不兼容/);});
  it('已有领先棋时低骰不机械出场',()=>{const s=empty('marisa',1);put(s,'p0-0',37);expect(botAction(s).pieces[0]).toBe('p0-0');});
  it('没有在场可动棋时仍能正常出场',()=>{const s=empty();expect(botAction(s).kind).toBe('move');expect(botAction(s).label).toContain('出场');});
  it('能精确完成时优先完成',()=>{const s=empty('marisa',1);put(s,'p0-0',FINISH-1);put(s,'p0-1',0);at(s,'p1-0','G01');expect(botAction(s).nodes).toEqual(['done-0']);});
  it('前进可进入私人安全区时优先进入',()=>{const s=empty('marisa',6);put(s,'p0-0',LAST_PUBLIC-3);put(s,'p0-1',0);at(s,'p1-0','G06');expect(botAction(s).pieces[0]).toBe('p0-0');});
  it('相同骰面有多枚敌棋可撞击时不重复计算概率；保护吸收一次',()=>{const s=empty();put(s,'p0-0',21);at(s,'p1-0','G19');at(s,'p1-1','G19');expect(returnRisk(s,s.pieces[0])).toBeCloseTo(1/6);at(s,'p1-1','G18');expect(returnRisk(s,s.pieces[0])).toBeCloseTo(2/6);s.pieces[0].shield=2;expect(returnRisk(s,s.pieces[0])).toBeCloseTo(0);});
- it('式神考虑自动跳格后的最终落点',()=>{const s=empty('yukari',1);s.flags.active=true;put(s,'p0-0',5);at(s,'p1-0','G09');expect(botAction(s).pieces[0]).toBe('p0-0');expect(botAction(s).nodes).toEqual(['G09']);});
+ it('机器人考虑自动跳格后的最终落点',()=>{const s=empty('yukari',1);s.flags.active=true;put(s,'p0-0',5);at(s,'p1-0','G09');expect(botAction(s).pieces[0]).toBe('p0-0');expect(botAction(s).nodes).toEqual(['G09']);});
  it('蕾米可用改点也计入风险，冷却中不假设可用',()=>{const s=empty();s.players[1].character='remilia';s.players[3].character='reimu';put(s,'p0-0',21);at(s,'p1-0','G19');expect(returnRisk(s,s.pieces[0])).toBeCloseTo(2/6);s.players[1].activeAt=99;expect(returnRisk(s,s.pieces[0])).toBeCloseTo(1/6);});
- it('式神避免无保护时撞毁叠棋导致成熟棋返航',()=>{const s=empty('yukari',1);s.flags.active=true;put(s,'p0-0',40);put(s,'p0-1',10);at(s,'p1-0','G40');at(s,'p1-1','G40');expect(botAction(s).pieces[0]).toBe('p0-1');});
- it('式神风险评估包含航线对私人终点道的撞击',()=>{const s=empty('marisa',1);s.pieces.find(p=>p.id==='p0-0')!.progress=HOME_START+2;put(s,'p2-0',17);expect(returnRisk(s,s.pieces[0])).toBeGreaterThan(0);});
- it('式神考虑从独立出场格进入主路的撞击威胁',()=>{const s=empty();put(s,'p0-0',14);put(s,'p1-0',0);expect(returnRisk(s,s.pieces[0])).toBeCloseTo(1/6);});
+ it('机器人避免无保护时撞毁叠棋导致成熟棋返航',()=>{const s=empty('yukari',1);s.flags.active=true;put(s,'p0-0',40);put(s,'p0-1',10);at(s,'p1-0','G40');at(s,'p1-1','G40');expect(botAction(s).pieces[0]).toBe('p0-1');});
+ it('机器人风险评估包含航线对私人终点道的撞击',()=>{const s=empty('marisa',1);s.pieces.find(p=>p.id==='p0-0')!.progress=HOME_START+2;put(s,'p2-0',17);expect(returnRisk(s,s.pieces[0])).toBeGreaterThan(0);});
+ it('机器人考虑从独立出场格进入主路的撞击威胁',()=>{const s=empty();put(s,'p0-0',14);put(s,'p1-0',0);expect(returnRisk(s,s.pieces[0])).toBeCloseTo(1/6);});
  it('无实际保护收益时保留主动冷却，评估不修改原局面',()=>{const s=empty('reimu',3);put(s,'p0-0',10);const before=saveGame(s);expect(botAction(s).kind).toBe('move');expect(saveGame(s)).toBe(before);});
 });
 describe('前三名赛程',()=>{

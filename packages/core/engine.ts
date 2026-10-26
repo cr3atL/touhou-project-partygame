@@ -8,12 +8,32 @@ export function pieceLabel(s: GameState, id: string, registry: Registry): string
   const p=s.pieces.find(p=>p.id===id)!;
   return `${registry[s.players[p.owner].character].short}${'①②③④'[p.index]}`;
 }
-export function createGame(roster: { name: string; character: CharacterId; bot?: boolean }[], registry: Registry): GameState {
+export function createGame(roster: { name: string; character: CharacterId; bot?: boolean }[], registry: Registry, options: { opening?: boolean } = {}): GameState {
   if(roster.length!==4 || roster.some(p=>!registry[p.character]) || new Set(roster.map(p=>p.character)).size!==4) throw new Error('需要四名不同角色');
   const s:GameState={versions:{...VERSIONS},revision:0,players:roster.map((p,id)=>({id,name:p.name||`玩家 ${id+1}`,character:p.character,bot:!!p.bot,turns:0,activeAt:0,passiveAt:0,bufferUsed:false})),
     pieces:roster.flatMap((_,owner)=>Array.from({length:4},(_,index)=>({id:`p${owner}-${index}`,owner,index,progress:-1,branch:null,shield:null,mark:null}))),
-    current:0,turn:1,round:1,phase:'resolving',dice:null,queue:[{type:'begin'}],choice:null,winner:null,rankings:[],flags:freshFlags(),events:[],eventId:0,returns:[0,0,0,0],history:[]};
+    current:0,turn:1,round:1,turnOrder:[0,1,2,3],phase:'resolving',dice:null,queue:[{type:'begin'}],choice:null,winner:null,rankings:[],flags:freshFlags(),events:[],eventId:0,returns:[0,0,0,0],history:[]};
+  if(options.opening){s.phase='opening';s.turn=-1;s.queue=[];s.opening={groups:[[0,1,2,3]],pending:[0,1,2,3],round:1,rolls:[]};return s;}
   settle(s,registry);return s;
+}
+function openingRoll(s:GameState,value:number,registry:Registry) {
+  const opening=s.opening!;
+  opening.rolls.push({seat:s.current,value,round:opening.round});
+  emit(s,'dice',`${s.players[s.current].name} 开局掷出 ${value}${opening.round>1?' · 平点重掷':''}`);
+  s.dice={value,natural:value,source:'natural',extra:false};
+  opening.pending.shift();s.turn--;
+  if(opening.pending.length){s.current=opening.pending[0];return;}
+  const index=opening.groups.findIndex(group=>group.includes(s.current)),group=opening.groups[index];
+  const scores=new Map(opening.rolls.filter(r=>r.round===opening.round).map(r=>[r.seat,r.value]));
+  const sorted=[...group].sort((a,b)=>scores.get(b)!-scores.get(a)!);
+  const groups:number[][]=[];
+  for(const id of sorted){const last=groups.at(-1);if(last&&scores.get(last[0])===scores.get(id))last.push(id);else groups.push([id]);}
+  opening.groups.splice(index,1,...groups);
+  const tied=opening.groups.find(group=>group.length>1);
+  if(tied){opening.pending=[...tied];opening.round++;s.current=tied[0];emit(s,'order-tie',`${tied.map(id=>s.players[id].name).join('、')} 平点，继续掷骰`);return;}
+  s.turnOrder=opening.groups.flat();s.current=s.turnOrder[0];s.turn=1;s.phase='resolving';
+  emit(s,'order',`行动顺序：${s.turnOrder.map(id=>`${s.players[id].name}(${registry[s.players[id].character].name})`).join(' → ')}`);
+  prepend(s,[{type:'begin'}]);
 }
 function emit(s:GameState,type:string,text:string,pieces:string[]=[],from?:string,to?:string) {
   s.events.push({id:++s.eventId,turn:s.turn,type,text,pieces,from,to});
@@ -63,7 +83,7 @@ function effectiveSteps(s:GameState,p:Piece,command:MoveCommand):number {
 export function getActions(s:GameState,registry:Registry):Action[] {
   if(s.phase==='over')return [];
   if(s.choice)return s.choice.options.map(o=>action({type:'choose',option:o.id},o.label,o.pieces,o.nodes,o.score??0));
-  if(s.phase==='roll')return [action({type:'roll'},'掷骰',[],[],1)];
+  if(s.phase==='roll'||s.phase==='opening')return [action({type:'roll'},s.phase==='opening'?'开局掷骰':'掷骰',[],[],1)];
   if(s.phase!=='action'||!s.dice)return [];
   const v=view(s,registry),character=registry[v.player.character],results:Action[]=[];
   for(const p of v.own.filter(p=>p.progress<FINISH&&!s.flags.locked.includes(p.id))) {
@@ -102,6 +122,8 @@ export function reduceGame(previous:GameState,command:Command,registry:Registry,
     const option=s.choice!.options.find(o=>o.id===command.option)!;emit(s,'choice',option.label,option.pieces);s.choice=null;prepend(s,option.effects);
   } else if(command.type==='roll') {
     const n=random();draws.push(n);const value=Math.max(1,Math.min(6,Math.floor(n*6)+1));
+    if(s.phase==='opening')openingRoll(s,value,registry);
+    else {
     s.flags.sixes=value===6?s.flags.sixes+1:0;
     s.dice={value,natural:value,source:'natural',extra:value===6};s.phase='action';emit(s,'dice',`${p.name} 掷出 ${value}`);
     if(s.flags.sixes===3){
@@ -109,6 +131,7 @@ export function reduceGame(previous:GameState,command:Command,registry:Registry,
       emit(s,'overheat','连续第三个自然六点 · 取消行动',last?[last.id]:[]);
       if(last&&last.progress>=0&&last.progress<FINISH&&!block(s,last,registry))returnPiece(s,last,registry);
       prepend(s,[{type:'finishTurn'}]);
+    }
     }
   } else if(command.type==='cast') {
     const c=registry[p.character];s.flags.active=true;p.activeAt=p.turns+c.cooldown;
@@ -253,8 +276,9 @@ function settle(s:GameState,registry:Registry) {
         emit(s,'mark',`${pieceLabel(s,piece!.id,registry)} 未用骰子移动 · 无寿之梦回退`,[piece!.id]);
         prepend(s,[{type:'displace',piece:piece!.id,steps:e.steps,hostile:true,skipProtection:true}]);break;
       case 'next': {
-        const previous=s.current;do{s.current=(s.current+1)%4;}while(s.rankings.includes(s.current));
-        s.turn++;if(s.current<=previous)s.round++;prepend(s,[{type:'begin'}]);break;
+        const previous=s.turnOrder.indexOf(s.current);let index=previous;
+        do{index=(index+1)%4;s.current=s.turnOrder[index];}while(s.rankings.includes(s.current));
+        s.turn++;if(index<=previous)s.round++;prepend(s,[{type:'begin'}]);break;
       }
       default:throw new Error(`未知效果 ${e.type}`);
     }
@@ -265,7 +289,12 @@ export function assertGame(s:GameState) {
   if(!s||s.players?.length!==4||s.pieces?.length!==16)throw new Error('棋子或席位数量错误');
   if(!s?.versions||Object.entries(VERSIONS).some(([key,value])=>s.versions[key as keyof typeof VERSIONS]!==value))throw new Error('规则或地图版本不兼容');
   if(!Number.isInteger(s.flags?.sixes)||s.flags.sixes<0||s.flags.sixes>3)throw new Error('六点状态格式错误');
-  if(![0,1,2,3].includes(s.current)||!['roll','action','resolving','over'].includes(s.phase)||!Array.isArray(s.history)||!Array.isArray(s.queue)||!s.flags?.locked)throw new Error('对局状态格式错误');
+  if(![0,1,2,3].includes(s.current)||!['opening','roll','action','resolving','over'].includes(s.phase)||!Array.isArray(s.history)||!Array.isArray(s.queue)||!s.flags?.locked)throw new Error('对局状态格式错误');
+  if(!Array.isArray(s.turnOrder)||s.turnOrder.length!==4||new Set(s.turnOrder).size!==4||s.turnOrder.some(id=>![0,1,2,3].includes(id))||s.players.some((p,i)=>p.id!==i))throw new Error('行动顺序或席位格式错误');
+  if(s.phase==='opening'){
+    const o=s.opening,group=o?.groups.find(g=>g.includes(s.current));
+    if(!o||!group||!group.length||!Number.isInteger(o.round)||o.round<1||o.pending[0]!==s.current||new Set(o.pending).size!==o.pending.length||o.pending.some(id=>!group.includes(id))||o.groups.some(g=>!g.length)||o.groups.flat().sort().join()!=='0,1,2,3'||s.turn!==-1-o.rolls.length||o.rolls.some(r=>![0,1,2,3].includes(r.seat)||!Number.isInteger(r.round)||r.round<1||r.round>o.round||!Number.isInteger(r.value)||r.value<1||r.value>6))throw new Error('开局掷骰状态错误');
+  }
   if(!Array.isArray(s.rankings)||s.rankings.length>3||new Set(s.rankings).size!==s.rankings.length||s.rankings.some(id=>!s.players[id]||!s.pieces.filter(p=>p.owner===id).every(p=>p.progress===FINISH))||s.winner!==(s.rankings[0]??null)||!Number.isInteger(s.round)||s.round<1)throw new Error('名次状态格式错误');
   if((s.phase==='over')!==(s.rankings.length===3)||(s.phase!=='over'&&s.rankings.includes(s.current)))throw new Error('赛程结束状态错误');
   if(new Set(s.players.map(p=>p.character)).size!==4||new Set(s.pieces.map(p=>p.id)).size!==16)throw new Error('角色或棋子重复');

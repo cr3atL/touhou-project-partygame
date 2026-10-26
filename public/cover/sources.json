@@ -1,0 +1,35 @@
+{
+  "title": "幻想乡巡游 · 灵梦派对封面",
+  "approved": "2026-10-27",
+  "files": {
+    "party-sky.webp": "铺满窗口的博丽神社派对背景，内置图像生成工具制作",
+    "party-sky-mobile.webp": "同一背景的竖屏重排，云层衔接",
+    "reimu-unamused.webp": "已确认的屈肘抬手及半眯眼角色渲染，原像素裁去透明边距",
+    "pawn-*.webp": "原独立 3D 棋子渲染图层的裁切",
+    "die-*.webp": "原独立 3D 骰子渲染图层的裁切",
+    "spell-card.svg": "程序绘制的阴阳符卡装饰",
+    "wordmark.webp": "独立标题图形",
+    "party-sky-compact.webp": "窄桌面窗口重排，保留左侧神社与右侧菜单云区"
+  },
+  "character": {
+    "name": "博麗霊夢",
+    "modelAuthor": "schwarz",
+    "originalWork": "东方 Project / ZUN",
+    "source": "https://3d.nicovideo.jp/works/td1809",
+    "modelFile": "霊夢v2.pmx（仅保留在本地，不包含于游戏）",
+    "distributionPageFields": {
+      "著作表示": "未設定",
+      "商用利用": "未設定",
+      "改変": "可能",
+      "再配布": "禁止"
+    },
+    "notice": "配布页未設定的字段不视为明确授权。用户确认将本地渲染图接入项目；未包含原模型、贴图或可提取模型的 Blender 场景。"
+  },
+  "production": {
+    "character": "原模型原生形态、手工骨骼摆姿及 Blender 常规渲染；未由生成式 AI 生成或重绘",
+    "background": "2026-10-27 内置图像生成工具新制无角色背景，常规裁切及合成竖屏版本",
+    "reference": "https://thbwiki.cc/博丽神社",
+    "props": "独立 3D 骰子及四色棋子渲染，程序绘制的矢量符卡；CSS 轻微漂浮，减少动态时关闭",
+    "composition": "常规分层合成与排版"
+  }
+}

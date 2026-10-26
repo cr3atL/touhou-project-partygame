@@ -8,7 +8,7 @@ export function gameLogTurns(game: GameState): LogTurn[] {
   for (const event of game.events) {
     let group = turns.at(-1);
     if (!group || group.turn !== event.turn) {
-      group = {turn:event.turn,title:`回合 ${event.turn}`,owner:null,entries:[]};
+      group = {turn:event.turn,title:event.turn<1?'开局掷骰':`回合 ${event.turn}`,owner:null,entries:[]};
       turns.push(group);
     }
     if (event.type === 'turn') {

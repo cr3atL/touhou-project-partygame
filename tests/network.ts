@@ -44,8 +44,11 @@ try {
   for (let i=0;i<4;i++) { peers[i].room.send('lobby',{type:'character',character:lineup[i]}); await until(()=>peers[0].snapshot!.seats.find(s=>s.id===peers[i].seat)?.character===lineup[i], 'character'); }
   for (const peer of peers) peer.room.send('lobby', { type: 'ready' });
   await until(() => peers[0].snapshot!.seats.every(s => s.ready), 'ready');
+  const seatsBeforeStart=peers.map(p=>p.seat);
   first.room.send('lobby', { type: 'start' });
   await until(() => peers.every(p => p.snapshot?.game !== null && p.snapshot?.game !== undefined), 'start');
+  assert.deepEqual(peers.map(p=>p.seat),seatsBeforeStart,'opening preserves network seat ownership');
+  for(const p of peers)assert.equal(p.snapshot!.game!.players[p.seat].name,`network-${peers.indexOf(p)}`);
   const illegal = peers.find(p => p.seat !== peers[0].snapshot!.game!.current)!;
   illegal.room.send('command', { revision: 0, command: { type: 'roll' } });
   await until(() => illegal.notices.length > 0, 'reject out of turn');

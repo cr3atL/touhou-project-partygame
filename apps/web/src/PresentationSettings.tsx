@@ -33,8 +33,8 @@ export function usePresentationSettings() {
   }, []);
   return [settings, setSettings] as const;
 }
-export function PresentationSettingsDialog({ settings, onChange, onClose, onReturnToLobby }: {
-  settings: PresentationSettings; onChange(value: PresentationSettings): void; onClose(): void; onReturnToLobby?(): void;
+export function PresentationSettingsDialog({ settings, onChange, onClose, onReturnToLobby, inGame=false, online=false }: {
+  settings: PresentationSettings; onChange(value: PresentationSettings): void; onClose(): void; onReturnToLobby?(): void; inGame?:boolean; online?:boolean;
 }) {
   const panel = useRef<HTMLDivElement>(null);
   const close = useRef(onClose); close.current = onClose;
@@ -53,13 +53,14 @@ export function PresentationSettingsDialog({ settings, onChange, onClose, onRetu
     return () => { document.removeEventListener('keydown', key, true); previous?.focus(); };
   }, []);
   return <div className="presentation-settings-backdrop" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
-    <div className="presentation-settings" role="dialog" aria-modal="true" aria-label="演出设置" ref={panel}>
-      <div className="window-heading"><h3>演出设置</h3><button aria-label="关闭演出设置" onClick={onClose}>×</button></div>
+    <div className="presentation-settings" role="dialog" aria-modal="true" aria-label={inGame?'对局菜单':'设置'} ref={panel}>
+      <div className="window-heading"><h3>{inGame?'对局菜单':'设置'}</h3><button aria-label="关闭设置" onClick={onClose}>×</button></div>
+      {inGame&&<p className="menu-pause">{online?'联机对局仍在进行':'对局已暂停'}</p>}
       <label>音效<input type="checkbox" checked={settings.sound} onChange={e => onChange({...settings, sound:e.target.checked})}/></label>
       <label className="volume-setting">音量 <input aria-label="音效音量" type="range" min="0" max="100" value={Math.round(settings.volume*100)} onChange={e => onChange({...settings, volume:Number(e.target.value)/100})}/><output>{Math.round(settings.volume*100)}%</output></label>
       <label>地图特效<input type="checkbox" checked={settings.effects} onChange={e => onChange({...settings, effects:e.target.checked})}/></label>
       <label>符卡镜头特写 <input type="checkbox" checked={settings.closeup} onChange={e => onChange({...settings, closeup:e.target.checked})}/></label>
-      {onReturnToLobby&&<button className="secondary wide settings-return" onClick={onReturnToLobby}>回到大厅</button>}
+      {onReturnToLobby&&<button className="secondary wide settings-return" onClick={onReturnToLobby}>返回标题</button>}
     </div>
   </div>;
 }

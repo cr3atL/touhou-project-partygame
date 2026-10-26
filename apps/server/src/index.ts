@@ -27,8 +27,8 @@ export class PartyRoom extends Room {
       if (!target) throw new Error('席位不存在');
       if (target === this.seat(client)) throw new Error('不能移除自己，请使用离开房间');
       if (data.type === 'removeBot') {
-        if (!target.bot) throw new Error('该席位不是式神');
-        if (this.game) throw new Error('请返回大厅后移除式神');
+        if (!target.bot) throw new Error('该席位不是机器人');
+        if (this.game) throw new Error('请返回大厅后移除机器人');
         this.seats = this.seats.filter(s => s !== target);
       } else if (data.type === 'kick') {
         if (target.bot || !target.session) throw new Error('该席位不是玩家');
@@ -53,14 +53,13 @@ export class PartyRoom extends Room {
         this.requireHost(client);
         for (let id = 0; id < 4; id++) if (!this.seats.some(s => s.id === id)) {
           const character = CHARACTER_LIST.find(c => !this.seats.some(s => s.character === c.id))!.id;
-          this.seats.push({ id, character, name: `式神 ${id + 1}`, ready: true, connected: true, bot: true });
+          this.seats.push({ id, character, name: `机器人 ${id + 1}`, ready: true, connected: true, bot: true });
         }
       } else if (data?.type === 'start') {
         this.requireHost(client);
         if (this.seats.length !== 4 || this.seats.some(s => !s.ready || !s.connected)) throw new Error('四个席位都需要准备');
-        for (let i = this.seats.length - 1; i > 0; i--) { const j = randomInt(i + 1); [this.seats[i], this.seats[j]] = [this.seats[j], this.seats[i]]; }
-        this.seats.forEach((s, id) => { s.id = id; });
-        this.game = createGame(this.seats.map(s => ({ name: s.name, character: s.character, bot: !!s.bot })), CHARACTERS);
+        this.seats.sort((a,b)=>a.id-b.id);
+        this.game = createGame(this.seats.map(s => ({ name: s.name, character: s.character, bot: !!s.bot })), CHARACTERS, {opening:true});
         this.decisionClock=new DecisionClock(this.game.turn);
         for (const connected of this.clients) this.welcome(connected);
         this.lock();
@@ -71,7 +70,7 @@ export class PartyRoom extends Room {
       if (!this.game) throw new Error('对局尚未开始');
       const now=Date.now();
       const time=this.decisionClock!.update(this.game,now);
-      if(time.takeover)throw new Error('本回合已由式神接管');
+      if(time.takeover)throw new Error('本回合已由机器人接管');
       if(now<time.blockedUntil)throw new Error('演出尚未结束');
       const seat = this.seat(client);
       if (seat.id !== this.game.current || this.game.players[seat.id].bot) throw new Error('当前不是你的回合');
